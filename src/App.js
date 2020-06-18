@@ -1,11 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Main from './components/Main';
 
 function App() {
+
   return (
     <div className="App">
-          DCR End-point Visualization Portal.
+          DCR End-point Visualization Portal. 
+      <Main />
     </div>
   );
 }

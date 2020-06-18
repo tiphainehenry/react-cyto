@@ -12,28 +12,31 @@ class GraphModule extends React.Component {
 
     const layout = {'name': 'grid'};
 
-    const style = { width: '95%', height: '60%', 'border-style':'groove'}
+    const style = { width: '95%', 
+                    height: '60%', 
+                    'box-shadow': '0 2px 5px 0 rgba(0, 0, 0, 0.16)'
+                  }
 
     const node_style = [
       {
         selector: "node",
         style: {
           "shape": "rectangle",
-          "height": 35,
-          "width": 65,
+          "height": 80,
+          "width": 120,
           "background-color": "#ccc",
           "border-style": "dashed",
           "border-width": 1,
           "border-color": "#777",
           "color": "#777",
-          "font-size": 6,
+          "font-size": 10,
           "font-weight": "bold",
           "text-halign": "center",
           "text-valign": "center",
           //"text-wrap": "ellipsis",
           "text-wrap": "wrap",
           "text-max-width": 60, 
-          "line-height": 2,
+          "line-height": 2.5,
           "label": "data(name)"
         }
       },
