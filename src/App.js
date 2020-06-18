@@ -5,7 +5,7 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-          DCR end-point visualization portal.
+          DCR End-point Visualization Portal.
     </div>
   );
 }
