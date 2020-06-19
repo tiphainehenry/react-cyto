@@ -37,14 +37,44 @@
 }
 
 #cy {
+  margin-left: 5%;
+  margin-right: 5%;
   width: 90%;
+
   height: 80%;
   position: absolute;
 
   top: 100px;
-  margin-left: 5%;
-  margin-right: 5%;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.center-content {
+  display: flex;
+  flex-direction: column;  
+}
+
+.input-header{
+  margin-left: 8%;
+  margin-top: 2%;
+  width: 30%;
+}
+
+.textDisp{
+  margin-top: 5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#textTuning{
+  width:80%;
+  height: 80%;
+}
+
+.btn{
   display: flex;
   justify-content: center;
   align-items: center;

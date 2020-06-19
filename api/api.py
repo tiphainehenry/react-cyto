@@ -10,8 +10,8 @@ logger = logging.getLogger('HELLO WORLD')
 
 
 
-UPLOAD_FOLDER = '/path/to/the/uploads'
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+UPLOAD_FOLDER = '../../globalDCRs'
+ALLOWED_EXTENSIONS = set(['txt'])
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -35,4 +35,3 @@ if __name__ == "__main__":
     app.run(debug=True,host="0.0.0.0",use_reloader=False)
 
 flask_cors.CORS(app, expose_headers='Authorization')
-view rawFileUpload.py hosted with ❤ by GitHub

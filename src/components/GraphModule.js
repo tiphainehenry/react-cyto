@@ -1,7 +1,7 @@
 import React from 'react';
 import CytoscapeComponent from 'react-cytoscapejs';
 
-var data = require('./cytograph/data.json')
+var data = require('../resources/data.json')
 
 class GraphModule extends React.Component {
   constructor(props){
@@ -14,7 +14,8 @@ class GraphModule extends React.Component {
 
     const style = { width: '95%', 
                     height: '60%', 
-                    'box-shadow': '0 2px 5px 0 rgba(0, 0, 0, 0.16)'
+                    'box-shadow': '0 2px 5px 0 rgba(0, 0, 0, 0.16)',
+                    'padding-top': '5%'
                   }
 
     const node_style = [
@@ -144,11 +145,15 @@ class GraphModule extends React.Component {
     const stylesheet = node_style.concat(edge_style)
 
 
-    return <div id="cy">
-
-      <CytoscapeComponent elements={data} stylesheet={stylesheet} layout={layout} style={style} />
-      
-      </div>;
+    return <div class='center-content'>
+              <div class="input-header">Role</div>
+              <div id="cy" >
+                <CytoscapeComponent elements={data} 
+                                    stylesheet={stylesheet} 
+                                    layout={layout} 
+                                    style={style} />    
+              </div>
+            </div>;
   }
 }
 

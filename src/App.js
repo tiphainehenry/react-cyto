@@ -5,13 +5,13 @@ import Main from './components/Main';
 function App() {
 
   return (
+    <div>
     <div className="App">
           DCR End-point Visualization Portal. 
-      <Main />
     </div>
+          <Main/>
+     </div>         
   );
 }
-
-
 
 export default App;
