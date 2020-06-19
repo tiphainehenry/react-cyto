@@ -1,24 +1,70 @@
 import React from 'react';
 import '../App.css'
+import axios from 'axios'
 
 //var text=require('../resources/toyExample.txt')
 
 
 class Main extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { text: '' };
-        //          description: text
-// usage:               <textarea value={this.state.description} />
 
+  constructor(props) {
+        super(props);
+        this.state = { text: 'hello bob',
+                       roles: 'None yet, please enter DCR description' };
       }
+
       mySubmitHandler = (event) => {
         event.preventDefault();
-        alert("You are submitting: \n\n ------------------\n" + this.state.text + "------------------");
-      }
+        alert("You are submitting: \n\n------------------\n" + this.state.text + "\n------------------");
+
+        const text=this.state.text
+        axios.post('http://localhost:5000/process', { text },
+        {
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        })
+        .then((res) => {
+          console.log(res);
+          console.log(res.config.data);
+        });
+        axios.get(`http://localhost:5000/process`)
+        .then(res => {
+          console.log(res.data);
+          const roles = res.data;
+          this.setState({ roles });
+        })
+
+        //alert("You are submitting: \n\n------------------\n" + this.state.text + "\n------------------");
+        
+        //var xmlhttp;
+        //var d = this.state.text;
+
+        //xmlhttp = new XMLHttpRequest();
+        //xmlhttp.onreadystatechange=function(){
+        //    if(xmlhttp.readyState==4 && xmlhttp.status==200){
+        //        alert(String(d));
+        //    }
+        //};
+        
+        //xmlhttp.open("POST","http://localhost:5000/process",true);
+        //xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        //xmlhttp.send(d);
+
+        //xmlhttp.open("GET","http://localhost:5000/process",true);
+        //xmlhttp.send();
+        //xmlhttp.onload = function() {
+        //  let responseObj = xmlhttp.response;
+        //  if(xmlhttp.readyState==4 && xmlhttp.status==200){
+        //    alert(d);
+        //}
+       //}
+
+      };
+
+
       myChangeHandler = (event) => {
         this.setState({text: event.target.value});
       }
+
       render() {
         return (
             <div>
@@ -32,6 +78,7 @@ class Main extends React.Component {
                             id="textTuning"
                             type='text'
                             onChange={this.myChangeHandler}
+                            value={this.state.text}
                         />
                         <input class='btn'
                             type='submit'
@@ -39,11 +86,13 @@ class Main extends React.Component {
                         />
                     </form>
                 </div>
-                <div class='textDisp'>
-                    <p>Roles to project</p>
+                <div class='textDispv2' id="demo">
+                  <p>Roles to project</p>
                 </div>
-            </div>
-
+                <div class='textDispv2' id="demo">
+                    <p id='roles'>{this.state.roles}</p>
+                </div>
+                </div>
         );
       }  
 }

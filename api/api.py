@@ -2,7 +2,10 @@ import os
 from flask import Flask, flash, request, redirect, url_for, session
 from werkzeug.utils import secure_filename
 from flask_cors import CORS, cross_origin
+from flask import jsonify
 import logging
+
+from 'src/utils/chunking' import extractChunks
 
 logging.basicConfig(level=logging.INFO)
 
@@ -15,23 +18,23 @@ ALLOWED_EXTENSIONS = set(['txt'])
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['CORS_HEADERS'] = 'Content-Type'
+CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app, expose_headers='Authorization')
 
-@app.route('/upload', methods=['POST'])
-def fileUpload():
-    target=os.path.join(UPLOAD_FOLDER,'test_docs')
-    if not os.path.isdir(target):
-        os.mkdir(target)
-    logger.info("welcome to upload`")
-    file = request.files['file'] 
-    filename = secure_filename(file.filename)
-    destination="/".join([target, filename])
-    file.save(destination)
-    session['uploadFilePath']=destination
-    response="Whatever you wish too return"
-    return response
+# Nassim
+@app.route('/process', methods=['POST', 'GET'])
+def processData():
+   data = request.args.values
+   
+   #apply graphDataTranslator
+   #process data here
+   
+   return str(data) + 'ho ho', 200, {'Access-Control-Allow-Origin': '*'}
+   #return jsonify(request.form.to_dict()), 200, {'Access-Control-Allow-Origin': '*'}
+
 
 if __name__ == "__main__":
     app.secret_key = os.urandom(24)
     app.run(debug=True,host="0.0.0.0",use_reloader=False)
 
-flask_cors.CORS(app, expose_headers='Authorization')
