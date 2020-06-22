@@ -62,7 +62,8 @@ class GraphModule extends React.Component {
     return  <div>
               <Header/>
               <Card style={{width: '95%', height:'70%','margin-top':'3vh'}}>
-                <Card.Header as="p" style= {{color:'white', font:'10px', 'background-color': '#00881d'}}>{this.state.choreo}</Card.Header>
+                <Card.Header as="p" style= {{color:'white', 'background-color': '#00881d', 'font-size': '10pt', 'font-weight': 200, padding: '2ex 1ex'}}>
+                  {this.state.choreo}</Card.Header>
                 <Card.Body>
                   <CytoscapeComponent elements={dataChoreo} 
                                         stylesheet={stylesheet} 
@@ -72,7 +73,8 @@ class GraphModule extends React.Component {
               </Card>
 
               <Card style={{width: '95%', height:'70%','margin-top':'3vh'}}>
-                <Card.Header as="p" style= {{color:'white', font:'10px', 'background-color': '#008ab5'}}>{this.state.r1}</Card.Header>
+              <Card.Header as="p" style= {{color:'white', 'background-color': '#006588', 'font-size': '10pt', 'font-weight': 200, padding: '2ex 1ex'}}>
+                  {this.state.r1}</Card.Header>
                 <Card.Body >
                   <CytoscapeComponent elements={dataR1} 
                                         stylesheet={stylesheet} 
@@ -82,7 +84,8 @@ class GraphModule extends React.Component {
               </Card>
 
               <Card style={{width: '95%', height:'70%'}}>
-                <Card.Header as="p" style= {{color:'white', font:'10px', 'background-color': '#008ab5'}}>{this.state.r2}</Card.Header>
+              <Card.Header as="p" style= {{color:'white', 'background-color': '#006588', 'font-size': '10pt', 'font-weight': 200, padding: '2ex 1ex'}}>
+                {this.state.r2}</Card.Header>
                 <Card.Body >
                   <CytoscapeComponent elements={dataR2} 
                                         stylesheet={stylesheet} 
@@ -92,7 +95,8 @@ class GraphModule extends React.Component {
               </Card>
 
               <Card style={{width: '95%', height:'70%','margin-bottom':'3vh'}}>
-                <Card.Header as="p" style= {{color:'white', font:'10px', 'background-color': '#008ab5'}}>{this.state.r3}</Card.Header>
+              <Card.Header as="p" style= {{color:'white', 'background-color': '#006588', 'font-size': '10pt', 'font-weight': 200, padding: '2ex 1ex'}}>
+                {this.state.r3}</Card.Header>
                 <Card.Body >
                   <CytoscapeComponent elements={dataR3} 
                                         stylesheet={stylesheet} 
