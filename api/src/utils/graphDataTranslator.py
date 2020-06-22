@@ -153,7 +153,7 @@ def body(eventElems, num_task):
                                    eventElems['task']+'\n'+
                                    eventElems['to']
                         },
-                'position': { "x": num_task*100, "y": 100},
+                #'position': { "x": num_task*100, "y": 100},
                 'group': "nodes"
     }
     return body
@@ -192,13 +192,8 @@ def cytoTasks(events):
     num_task=0
     for event in events:
         eventElems = getEventElems(event)
-        if ('src' in event) or ('!' in event) or ('?' in event): #choreo
-            cTasks.append(body(eventElems, num_task))
-
-        else: ## internal task -- to do
-            pass
+        cTasks.append(body(eventElems, num_task))
         num_task = num_task+1
-#    print(cTasks)
     return cTasks
 
 def cytoEdges(edges):
@@ -221,17 +216,11 @@ def cytoEdges(edges):
     return cEdges
 
 def generateGraph(data, target, role):
-    # load choreography file 
-    #filename = getFileName()
-    #file = open('projection_toyExample/projectionCustomer.txt', 'r')
-    #data = file.readlines()
-    #file.close()
-
     # chunk events
     chunks, roles = extractChunks(data)
 
     # generate tasks and relations
-    cTasks = cytoTasks(chunks['events'])
+    cTasks = cytoTasks(chunks['events']+chunks['internalEvents'])
     cEdges = cytoEdges(chunks['linkages'])
 
     cData = cTasks + cEdges
@@ -239,7 +228,3 @@ def generateGraph(data, target, role):
     # json dumps
     with open(os.path.join(target, 'data'+role+'.json'), 'w') as outfile:
         json.dump(cData, outfile, indent=2)
-
-#if __name__ == "__main__":
-#    main()
-

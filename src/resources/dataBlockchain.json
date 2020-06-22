@@ -4,20 +4,12 @@
       "id": "e2s",
       "name": "Blockchain\nWithholdCaution\nRental,Customer"
     },
-    "position": {
-      "x": 0,
-      "y": 100
-    },
     "group": "nodes"
   },
   {
     "data": {
       "id": "e4s",
       "name": "Blockchain\nSendRent\nRental"
-    },
-    "position": {
-      "x": 100,
-      "y": 100
     },
     "group": "nodes"
   },
@@ -26,20 +18,12 @@
       "id": "e5r",
       "name": "Customer\nLeaveAppartment\nBlockchain"
     },
-    "position": {
-      "x": 200,
-      "y": 100
-    },
     "group": "nodes"
   },
   {
     "data": {
       "id": "e6s",
       "name": "Blockchain\nSendCaution\nCustomer"
-    },
-    "position": {
-      "x": 300,
-      "y": 100
     },
     "group": "nodes"
   },
@@ -48,9 +32,12 @@
       "id": "e7s",
       "name": "Blockchain\nSendCaution\nRental"
     },
-    "position": {
-      "x": 400,
-      "y": 100
+    "group": "nodes"
+  },
+  {
+    "data": {
+      "id": "SettleWithholding",
+      "name": "Blockchain\nSettleWithholding\n"
     },
     "group": "nodes"
   }

@@ -4,20 +4,12 @@
       "id": "e0",
       "name": "Customer\nAskforHousing\nRental"
     },
-    "position": {
-      "x": 0,
-      "y": 100
-    },
     "group": "nodes"
   },
   {
     "data": {
       "id": "e1",
       "name": "Rental\nConfirmBooking\nCustomer"
-    },
-    "position": {
-      "x": 100,
-      "y": 100
     },
     "group": "nodes"
   },
@@ -26,20 +18,12 @@
       "id": "e2",
       "name": "Blockchain\nWithholdRentandCaution\nRental"
     },
-    "position": {
-      "x": 200,
-      "y": 100
-    },
     "group": "nodes"
   },
   {
     "data": {
       "id": "e3",
       "name": "Rental\nProvideAccomodation\nCustomer"
-    },
-    "position": {
-      "x": 300,
-      "y": 100
     },
     "group": "nodes"
   },
@@ -48,20 +32,12 @@
       "id": "e4",
       "name": "Blockchain\nSendRent\nRental"
     },
-    "position": {
-      "x": 400,
-      "y": 100
-    },
     "group": "nodes"
   },
   {
     "data": {
       "id": "e5",
       "name": "Customer\nLeaveAppartment\nRental"
-    },
-    "position": {
-      "x": 500,
-      "y": 100
     },
     "group": "nodes"
   },
@@ -70,20 +46,12 @@
       "id": "e6",
       "name": "Blockchain\nSendCaution\nCustomer"
     },
-    "position": {
-      "x": 600,
-      "y": 100
-    },
     "group": "nodes"
   },
   {
     "data": {
       "id": "e7",
       "name": "Blockchain\nSendCaution\nRental"
-    },
-    "position": {
-      "x": 700,
-      "y": 100
     },
     "group": "nodes"
   },

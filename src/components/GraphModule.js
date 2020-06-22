@@ -1,5 +1,6 @@
 import React from 'react';
-import Card from 'react-bootstrap/Card'
+import Card from 'react-bootstrap/Card';
+import CardGroup from 'react-bootstrap/Card';
 import CytoscapeComponent from 'react-cytoscapejs';
 import Header from './Header';
 import axios from 'axios'
@@ -52,17 +53,17 @@ class GraphModule extends React.Component {
     
     const layout = {'name': 'grid'};
 
-    const style = { width: '90vh', 
-                    height: '70vh', 
-                    'box-shadow': '0 2px 5px 0 rgba(0, 0, 0, 0.16)'
+    const style = { width: '100%', 
+                    height: '60vh', 
+                    margin: '0 auto', /* Added */
                   }
     
     const stylesheet = node_style.concat(edge_style)
     return  <div>
               <Header/>
-              <Card style={{ width: '100vh', height:'90vh', 'margin-top':'3vh', 'margin-left':'3vh','margin-bottom':'3vh' }}>
-                <Card.Header as="h5">{this.state.choreo}</Card.Header>
-                <Card.Body >
+              <Card style={{width: '95%', height:'70%','margin-top':'3vh'}}>
+                <Card.Header as="p" style= {{color:'white', font:'10px', 'background-color': '#00881d'}}>{this.state.choreo}</Card.Header>
+                <Card.Body>
                   <CytoscapeComponent elements={dataChoreo} 
                                         stylesheet={stylesheet} 
                                         layout={layout} 
@@ -70,8 +71,8 @@ class GraphModule extends React.Component {
                 </Card.Body>
               </Card>
 
-              <Card style={{ width: '100vh', height:'90vh', 'margin-top':'3vh', 'margin-left':'3vh','margin-bottom':'3vh' }}>
-                <Card.Header as="h5">{this.state.r1}</Card.Header>
+              <Card style={{width: '95%', height:'70%','margin-top':'3vh'}}>
+                <Card.Header as="p" style= {{color:'white', font:'10px', 'background-color': '#008ab5'}}>{this.state.r1}</Card.Header>
                 <Card.Body >
                   <CytoscapeComponent elements={dataR1} 
                                         stylesheet={stylesheet} 
@@ -80,8 +81,8 @@ class GraphModule extends React.Component {
                 </Card.Body>
               </Card>
 
-              <Card style={{ width: '100vh', height:'90vh', 'margin-top':'3vh', 'margin-left':'3vh','margin-bottom':'3vh' }}>
-                <Card.Header as="h5">{this.state.r2}</Card.Header>
+              <Card style={{width: '95%', height:'70%'}}>
+                <Card.Header as="p" style= {{color:'white', font:'10px', 'background-color': '#008ab5'}}>{this.state.r2}</Card.Header>
                 <Card.Body >
                   <CytoscapeComponent elements={dataR2} 
                                         stylesheet={stylesheet} 
@@ -90,8 +91,8 @@ class GraphModule extends React.Component {
                 </Card.Body>
               </Card>
 
-              <Card style={{ width: '100vh', height:'90vh', 'margin-top':'3vh', 'margin-left':'3vh','margin-bottom':'3vh' }}>
-                <Card.Header as="h5">{this.state.r3}</Card.Header>
+              <Card style={{width: '95%', height:'70%','margin-bottom':'3vh'}}>
+                <Card.Header as="p" style= {{color:'white', font:'10px', 'background-color': '#008ab5'}}>{this.state.r3}</Card.Header>
                 <Card.Body >
                   <CytoscapeComponent elements={dataR3} 
                                         stylesheet={stylesheet} 
@@ -99,7 +100,6 @@ class GraphModule extends React.Component {
                                         style={style} />    
                 </Card.Body>
               </Card>
-
             </div>;
   }
 }
