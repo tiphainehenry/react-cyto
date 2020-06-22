@@ -4,7 +4,7 @@
       "style": {
         "shape": "rectangle",
         "height": 80,
-        "width": 130,
+        "width": 200,
         "background-color": "#ccc",
         "border-style": "dashed",
         "border-width": 1,
@@ -59,10 +59,15 @@
         }
       },
       {
-        "selector": "node.external",
+        "selector": "node.proj",
         "style": {
-          "height": 80,
-          "width": 200
           }
-        }
+        },
+        {
+          "selector": "node.external",
+          "style": {
+            "background-color": "red"
+            }
+          }
+  
   ]

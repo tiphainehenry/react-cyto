@@ -21,9 +21,13 @@ def cleanName(nameChunked):
     return eventName, cleanedTsk
 
 def groupItems(role, refs):
+    no_duplicates=[]
+    for ref in refs:
+        if ref not in no_duplicates:
+            no_duplicates.append(ref)
     return [
         "\n## Proj Grouping ##", 
-        'Group "' + role+ '" {'+' '.join(refs)+'}'
+        'Group "' + role+ '" {'+' '.join(no_duplicates)+'}'
         ]
 
 class NumpyEncoder(json.JSONEncoder):

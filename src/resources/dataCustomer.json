@@ -2,10 +2,10 @@
   {
     "data": {
       "id": "e0s",
-      "name": "!(AskHousing, Customer-->Rental)"
+      "name": "!(AskforHousing, Customer-->Rental)"
     },
     "group": "nodes",
-    "classes": "external"
+    "classes": "proj"
   },
   {
     "data": {
@@ -13,15 +13,15 @@
       "name": "?(ConfirmBooking, Rental-->Customer)"
     },
     "group": "nodes",
-    "classes": "external"
+    "classes": "proj"
   },
   {
     "data": {
       "id": "e2r",
-      "name": "?(WithholdCaution, Blockchain-->Customer)"
+      "name": "?(WithholdMoney, Blockchain-->Customer)"
     },
     "group": "nodes",
-    "classes": "external"
+    "classes": "proj"
   },
   {
     "data": {
@@ -29,7 +29,7 @@
       "name": "?(ProvideAccomodation, Rental-->Customer)"
     },
     "group": "nodes",
-    "classes": "external"
+    "classes": "proj"
   },
   {
     "data": {
@@ -37,12 +37,92 @@
       "name": "!(LeaveAppartment, Customer-->Rental,Blockchain)"
     },
     "group": "nodes",
-    "classes": "external"
+    "classes": "proj"
   },
   {
     "data": {
       "id": "e6r",
       "name": "?(SendCaution, Blockchain-->Customer)"
+    },
+    "group": "nodes",
+    "classes": "proj"
+  },
+  {
+    "data": {
+      "id": "e4",
+      "name": "Blockchain\nSendRent\nRental"
+    },
+    "group": "nodes",
+    "classes": "proj"
+  },
+  {
+    "data": {
+      "id": "e4",
+      "name": "Blockchain\nSendRent\nRental"
+    },
+    "group": "nodes",
+    "classes": "proj"
+  },
+  {
+    "data": {
+      "id": "CheckRoom",
+      "name": "CheckRoom"
+    },
+    "group": "nodes",
+    "classes": "external"
+  },
+  {
+    "data": {
+      "id": "CheckRoom",
+      "name": "CheckRoom"
+    },
+    "group": "nodes",
+    "classes": "external"
+  },
+  {
+    "data": {
+      "id": "CheckRoom",
+      "name": "CheckRoom"
+    },
+    "group": "nodes",
+    "classes": "external"
+  },
+  {
+    "data": {
+      "id": "CheckRoom",
+      "name": "CheckRoom"
+    },
+    "group": "nodes",
+    "classes": "external"
+  },
+  {
+    "data": {
+      "id": "SettleRenting",
+      "name": "SettleRenting"
+    },
+    "group": "nodes",
+    "classes": "external"
+  },
+  {
+    "data": {
+      "id": "SettleRenting",
+      "name": "SettleRenting"
+    },
+    "group": "nodes",
+    "classes": "external"
+  },
+  {
+    "data": {
+      "id": "SettleWithholding",
+      "name": "SettleWithholding"
+    },
+    "group": "nodes",
+    "classes": "external"
+  },
+  {
+    "data": {
+      "id": "SettleWithholding",
+      "name": "SettleWithholding"
     },
     "group": "nodes",
     "classes": "external"
@@ -115,6 +195,96 @@
       "id": "e3r_e5s_response",
       "source": "e3r",
       "target": "e5s"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e3r_e4_condition",
+      "source": "e3r",
+      "target": "e4"
+    },
+    "group": "edges",
+    "classes": "condition"
+  },
+  {
+    "data": {
+      "id": "e3r_e4_response",
+      "source": "e3r",
+      "target": "e4"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e5s_CheckRoom_condition",
+      "source": "e5s",
+      "target": "CheckRoom"
+    },
+    "group": "edges",
+    "classes": "condition"
+  },
+  {
+    "data": {
+      "id": "e5s_CheckRoom_response",
+      "source": "e5s",
+      "target": "CheckRoom"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "CheckRoom_e6r_include",
+      "source": "CheckRoom",
+      "target": "e6r"
+    },
+    "group": "edges",
+    "classes": "include"
+  },
+  {
+    "data": {
+      "id": "CheckRoom_e6r_response",
+      "source": "CheckRoom",
+      "target": "e6r"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e6r_SettleRenting_condition",
+      "source": "e6r",
+      "target": "SettleRenting"
+    },
+    "group": "edges",
+    "classes": "condition"
+  },
+  {
+    "data": {
+      "id": "e6r_SettleRenting_response",
+      "source": "e6r",
+      "target": "SettleRenting"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e6r_SettleWithholding_condition",
+      "source": "e6r",
+      "target": "SettleWithholding"
+    },
+    "group": "edges",
+    "classes": "condition"
+  },
+  {
+    "data": {
+      "id": "e6r_SettleWithholding_response",
+      "source": "e6r",
+      "target": "SettleWithholding"
     },
     "group": "edges",
     "classes": "response"

@@ -79,15 +79,51 @@ def filterOnRoles(linkages, projRefs):
 
         return ["\n## Linkages ##"] + roleLinkages #+ ["\n## WrongLinks ##"] + wrongLinks
 
+def addExternalEvents(roleIds, chunks, choreoEventsProj):    
+    externalIds = []
+    externalLinkages = []
 
+    for line in chunks['linkages']:
+        event1 = line.split()[0].strip()
+        event2 = line.split()[2].strip()
 
-def generateRoleProjection(chunks, role):
+        if (event1 in roleIds) and (event2 not in roleIds):
+            externalIds.append(event2)
+            externalLinkages.append(line)
+        elif (event2 in roleIds) and (event1 not in roleIds):
+            externalIds.append(event1)
+            externalLinkages.append(line)
+
+    externalEvents = []
+    for _id in externalIds:
+        for elem in chunks['internalEvents']:
+            if _id == elem.split('[')[0].replace(' ', '').strip():
+                externalEvents.append(elem)
+        for elem in chunks['events']:
+            if _id == elem.split('[')[0].replace(' ', '').strip():
+                externalEvents.append(elem)
+        for elem in choreoEventsProj:
+            if _id == elem.split('[')[0].replace(' ', '').strip():
+                externalEvents.append(elem)
+
+    return externalIds, externalEvents, externalLinkages
+
+def generateRoleProjection(chunks, role, choreoEventsProj):
+    # get role projection
     projEvents, projRefs = getRoleEvents(role, chunks['events'], chunks['internalEvents'])
-
     rawLinkages = getLinkages(projRefs, chunks['linkages'])
     updatedLinkages = filterOnRoles(rawLinkages, projRefs)
 
-    projection = ["##### Projection over role [" + role + "] #######"] + projEvents + updatedLinkages
+    # Look for external events
+    externalIds, externalEvents, externalLinkages = addExternalEvents(projRefs, chunks, choreoEventsProj)
+
+    # Merge projection items
+    tasks = projRefs + externalIds
+    events = projEvents + externalEvents
+    linkages = updatedLinkages + externalLinkages
+
+    projGrouping = groupItems(role, tasks)
+    projection = ["##### Projection over role [" + role + "] #######"] + events + projGrouping + linkages 
 
     # Save Proj text
     #projPath = os.path.join(projDir, "projection"+role+".txt")
@@ -96,7 +132,7 @@ def generateRoleProjection(chunks, role):
     #    f.write(projection[i]+'\n')
     #f.close()
 
-    return projection
+    return projection, externalIds
 
 
 def projRoles(data, target):
@@ -113,11 +149,24 @@ def projRoles(data, target):
     #    print('[INFO] Folder Created at ' + str(projDir))
     chunks, roles = extractChunks(data)
 
+    choreoEventsProj = []
+    for role in roles:
+        for line in chunks['events']:
+                eventName, task, src, tgts = getChoreographyDetails(role, line)         
+                if src == role:
+                    newEvent = eventName+'s["!('+ str(task) +', '+ str(src) + '-&gt;'+str(','.join(tgts))+')"]'
+                    choreoEventsProj.append(newEvent)
+                elif role in tgts:
+                    newEvent = eventName+'r["?('+ str(task) +', '+ str(src) + '-&gt;'+role+')"]'
+                    choreoEventsProj.append(newEvent)
+                else:
+                    pass
+
     for role in roles:
         # generate projection
-        projection = generateRoleProjection(chunks.copy(), role)
+        projection, externalIds = generateRoleProjection(chunks.copy(), role, choreoEventsProj)
         
-        generateGraph(projection, target, role)
+        generateGraph(projection, externalIds, target, role)
 
         # generate vectorization
         #file = open(projPath, 'r')    

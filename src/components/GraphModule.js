@@ -1,10 +1,14 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
 import CardGroup from 'react-bootstrap/Card';
+import Cytoscape from "cytoscape";
 import CytoscapeComponent from 'react-cytoscapejs';
 import Header from './Header';
-import axios from 'axios'
-
+import axios from 'axios';
+import klay from 'cytoscape-klay';
+import COSEBilkent from "cytoscape-cose-bilkent";
+//Cytoscape.use(COSEBilkent);
+Cytoscape.use(klay);
 
 var node_style = require('../resources/nodeStyle.json')
 var edge_style = require('../resources/edgeStyle.json')
@@ -50,8 +54,8 @@ class GraphModule extends React.Component {
 
 
   render(){
-    
-    const layout = {'name': 'grid'};
+    //const layout = { name: 'cose-bilkent' };
+    const layout = {name: 'klay'};
 
     const style = { width: '100%', 
                     height: '60vh', 
@@ -59,6 +63,7 @@ class GraphModule extends React.Component {
                   }
     
     const stylesheet = node_style.concat(edge_style)
+
     return  <div>
               <Header/>
               <Card style={{width: '95%', height:'70%','margin-top':'3vh'}}>

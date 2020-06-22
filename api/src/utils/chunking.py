@@ -37,19 +37,22 @@ def extractGroupRelations(groupings, linkages):
         for link in linkages:
             if (groupName in link) and ('-' in link):
                 toDuplicate.append(link)
-
         # extract first and last relations of grouping (ie 'no from' or 'no to' task)
         firstRelation = None
         lastRelation = None
         for elem in groupRelations:
+            #print('elem:'+ elem)
             hasFirst = False
             hasLast = False
 
             for link in linkages:
+                #print(link)
                 if elem in link.split()[0]:
                     hasLast = True
+                    #print('has last')
                 elif elem in link.split()[-1]:
                     hasFirst = True
+                    #print('has first')
 
             if not hasFirst:
                 firstRelation=elem
@@ -63,14 +66,24 @@ def extractGroupRelations(groupings, linkages):
             chunks = relation.split()
             if groupName in chunks:
                 if groupName == chunks[0].strip():
-                    duplicatedRelation = firstRelation + ' ' + ' '.join(chunks[1:])
+                    for elem in groupRelations:
+                        #duplicatedRelation = firstRelation + ' ' + ' '.join(chunks[1:])
+                        duplicatedRelation =  elem + ' ' + ' '.join(chunks[1:])
+                        linkages.append(duplicatedRelation) 
                 else: # groupName == chunks[-1].strip():
-                    duplicatedRelation = ' '.join(chunks[:-1]) + ' ' + lastRelation
-                linkages.append(duplicatedRelation)
+                    for elem in groupRelations:
+                        #duplicatedRelation = firstRelation + ' ' + ' '.join(chunks[1:])
+                        duplicatedRelation = ' '.join(chunks[:-1]) + ' ' + elem
+                        linkages.append(duplicatedRelation) 
             else:
                 pass
-            
-    return linkages
+
+        # remove former relations with grouping name
+        cleaned_linkages = []
+        for relation in linkages:
+            if groupName not in relation:
+                cleaned_linkages.append(relation)
+    return cleaned_linkages
 
 
 def extractChunks(data):

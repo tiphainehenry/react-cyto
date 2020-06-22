@@ -22,7 +22,6 @@ def extractGroupRelations(groupings, linkages):
         if group.strip()[0] == '#':
             pass
         else:
-            print(group)
             # extract group name
             groupName = group.split('Group')[1].split('{')[0].strip().replace(' ', '').replace('"', '')
             # extract relations included in grouping
@@ -145,13 +144,24 @@ def getRelationElems(relation):
     return  relationElems
 
 
-def bodyInternal(event, num_task):
+def bodyInternal(event, num_task, externalIds):
     _id= event.split('[')[0].strip()
     src= event.split('role=')[1].replace(']', '').strip()
     tgt= ''
     tsk= _id
 
-    body = {
+    if _id in externalIds:
+        body = {
+                    'data': { 
+                                'id': _id, 
+                                'name':tsk
+                            },
+                    #'position': { "x": num_task*100, "y": 100},
+                    'group': "nodes",
+                    'classes': "external"
+        }
+    else: 
+        body = {
                 'data': { 
                             'id': _id, 
                             'name':tsk
@@ -159,9 +169,10 @@ def bodyInternal(event, num_task):
                 #'position': { "x": num_task*100, "y": 100},
                 'group': "nodes"
     }
+
     return body
 
-def bodyExternal(event, num_task):
+def bodyExternal(event, num_task, externalIds):
     # done for -&gt;
     _id = event.split('[')[0]
     src= event.split(',')[1].split('-')[0].strip()
@@ -174,53 +185,79 @@ def bodyExternal(event, num_task):
     #    name =
 
     name = event.split('[')[1].replace(']','').replace('"', '').replace('-&gt;', '-->').strip()
-    body = {
-                'data': { 
-                            'id': _id, 
-                            'name':name
-                        },
-                #'position': { "x": num_task*100, "y": 100},
-                'group': "nodes",
-                'classes': "external"
 
-    }
+    if _id in externalIds:
+        body = {
+                    'data': { 
+                                'id': _id, 
+                                'name':name
+                            },
+                    #'position': { "x": num_task*100, "y": 100},
+                    'group': "nodes",
+                    'classes': "proj, external"
+        }
+
+    else:
+        body = {
+                    'data': { 
+                                'id': _id, 
+                                'name':name
+                            },
+                    #'position': { "x": num_task*100, "y": 100},
+                    'group': "nodes",
+                    'classes': "proj"
+        }
     return body
 
-def bodyChoreo(event, num_task):
+def bodyChoreo(event, num_task, externalIds):
     _id= event.split('[')[0]
     src= event.split('src=')[1].split('tgt=')[0].strip()
     tgt= event.split('tgt=')[1].replace('tgt=', ',').replace(']', '').strip()
     tsk= event.split('[')[1].split('src=')[0].replace('"', '').strip().replace(' ', '')
 
-    body = {
-                'data': { 
-                            'id': _id, 
-                            'name':src+'\n'+
-                                   tsk+'\n'+
-                                   tgt
-                        },
-                #'position': { "x": num_task*100, "y": 100},
-                'group': "nodes"
-    }
+    if _id in externalIds:
+        body = {
+                    'data': { 
+                                'id': _id, 
+                                'name':src+'\n'+
+                                    tsk+'\n'+
+                                    tgt
+                            },
+                    #'position': { "x": num_task*100, "y": 100},
+                    'group': "nodes",
+                    'classes': "proj"
+        }
+    else:
+        body = {
+                    'data': { 
+                                'id': _id, 
+                                'name':src+'\n'+
+                                    tsk+'\n'+
+                                    tgt
+                            },
+                    #'position': { "x": num_task*100, "y": 100},
+                    'group': "nodes"
+        }
+
     return body
 
 
 
-def getEventElems(event, numTask):
+def getEventElems(event, numTask, externalIds):
     if 'src' in event:  
-        return bodyChoreo(event, numTask)
+        return bodyChoreo(event, numTask, externalIds)
     elif ('!' in event) or ('?' in event):
-        return bodyExternal(event, numTask)
+        return bodyExternal(event, numTask, externalIds)
     else: 
-        return bodyInternal(event, numTask)
+        return bodyInternal(event, numTask, externalIds)
 
 
-def cytoTasks(events):
+def cytoTasks(events, externalIds):
     cTasks = []
 
     num_task=0
     for event in events:
-        cTasks.append(getEventElems(event, num_task))
+        cTasks.append(getEventElems(event, num_task, externalIds))
         num_task = num_task+1
     return cTasks
 
@@ -243,12 +280,12 @@ def cytoEdges(edges):
 
     return cEdges
 
-def generateGraph(data, target, role):
+def generateGraph(data, externalIds, target, role):
     # chunk events
     chunks, roles = extractChunks(data)
 
     # generate tasks and relations
-    cTasks = cytoTasks(chunks['events']+chunks['internalEvents'])
+    cTasks = cytoTasks(chunks['events']+chunks['internalEvents'], externalIds)
     cEdges = cytoEdges(chunks['linkages'])
 
     cData = cTasks + cEdges

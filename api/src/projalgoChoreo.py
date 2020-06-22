@@ -10,6 +10,7 @@ from utils.graphDataTranslator import generateGraph
 
 def filterOnChoreo(choreoIds, linkages):   
     choreoLinkages = []
+
     for line in linkages:
         event1 = line.split()[0].strip()
         event2 = line.split()[2].strip()
@@ -19,39 +20,57 @@ def filterOnChoreo(choreoIds, linkages):
         else:
             pass
 
-
     if len(choreoLinkages)==0:
         choreoLinkages = ["#--> None Matching - Manual implementation required"]
 
     return ["\n## Linkages ##"] + choreoLinkages #+ ["\n## WrongLinks ##"] + wrongLinks
 
+def addExternalEvents(choreoIds, chunks):    
+    externalIds = []
+    externalLinkages = []
+    for line in chunks['linkages']:
+        event1 = line.split()[0].strip()
+        event2 = line.split()[2].strip()
+
+        if (event1 in choreoIds) and (event2 not in choreoIds):
+            externalIds.append(event2)
+            externalLinkages.append(line)
+        elif (event2 in choreoIds) and (event1 not in choreoIds):
+            externalIds.append(event1)
+            externalLinkages.append(line)
+
+    externalEvents = []
+    for _id in externalIds:
+        for elem in chunks['internalEvents']:
+            if _id == elem.split('[')[0].replace(' ', '').strip():
+                externalEvents.append(elem)
+
+    return externalIds, externalEvents, externalLinkages
 
 def generateChoreographyProjection(chunks):
-
     # Extract choreography events
     choreographyEvents = []
-    for event in chunks['events']:
+    for event in chunks['events']: #events refer here to choreography events
         choreographyEvents.append(event.strip())
-
     choreoIds = []
     for event in choreographyEvents:
         choreoIds.append(event.split('[')[0])
 
-    # Extract linkages
+    # Extract choreography linkages
     choreoLinkages = filterOnChoreo(choreoIds, chunks['linkages'])
     
+    # Look for external events
+    externalIds, externalEvents, externalLinkages = addExternalEvents(choreoIds, chunks)
+
     # Merge projection items
-    projGrouping = groupItems('Choreography', choreoIds)
-    projection = ["##### Choreography Projection #######"] + choreographyEvents + projGrouping + choreoLinkages
+    tasks = choreoIds + externalIds
+    events = choreographyEvents + externalEvents
+    linkages = choreoLinkages + externalLinkages
 
-    # Save Proj text
-    #projPath = os.path.join(projDir, "projectionChoreography.txt")
-    #f= open(projPath,"w+")
-    #for i in range(len(projection)):
-    #    f.write(projection[i]+'\n')
-    #f.close()
+    projGrouping = groupItems('Choreography', tasks)
+    projection = ["##### Choreography Projection #######"] + events + projGrouping + linkages
 
-    return projection
+    return projection, externalIds
 
 def projectChoreo(data, target):
     # filename = getFileName()
@@ -68,8 +87,8 @@ def projectChoreo(data, target):
     chunks, roles = extractChunks(data)
 
     # generate choreography projection
-    projection = generateChoreographyProjection(chunks.copy()) 
-    generateGraph(projection, target, "choreo")
+    projection, externalIds = generateChoreographyProjection(chunks.copy()) 
+    generateGraph(projection, externalIds, target, "choreo")
 
     # generate vectorization
     #file = open(projPath, 'r')    

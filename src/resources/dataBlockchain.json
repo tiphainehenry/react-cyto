@@ -2,10 +2,10 @@
   {
     "data": {
       "id": "e2s",
-      "name": "!(WithholdCaution, Blockchain-->Rental,Customer)"
+      "name": "!(WithholdMoney, Blockchain-->Rental,Customer)"
     },
     "group": "nodes",
-    "classes": "external"
+    "classes": "proj"
   },
   {
     "data": {
@@ -13,7 +13,7 @@
       "name": "!(SendRent, Blockchain-->Rental)"
     },
     "group": "nodes",
-    "classes": "external"
+    "classes": "proj"
   },
   {
     "data": {
@@ -21,7 +21,7 @@
       "name": "?(LeaveAppartment, Customer-->Blockchain)"
     },
     "group": "nodes",
-    "classes": "external"
+    "classes": "proj"
   },
   {
     "data": {
@@ -29,7 +29,7 @@
       "name": "!(SendCaution, Blockchain-->Customer)"
     },
     "group": "nodes",
-    "classes": "external"
+    "classes": "proj"
   },
   {
     "data": {
@@ -37,7 +37,39 @@
       "name": "!(SendCaution, Blockchain-->Rental)"
     },
     "group": "nodes",
-    "classes": "external"
+    "classes": "proj"
+  },
+  {
+    "data": {
+      "id": "e6r",
+      "name": "?(SendCaution, Blockchain-->Customer)"
+    },
+    "group": "nodes",
+    "classes": "proj, external"
+  },
+  {
+    "data": {
+      "id": "e7r",
+      "name": "?(SendCaution, Blockchain-->Rental)"
+    },
+    "group": "nodes",
+    "classes": "proj, external"
+  },
+  {
+    "data": {
+      "id": "e6r",
+      "name": "?(SendCaution, Blockchain-->Customer)"
+    },
+    "group": "nodes",
+    "classes": "proj, external"
+  },
+  {
+    "data": {
+      "id": "e7r",
+      "name": "?(SendCaution, Blockchain-->Rental)"
+    },
+    "group": "nodes",
+    "classes": "proj, external"
   },
   {
     "data": {
@@ -45,5 +77,75 @@
       "name": "SettleWithholding"
     },
     "group": "nodes"
+  },
+  {
+    "data": {
+      "id": "CheckRoom",
+      "name": "CheckRoom"
+    },
+    "group": "nodes",
+    "classes": "external"
+  },
+  {
+    "data": {
+      "id": "CheckRoom",
+      "name": "CheckRoom"
+    },
+    "group": "nodes",
+    "classes": "external"
+  },
+  {
+    "data": {
+      "id": "CheckRoom_SettleWithholding_condition",
+      "source": "CheckRoom",
+      "target": "SettleWithholding"
+    },
+    "group": "edges",
+    "classes": "condition"
+  },
+  {
+    "data": {
+      "id": "e6r_SettleWithholding_condition",
+      "source": "e6r",
+      "target": "SettleWithholding"
+    },
+    "group": "edges",
+    "classes": "condition"
+  },
+  {
+    "data": {
+      "id": "e7r_SettleWithholding_condition",
+      "source": "e7r",
+      "target": "SettleWithholding"
+    },
+    "group": "edges",
+    "classes": "condition"
+  },
+  {
+    "data": {
+      "id": "CheckRoom_SettleWithholding_response",
+      "source": "CheckRoom",
+      "target": "SettleWithholding"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e6r_SettleWithholding_response",
+      "source": "e6r",
+      "target": "SettleWithholding"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e7r_SettleWithholding_response",
+      "source": "e7r",
+      "target": "SettleWithholding"
+    },
+    "group": "edges",
+    "classes": "response"
   }
 ]
