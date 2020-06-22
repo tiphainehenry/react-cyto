@@ -2,44 +2,50 @@
   {
     "data": {
       "id": "e0s",
-      "name": "Customer\nAskHousing\nRental"
+      "name": "!(AskHousing, Customer-->Rental)"
     },
-    "group": "nodes"
+    "group": "nodes",
+    "classes": "external"
   },
   {
     "data": {
       "id": "e1r",
-      "name": "Rental\nConfirmBooking\nCustomer"
+      "name": "?(ConfirmBooking, Rental-->Customer)"
     },
-    "group": "nodes"
+    "group": "nodes",
+    "classes": "external"
   },
   {
     "data": {
       "id": "e2r",
-      "name": "Blockchain\nWithholdCaution\nCustomer"
+      "name": "?(WithholdCaution, Blockchain-->Customer)"
     },
-    "group": "nodes"
+    "group": "nodes",
+    "classes": "external"
   },
   {
     "data": {
       "id": "e3r",
-      "name": "Rental\nProvideAccomodation\nCustomer"
+      "name": "?(ProvideAccomodation, Rental-->Customer)"
     },
-    "group": "nodes"
+    "group": "nodes",
+    "classes": "external"
   },
   {
     "data": {
       "id": "e5s",
-      "name": "Customer\nLeaveAppartment\nRental,Blockchain"
+      "name": "!(LeaveAppartment, Customer-->Rental,Blockchain)"
     },
-    "group": "nodes"
+    "group": "nodes",
+    "classes": "external"
   },
   {
     "data": {
       "id": "e6r",
-      "name": "Blockchain\nSendCaution\nCustomer"
+      "name": "?(SendCaution, Blockchain-->Customer)"
     },
-    "group": "nodes"
+    "group": "nodes",
+    "classes": "external"
   },
   {
     "data": {

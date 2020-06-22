@@ -2,63 +2,70 @@
   {
     "data": {
       "id": "e0r",
-      "name": "Customer\nAskHousing\nRental"
+      "name": "?(AskHousing, Customer-->Rental)"
     },
-    "group": "nodes"
+    "group": "nodes",
+    "classes": "external"
   },
   {
     "data": {
       "id": "e1s",
-      "name": "Rental\nConfirmBooking\nCustomer"
+      "name": "!(ConfirmBooking, Rental-->Customer)"
     },
-    "group": "nodes"
+    "group": "nodes",
+    "classes": "external"
   },
   {
     "data": {
       "id": "e2r",
-      "name": "Blockchain\nWithholdCaution\nRental"
+      "name": "?(WithholdCaution, Blockchain-->Rental)"
     },
-    "group": "nodes"
+    "group": "nodes",
+    "classes": "external"
   },
   {
     "data": {
       "id": "e3s",
-      "name": "Rental\nProvideAccomodation\nCustomer"
+      "name": "!(ProvideAccomodation, Rental-->Customer)"
     },
-    "group": "nodes"
+    "group": "nodes",
+    "classes": "external"
   },
   {
     "data": {
       "id": "e4r",
-      "name": "Blockchain\nSendRent\nRental"
+      "name": "?(SendRent, Blockchain-->Rental)"
     },
-    "group": "nodes"
+    "group": "nodes",
+    "classes": "external"
   },
   {
     "data": {
       "id": "e5r",
-      "name": "Customer\nLeaveAppartment\nRental"
+      "name": "?(LeaveAppartment, Customer-->Rental)"
     },
-    "group": "nodes"
+    "group": "nodes",
+    "classes": "external"
   },
   {
     "data": {
       "id": "e7r",
-      "name": "Blockchain\nSendCaution\nRental"
+      "name": "?(SendCaution, Blockchain-->Rental)"
     },
-    "group": "nodes"
+    "group": "nodes",
+    "classes": "external"
   },
   {
     "data": {
       "id": "CheckRoom",
-      "name": "Rental\nCheckRoom\n"
+      "name": "CheckRoom"
     },
     "group": "nodes"
   },
   {
     "data": {
       "id": "SettleRenting",
-      "name": "Rental\nSettleRenting\n"
+      "name": "SettleRenting"
     },
     "group": "nodes"
   },

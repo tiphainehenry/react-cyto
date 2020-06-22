@@ -145,13 +145,59 @@ def getRelationElems(relation):
     return  relationElems
 
 
-def body(eventElems, num_task):
+def bodyInternal(event, num_task):
+    _id= event.split('[')[0].strip()
+    src= event.split('role=')[1].replace(']', '').strip()
+    tgt= ''
+    tsk= _id
+
     body = {
                 'data': { 
-                            'id': eventElems['id'], 
-                            'name':eventElems['from']+'\n'+
-                                   eventElems['task']+'\n'+
-                                   eventElems['to']
+                            'id': _id, 
+                            'name':tsk
+                        },
+                #'position': { "x": num_task*100, "y": 100},
+                'group': "nodes"
+    }
+    return body
+
+def bodyExternal(event, num_task):
+    # done for -&gt;
+    _id = event.split('[')[0]
+    src= event.split(',')[1].split('-')[0].strip()
+    tgt= event.split(';')[1].split(')')[0].strip()
+    tsk= event.split('[')[1].split('(')[1].split(',')[0].strip()
+
+    #if '?' in event:
+    #    name = ''
+    #else:
+    #    name =
+
+    name = event.split('[')[1].replace(']','').replace('"', '').replace('-&gt;', '-->').strip()
+    body = {
+                'data': { 
+                            'id': _id, 
+                            'name':name
+                        },
+                #'position': { "x": num_task*100, "y": 100},
+                'group': "nodes",
+                'classes': "external"
+
+    }
+    return body
+
+def bodyChoreo(event, num_task):
+    _id= event.split('[')[0]
+    src= event.split('src=')[1].split('tgt=')[0].strip()
+    tgt= event.split('tgt=')[1].replace('tgt=', ',').replace(']', '').strip()
+    tsk= event.split('[')[1].split('src=')[0].replace('"', '').strip().replace(' ', '')
+
+    body = {
+                'data': { 
+                            'id': _id, 
+                            'name':src+'\n'+
+                                   tsk+'\n'+
+                                   tgt
                         },
                 #'position': { "x": num_task*100, "y": 100},
                 'group': "nodes"
@@ -159,40 +205,22 @@ def body(eventElems, num_task):
     return body
 
 
-def getEventElems(event):
 
-    if 'src' in event:  ## to deal with
-        _id= event.split('[')[0]
-        src= event.split('src=')[1].split('tgt=')[0].strip()
-        tgt= event.split('tgt=')[1].replace('tgt=', ',').replace(']', '').strip()
-        tsk= event.split('[')[1].split('src=')[0].replace('"', '').strip().replace(' ', '')
-
+def getEventElems(event, numTask):
+    if 'src' in event:  
+        return bodyChoreo(event, numTask)
     elif ('!' in event) or ('?' in event):
-        # done for -&gt;
-        _id = event.split('[')[0]
-        src= event.split(',')[1].split('-')[0].strip()
-        tgt= event.split(';')[1].split(')')[0].strip()
-        tsk= event.split('[')[1].split('(')[1].split(',')[0].strip()
-    else: ## internal tasks, to deal with !
-        _id= event.split('[')[0].strip()
-        src= event.split('role=')[1].replace(']', '').strip()
-        tgt= ''
-        tsk= _id
+        return bodyExternal(event, numTask)
+    else: 
+        return bodyInternal(event, numTask)
 
-    return {
-            'id':  _id,
-            'from':src,
-            'to':  tgt,
-            'task':tsk
-        }
 
 def cytoTasks(events):
     cTasks = []
 
     num_task=0
     for event in events:
-        eventElems = getEventElems(event)
-        cTasks.append(body(eventElems, num_task))
+        cTasks.append(getEventElems(event, num_task))
         num_task = num_task+1
     return cTasks
 

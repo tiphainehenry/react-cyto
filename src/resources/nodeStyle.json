@@ -57,5 +57,12 @@
         "style": {
           "border-width": 2
         }
-      }
+      },
+      {
+        "selector": "node.external",
+        "style": {
+          "height": 80,
+          "width": 200
+          }
+        }
   ]

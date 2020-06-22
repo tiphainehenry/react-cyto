@@ -2,42 +2,47 @@
   {
     "data": {
       "id": "e2s",
-      "name": "Blockchain\nWithholdCaution\nRental,Customer"
+      "name": "!(WithholdCaution, Blockchain-->Rental,Customer)"
     },
-    "group": "nodes"
+    "group": "nodes",
+    "classes": "external"
   },
   {
     "data": {
       "id": "e4s",
-      "name": "Blockchain\nSendRent\nRental"
+      "name": "!(SendRent, Blockchain-->Rental)"
     },
-    "group": "nodes"
+    "group": "nodes",
+    "classes": "external"
   },
   {
     "data": {
       "id": "e5r",
-      "name": "Customer\nLeaveAppartment\nBlockchain"
+      "name": "?(LeaveAppartment, Customer-->Blockchain)"
     },
-    "group": "nodes"
+    "group": "nodes",
+    "classes": "external"
   },
   {
     "data": {
       "id": "e6s",
-      "name": "Blockchain\nSendCaution\nCustomer"
+      "name": "!(SendCaution, Blockchain-->Customer)"
     },
-    "group": "nodes"
+    "group": "nodes",
+    "classes": "external"
   },
   {
     "data": {
       "id": "e7s",
-      "name": "Blockchain\nSendCaution\nRental"
+      "name": "!(SendCaution, Blockchain-->Rental)"
     },
-    "group": "nodes"
+    "group": "nodes",
+    "classes": "external"
   },
   {
     "data": {
       "id": "SettleWithholding",
-      "name": "Blockchain\nSettleWithholding\n"
+      "name": "SettleWithholding"
     },
     "group": "nodes"
   }
