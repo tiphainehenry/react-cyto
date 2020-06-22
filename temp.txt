@@ -1,0 +1,1 @@
+## Declare events\n\n# Choreography exchanges\ne0[\"Ask for Housing\" s

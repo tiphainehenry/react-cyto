@@ -6,6 +6,7 @@ import sys
 from utils.formatting import cleanName, getFileName, groupItems
 from utils.chunking import extractChunks
 from utils.vectorization import vectorize
+from utils.graphDataTranslator import generateGraph
 
 def filterOnChoreo(choreoIds, linkages):   
     choreoLinkages = []
@@ -25,7 +26,7 @@ def filterOnChoreo(choreoIds, linkages):
     return ["\n## Linkages ##"] + choreoLinkages #+ ["\n## WrongLinks ##"] + wrongLinks
 
 
-def generateChoreographyProjection(chunks, projDir):
+def generateChoreographyProjection(chunks):
 
     # Extract choreography events
     choreographyEvents = []
@@ -44,38 +45,39 @@ def generateChoreographyProjection(chunks, projDir):
     projection = ["##### Choreography Projection #######"] + choreographyEvents + projGrouping + choreoLinkages
 
     # Save Proj text
-    projPath = os.path.join(projDir, "projectionChoreography.txt")
-    f= open(projPath,"w+")
-    for i in range(len(projection)):
-        f.write(projection[i]+'\n')
-    f.close()
+    #projPath = os.path.join(projDir, "projectionChoreography.txt")
+    #f= open(projPath,"w+")
+    #for i in range(len(projection)):
+    #    f.write(projection[i]+'\n')
+    #f.close()
 
-    return projPath
+    return projection
 
-def main():
-    filename = getFileName()
-    file = open(os.path.join(filename), 'r')
-    data = file.readlines()
-    file.close()
+def projectChoreo(data, target):
+    # filename = getFileName()
+    #file = open(os.path.join(filename), 'r')
+    #data = file.readlines()
+    #file.close()
 
-    projectPath = pathlib.Path(filename).parent.absolute().parent.absolute()
-    projDir = os.path.join(projectPath, 'projection_'+filename.split('/')[-1]).replace(os.sep, '/')
+    #projectPath = pathlib.Path(filename).parent.absolute().parent.absolute()
+    #projDir = os.path.join(projectPath, 'projection_'+filename.split('/')[-1]).replace(os.sep, '/')
 
-    if not (os.path.exists(projDir)):
-        os.mkdir(projDir)
-        print('[INFO] Folder Created at ' + str(projDir))
+    #if not (os.path.exists(projDir)):
+    #    os.mkdir(projDir)
+    #    print('[INFO] Folder Created at ' + str(projDir))
     chunks, roles = extractChunks(data)
 
     # generate choreography projection
-    projPath = generateChoreographyProjection(chunks.copy(), projDir) 
-    # generate vectorization
-    file = open(projPath, 'r')    
-    projectionData = file.readlines()
-    file.close()
-    vectorize(projectionData, projPath)
+    projection = generateChoreographyProjection(chunks.copy()) 
+    generateGraph(projection, target, "choreo")
 
+    # generate vectorization
+    #file = open(projPath, 'r')    
+    #projectionData = file.readlines()
+    #file.close()
+    #vectorize(projectionData, projPath)
 
     print('[INFO] Choreography Projection generated')
  
-if __name__ == "__main__":
-    main()
+#if __name__ == "__main__":
+#    main()

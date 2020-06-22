@@ -1,158 +1,105 @@
 import React from 'react';
+import Card from 'react-bootstrap/Card'
 import CytoscapeComponent from 'react-cytoscapejs';
+import Header from './Header';
+import axios from 'axios'
 
-var data = require('../resources/data.json')
+
+var node_style = require('../resources/nodeStyle.json')
+var edge_style = require('../resources/edgeStyle.json')
+
+var dataChoreo = require('../resources/dataChoreo.json')
+var dataR1 = require('../resources/dataBlockchain.json')
+var dataR2 = require('../resources/dataCustomer.json')
+var dataR3 = require('../resources/dataRental.json')
 
 class GraphModule extends React.Component {
   constructor(props){
     super(props);
+    this.state = {text:null,
+                  toBeDisp:'', 
+                  choreo:'Choreography Projection', 
+                  r1:'Blockchain Projection',
+                  r2:'Customer Projection',
+                  r3:'Rental Projection'
+                };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  render(){
+  handleChange(event) {this.setState({toBeDisp: event.target.value});  }
 
+  handleSubmit(event) {
+    alert('Role projection to be displayed: ' + this.state.role);
+
+    this.setState({role: this.state.toBeDisp});
+    event.preventDefault();
+  }
+  
+  componentDidMount() {
+
+    axios.get(`http://localhost:5000/process`,     {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    })
+    .then(res => {
+      console.log(res);
+
+    })
+   }
+
+
+  render(){
+    
     const layout = {'name': 'grid'};
 
-    const style = { width: '95%', 
-                    height: '60%', 
-                    'box-shadow': '0 2px 5px 0 rgba(0, 0, 0, 0.16)',
-                    'padding-top': '5%'
+    const style = { width: '90vh', 
+                    height: '70vh', 
+                    'box-shadow': '0 2px 5px 0 rgba(0, 0, 0, 0.16)'
                   }
-
-    const node_style = [
-      {
-        selector: "node",
-        style: {
-          "shape": "rectangle",
-          "height": 80,
-          "width": 120,
-          "background-color": "#ccc",
-          "border-style": "dashed",
-          "border-width": 1,
-          "border-color": "#777",
-          "color": "#777",
-          "font-size": 10,
-          "font-weight": "bold",
-          "text-halign": "center",
-          "text-valign": "center",
-          //"text-wrap": "ellipsis",
-          "text-wrap": "wrap",
-          "text-max-width": 60, 
-          "line-height": 2.5,
-          "label": "data(name)"
-        }
-      },
-      {
-        selector: 'node[type="sender"], node[type="receiver"]',
-        style: {
-          "height": 15,
-        }
-      },
-        {
-          selector: "node.executable",
-          style: {
-            "border-color": "#454545",
-            "color": "#454545",
-            "background-color": "#fafafa",
-          }
-        },
-        {
-          selector: "node.included",
-          style: {
-            "border-style": "solid"
-          }
-        },
-        {
-          selector: "node.executed",
-          style: {
-            "color": "#29A81A"
-          }
-        },
-        {
-          selector: "node.pending",
-          style: {
-            "border-color": "#1E90FF"
-          }
-        },
-        {
-          selector: "node:selected",
-          style: {
-            "border-width": 2
-          }
-        }
-    ]
-    
-    const edge_style = [
-      {
-        selector: "edge",
-        style: {
-          "width": 2,
-          "curve-style": "bezier",
-          "source-endpoint": "inside-to-node"
-        }
-      },
-      {
-        selector: 'edge.include, edge.exclude, edge.response]',
-        style: {
-          "target-arrow-shape": "triangle"
-        }
-      },
-      {
-        selector: 'edge.include',
-        style: {
-          "line-color": "#29A81A",
-          "target-arrow-color": "#29A81A"
-        }
-      },
-      {
-        selector: "edge.exclude",
-        style: {
-          "line-color": "#FF0000",
-          "target-arrow-color": "#FF0000"
-        }
-      },
-      {
-        selector: "edge.response",
-        style: {
-          "line-color": "#1E90FF",
-          "target-arrow-color": "#1E90FF"
-        }
-      },
-      {
-        selector: "edge.condition",
-        style: {
-          "line-color": "#FFA500",
-          "target-arrow-color": "#FFA500",
-          "target-arrow-shape": "circle"
-        }
-      },
-      {
-        selector: "edge.milestone",
-        style: {
-          "line-color": "#BC1AF2",
-          "target-arrow-color": "#BC1AF2",
-          "target-arrow-shape": "diamond"
-        }
-      },
-      {
-        selector: "edge:selected",
-        style: {
-          "line-color": "#00d1b2",
-          "target-arrow-color": "#00d1b2",
-        }
-      },
-    ]
     
     const stylesheet = node_style.concat(edge_style)
+    return  <div>
+              <Header/>
+              <Card style={{ width: '100vh', height:'90vh', 'margin-top':'3vh', 'margin-left':'3vh','margin-bottom':'3vh' }}>
+                <Card.Header as="h5">{this.state.choreo}</Card.Header>
+                <Card.Body >
+                  <CytoscapeComponent elements={dataChoreo} 
+                                        stylesheet={stylesheet} 
+                                        layout={layout} 
+                                        style={style} />    
+                </Card.Body>
+              </Card>
 
+              <Card style={{ width: '100vh', height:'90vh', 'margin-top':'3vh', 'margin-left':'3vh','margin-bottom':'3vh' }}>
+                <Card.Header as="h5">{this.state.r1}</Card.Header>
+                <Card.Body >
+                  <CytoscapeComponent elements={dataR1} 
+                                        stylesheet={stylesheet} 
+                                        layout={layout} 
+                                        style={style} />    
+                </Card.Body>
+              </Card>
 
-    return <div class='center-content'>
-              <div class="input-header">Role</div>
-              <div id="cy" >
-                <CytoscapeComponent elements={data} 
-                                    stylesheet={stylesheet} 
-                                    layout={layout} 
-                                    style={style} />    
-              </div>
+              <Card style={{ width: '100vh', height:'90vh', 'margin-top':'3vh', 'margin-left':'3vh','margin-bottom':'3vh' }}>
+                <Card.Header as="h5">{this.state.r2}</Card.Header>
+                <Card.Body >
+                  <CytoscapeComponent elements={dataR2} 
+                                        stylesheet={stylesheet} 
+                                        layout={layout} 
+                                        style={style} />    
+                </Card.Body>
+              </Card>
+
+              <Card style={{ width: '100vh', height:'90vh', 'margin-top':'3vh', 'margin-left':'3vh','margin-bottom':'3vh' }}>
+                <Card.Header as="h5">{this.state.r3}</Card.Header>
+                <Card.Body >
+                  <CytoscapeComponent elements={dataR3} 
+                                        stylesheet={stylesheet} 
+                                        layout={layout} 
+                                        style={style} />    
+                </Card.Body>
+              </Card>
+
             </div>;
   }
 }

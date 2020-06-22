@@ -1,4 +1,5 @@
 import json
+import os
 
 def extractGroupRelations(groupings, linkages):
     #clean list
@@ -18,56 +19,59 @@ def extractGroupRelations(groupings, linkages):
 
     # verify if group expends on several lines: create grouping dict
     for group in groupings:
+        if group.strip()[0] == '#':
+            pass
+        else:
+            print(group)
+            # extract group name
+            groupName = group.split('Group')[1].split('{')[0].strip().replace(' ', '').replace('"', '')
+            # extract relations included in grouping
+            groupRelations = group.split('Group')[1].split('{')[1].replace('}', '').split()        
+            #clean group
+            cnt=0
+            for elem in groupRelations:
+                if (groupRelations[cnt][0] == '"') and (groupRelations[cnt+1][-1]=='"'):
+                    groupRelations[cnt]=groupRelations[cnt]+groupRelations[cnt+1]
+                    groupRelations.remove(groupRelations[cnt+1])
+                cnt = cnt+1
 
-        # extract group name
-        groupName = group.split('Group')[1].split('{')[0].strip().replace(' ', '').replace('"', '')
-        # extract relations included in grouping
-        groupRelations = group.split('Group')[1].split('{')[1].replace('}', '').split()        
-        #clean group
-        cnt=0
-        for elem in groupRelations:
-            if (groupRelations[cnt][0] == '"') and (groupRelations[cnt+1][-1]=='"'):
-                groupRelations[cnt]=groupRelations[cnt]+groupRelations[cnt+1]
-                groupRelations.remove(groupRelations[cnt+1])
-            cnt = cnt+1
-
-        # extract relations to duplicate
-        toDuplicate = []
-        for link in linkages:
-            if (groupName in link) and ('-' in link):
-                toDuplicate.append(link)
-
-        # extract first and last relations of grouping (ie 'no from' or 'no to' task)
-        firstRelation = None
-        lastRelation = None
-        for elem in groupRelations:
-            hasFirst = False
-            hasLast = False
-
+            # extract relations to duplicate
+            toDuplicate = []
             for link in linkages:
-                if elem in link.split()[0]:
-                    hasLast = True
-                elif elem in link.split()[-1]:
-                    hasFirst = True
+                if (groupName in link) and ('-' in link):
+                    toDuplicate.append(link)
 
-            if not hasFirst:
-                firstRelation=elem
-            elif not hasLast:
-                lastRelation=elem
-            else:
-                pass
+            # extract first and last relations of grouping (ie 'no from' or 'no to' task)
+            firstRelation = None
+            lastRelation = None
+            for elem in groupRelations:
+                hasFirst = False
+                hasLast = False
 
-        # regenerate relations according to the type 
-        for relation in toDuplicate:
-            chunks = relation.split()
-            if groupName in chunks:
-                if groupName == chunks[0].strip():
-                    duplicatedRelation = firstRelation + ' ' + ' '.join(chunks[1:])
-                else: # groupName == chunks[-1].strip():
-                    duplicatedRelation = ' '.join(chunks[:-1]) + ' ' + lastRelation
-                linkages.append(duplicatedRelation)
-            else:
-                pass
+                for link in linkages:
+                    if elem in link.split()[0]:
+                        hasLast = True
+                    elif elem in link.split()[-1]:
+                        hasFirst = True
+
+                if not hasFirst:
+                    firstRelation=elem
+                elif not hasLast:
+                    lastRelation=elem
+                else:
+                    pass
+
+            # regenerate relations according to the type 
+            for relation in toDuplicate:
+                chunks = relation.split()
+                if groupName in chunks:
+                    if groupName == chunks[0].strip():
+                        duplicatedRelation = firstRelation + ' ' + ' '.join(chunks[1:])
+                    else: # groupName == chunks[-1].strip():
+                        duplicatedRelation = ' '.join(chunks[:-1]) + ' ' + lastRelation
+                    linkages.append(duplicatedRelation)
+                else:
+                    pass
             
     return linkages
 
@@ -158,9 +162,10 @@ def body(eventElems, num_task):
 def getEventElems(event):
 
     if 'src' in event:  ## to deal with
-        src= event.split('[')[0].strip()
-        tgt= event.split('[')[1]
-        tsk= event
+        _id= event.split('[')[0]
+        src= event.split('src=')[1].split('tgt=')[0].strip()
+        tgt= event.split('tgt=')[1].replace('tgt=', ',').replace(']', '').strip()
+        tsk= event.split('[')[1].split('src=')[0].replace('"', '').strip().replace(' ', '')
 
     elif ('!' in event) or ('?' in event):
         # done for -&gt;
@@ -168,16 +173,18 @@ def getEventElems(event):
         src= event.split(',')[1].split('-')[0].strip()
         tgt= event.split(';')[1].split(')')[0].strip()
         tsk= event.split('[')[1].split('(')[1].split(',')[0].strip()
+    else: ## internal tasks, to deal with !
+        _id= event.split('[')[0].strip()
+        src= event.split('role=')[1].replace(']', '').strip()
+        tgt= ''
+        tsk= _id
 
-        elems = {
+    return {
             'id':  _id,
             'from':src,
             'to':  tgt,
             'task':tsk
         }
-    else: ## internal tasks, to deal with !
-        pass
-    return elems
 
 def cytoTasks(events):
     cTasks = []
@@ -213,13 +220,12 @@ def cytoEdges(edges):
 
     return cEdges
 
-def main():
+def generateGraph(data, target, role):
     # load choreography file 
-
-    # filename = getFileName()
-    file = open('projection_toyExample/projectionCustomer.txt', 'r')
-    data = file.readlines()
-    file.close()
+    #filename = getFileName()
+    #file = open('projection_toyExample/projectionCustomer.txt', 'r')
+    #data = file.readlines()
+    #file.close()
 
     # chunk events
     chunks, roles = extractChunks(data)
@@ -230,21 +236,10 @@ def main():
 
     cData = cTasks + cEdges
 
-    #with open('src/components/tasks.json', 'w') as outfile:
-    #    json.dump(cTasks, outfile, indent=2)
-
-    #with open('src/components/edges.json', 'w') as outfile:
-    #    json.dump(cEdges, outfile, indent=2)
-
     # json dumps
-    with open('src/cytograph/data.json', 'w') as outfile:
+    with open(os.path.join(target, 'data'+role+'.json'), 'w') as outfile:
         json.dump(cData, outfile, indent=2)
 
-    # open template
-    # replace ** tasks ** by cTasks
-    # replace ** edges ** by cEdges
-    # clean file (replace 'data' by data, 'id' by id, 'classes' by classes, 'group' by group, target, source, parent, type)
-
-if __name__ == "__main__":
-    main()
+#if __name__ == "__main__":
+#    main()
 

@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import Header from './components/Header';
 import GraphModule from './components/GraphModule'
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Header />
     <GraphModule/>
   </React.StrictMode>,
   document.getElementById('root')

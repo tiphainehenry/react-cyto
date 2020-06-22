@@ -1,6 +1,9 @@
 import React from 'react';
 import '../App.css'
+import Header from './Header';
+
 import axios from 'axios'
+import { Link } from "react-router-dom";
 
 //var text=require('../resources/toyExample.txt')
 
@@ -10,7 +13,9 @@ class Main extends React.Component {
   constructor(props) {
         super(props);
         this.state = { text: 'hello bob',
-                       roles: 'None yet, please enter DCR description' };
+                       inputVal:'',
+                       roles: 'None yet, please enter DCR description',
+                       processedData: '' };
       }
 
       mySubmitHandler = (event) => {
@@ -18,21 +23,21 @@ class Main extends React.Component {
         alert("You are submitting: \n\n------------------\n" + this.state.text + "\n------------------");
 
         const text=this.state.text
-        axios.post('http://localhost:5000/process', { text },
+         axios.post('http://localhost:5000/process', { text },
         {
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          maxContentLength: 100000000,
+          maxBodyLength: 1000000000
         })
         .then((res) => {
-          console.log(res);
-          console.log(res.config.data);
-        });
-        axios.get(`http://localhost:5000/process`)
-        .then(res => {
           console.log(res.data);
-          const roles = res.data;
-          this.setState({ roles });
-        })
+          const inputVal = 'See results';
+          this.setState({ inputVal });
+          const processedData = res.data['val'] 
+          this.setState({processedData})
+        });
 
+      
         //alert("You are submitting: \n\n------------------\n" + this.state.text + "\n------------------");
         
         //var xmlhttp;
@@ -60,14 +65,23 @@ class Main extends React.Component {
 
       };
 
+      downloadTxtFile = () => {
+        const element = document.createElement("a");
+        const file = new Blob([this.state.text], {type: 'text/plain'});
+        element.href = URL.createObjectURL(file);
+        element.download = "myFile.txt";
+        document.body.appendChild(element); // Required for this to work in FireFox
+        element.click();
+      }
 
       myChangeHandler = (event) => {
         this.setState({text: event.target.value});
-      }
+      }      
 
       render() {
         return (
             <div>
+              <Header/>
                 <div class="textDisp">
                     <form onSubmit={this.mySubmitHandler}>
                         <p>Enter DCR source code and project:</p>
@@ -80,18 +94,19 @@ class Main extends React.Component {
                             onChange={this.myChangeHandler}
                             value={this.state.text}
                         />
-                        <input class='btn'
+
+                          <input class='btn'
                             type='submit'
                             value='Launch Projection'
                         />
+                        <Link to={{pathname:"/GraphPage",
+                                  textProps:'blabla'
+                                }}>{this.state.inputVal}</Link>
+
                     </form>
                 </div>
-                <div class='textDispv2' id="demo">
-                  <p>Roles to project</p>
-                </div>
-                <div class='textDispv2' id="demo">
-                    <p id='roles'>{this.state.roles}</p>
-                </div>
+                <div>Processed data: {this.state.processedData}</div>
+                
                 </div>
         );
       }  

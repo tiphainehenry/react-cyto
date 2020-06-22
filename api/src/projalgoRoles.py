@@ -6,6 +6,8 @@ import sys
 from utils.formatting import cleanName, getFileName, groupItems
 from utils.chunking import extractChunks, getLinkages
 from utils.vectorization import vectorize
+from utils.graphDataTranslator import generateGraph
+
 
 def getChoreographyDetails(role, event):
     targets = []
@@ -79,7 +81,7 @@ def filterOnRoles(linkages, projRefs):
 
 
 
-def generateRoleProjection(chunks, role, projDir):
+def generateRoleProjection(chunks, role):
     projEvents, projRefs = getRoleEvents(role, chunks['events'], chunks['internalEvents'])
 
     rawLinkages = getLinkages(projRefs, chunks['linkages'])
@@ -88,40 +90,43 @@ def generateRoleProjection(chunks, role, projDir):
     projection = ["##### Projection over role [" + role + "] #######"] + projEvents + updatedLinkages
 
     # Save Proj text
-    projPath = os.path.join(projDir, "projection"+role+".txt")
-    f= open(projPath,"w+")
-    for i in range(len(projection)):
-        f.write(projection[i]+'\n')
-    f.close()
+    #projPath = os.path.join(projDir, "projection"+role+".txt")
+    #f= open(projPath,"w+")
+    #for i in range(len(projection)):
+    #    f.write(projection[i]+'\n')
+    #f.close()
 
-    return projPath
+    return projection
 
 
-def main():
-    filename = getFileName()
-    file = open(os.path.join(filename), 'r')
-    data = file.readlines()
-    file.close()
+def projRoles(data, target):
+    #filename = getFileName()
+    #file = open(os.path.join(filename), 'r')
+    #data = file.readlines()
+    #file.close()
 
-    projectPath = pathlib.Path(filename).parent.absolute().parent.absolute()
-    projDir = os.path.join(projectPath, 'projection_'+filename.split('/')[-1]).replace(os.sep, '/')
+    #projectPath = pathlib.Path(filename).parent.absolute().parent.absolute()
+    #projDir = os.path.join(projectPath, 'projection_'+filename.split('/')[-1]).replace(os.sep, '/')
 
-    if not (os.path.exists(projDir)):
-        os.mkdir(projDir)
-        print('[INFO] Folder Created at ' + str(projDir))
+    #if not (os.path.exists(projDir)):
+    #   os.mkdir(projDir)
+    #    print('[INFO] Folder Created at ' + str(projDir))
     chunks, roles = extractChunks(data)
 
     for role in roles:
         # generate projection
-        projPath = generateRoleProjection(chunks.copy(), role, projDir)
+        projection = generateRoleProjection(chunks.copy(), role)
+        
+        generateGraph(projection, target, role)
+
         # generate vectorization
-        file = open(projPath, 'r')    
-        projectionData = file.readlines()
-        file.close()
-        vectorize(projectionData, projPath)
+        #file = open(projPath, 'r')    
+        #projectionData = file.readlines()
+        #file.close()
+        #vectorize(projectionData, projPath)
 
         print('[INFO] Projection of role '+role+' generated')
  
 
-if __name__ == "__main__":
-    main()
+#if __name__ == "__main__":
+#    main()

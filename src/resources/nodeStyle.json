@@ -1,0 +1,61 @@
+[
+    {
+      "selector": "node",
+      "style": {
+        "shape": "rectangle",
+        "height": 80,
+        "width": 130,
+        "background-color": "#ccc",
+        "border-style": "dashed",
+        "border-width": 1,
+        "border-color": "#777",
+        "color": "#777",
+        "font-size": 10,
+        "font-weight": "bold",
+        "text-halign": "center",
+        "text-valign": "center",
+        "text-wrap": "wrap",
+        "text-max-width": 60, 
+        "line-height": 2.5,
+        "label": "data(name)"
+      }
+    },
+    {
+      "selector": "node[type='sender'], node[type='receiver']",
+      "style": {
+        "height": 15
+      }
+    },
+      {
+        "selector": "node.executable",
+        "style": {
+          "border-color": "#454545",
+          "color": "#454545",
+          "background-color": "#fafafa"
+        }
+      },
+      {
+        "selector": "node.included",
+        "style": {
+          "border-style": "solid"
+        }
+      },
+      {
+       "selector": "node.executed",
+        "style": {
+          "color": "#29A81A"
+        }
+      },
+      {
+        "selector": "node.pending",
+        "style": {
+          "border-color": "#1E90FF"
+        }
+      },
+      {
+        "selector": "node:selected",
+        "style": {
+          "border-width": 2
+        }
+      }
+  ]

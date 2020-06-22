@@ -8,7 +8,7 @@ import json
 
 
 from utils.formatting import getFileName, NumpyEncoder
-from utils.chunking import extractChunks, parseFile
+from utils.chunking import extractChunks
 
 
 def getRelationElems(relation):

@@ -1,0 +1,97 @@
+[
+  {
+    "data": {
+      "id": "e0r",
+      "name": "Customer\nAskHousing\nRental"
+    },
+    "position": {
+      "x": 0,
+      "y": 100
+    },
+    "group": "nodes"
+  },
+  {
+    "data": {
+      "id": "e1s",
+      "name": "Rental\nConfirmBooking\nCustomer"
+    },
+    "position": {
+      "x": 100,
+      "y": 100
+    },
+    "group": "nodes"
+  },
+  {
+    "data": {
+      "id": "e2r",
+      "name": "Blockchain\nWithholdCaution\nRental"
+    },
+    "position": {
+      "x": 200,
+      "y": 100
+    },
+    "group": "nodes"
+  },
+  {
+    "data": {
+      "id": "e3s",
+      "name": "Rental\nProvideAccomodation\nCustomer"
+    },
+    "position": {
+      "x": 300,
+      "y": 100
+    },
+    "group": "nodes"
+  },
+  {
+    "data": {
+      "id": "e4r",
+      "name": "Blockchain\nSendRent\nRental"
+    },
+    "position": {
+      "x": 400,
+      "y": 100
+    },
+    "group": "nodes"
+  },
+  {
+    "data": {
+      "id": "e5r",
+      "name": "Customer\nLeaveAppartment\nRental"
+    },
+    "position": {
+      "x": 500,
+      "y": 100
+    },
+    "group": "nodes"
+  },
+  {
+    "data": {
+      "id": "e7r",
+      "name": "Blockchain\nSendCaution\nRental"
+    },
+    "position": {
+      "x": 600,
+      "y": 100
+    },
+    "group": "nodes"
+  },
+  {
+    "data": {
+      "id": "CheckRoom_e7r_include",
+      "source": "CheckRoom",
+      "target": "e7r"
+    },
+    "group": "edges",
+    "classes": "include"
+  },
+  {
+    "data": {
+      "id": "CheckRoom_e7r_response",
+      "source": "CheckRoom",
+      "target": "e7r"
+    },
+    "group": "edges",
+    "classes": "response"
+  }
+]
