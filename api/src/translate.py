@@ -3,6 +3,7 @@ import pathlib
 import argparse
 import sys
 
+from projalgoGlobal import projectGlobal
 from projalgoChoreo import projectChoreo
 from projalgoRoles import projRoles
 from utils.formatting import getFileName
@@ -17,6 +18,8 @@ def main():
     file.close()
 
     target='src/resources/'
+
+    projectGlobal(data, target)
 
     projectChoreo(data, target)
 
