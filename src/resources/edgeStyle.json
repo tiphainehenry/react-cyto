@@ -26,8 +26,8 @@
         "color":"#29A81A",
         "target-arrow-color": "#29A81A",
         "target-label": "+",
-        "target-text-offset":"10px",
-        "target-text-margin-y":"6px"
+        "target-text-offset":"15px",
+        "target-text-margin-y":"15px"
       }
     },
     {

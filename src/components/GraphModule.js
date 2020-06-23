@@ -7,8 +7,10 @@ import Header from './Header';
 import axios from 'axios';
 import klay from 'cytoscape-klay';
 import COSEBilkent from "cytoscape-cose-bilkent";
+import dagre from 'cytoscape-dagre';
 //Cytoscape.use(COSEBilkent);
-Cytoscape.use(klay);
+//Cytoscape.use(klay);
+Cytoscape.use(dagre);
 
 var node_style = require('../resources/nodeStyle.json')
 var edge_style = require('../resources/edgeStyle.json')
@@ -54,8 +56,16 @@ class GraphModule extends React.Component {
 
 
   render(){
-    //const layout = { name: 'cose-bilkent' };
-    const layout = {name: 'klay'};
+//    const layout = {name: 'breadthfirst',
+//                    spacingFactor: 1.5};
+     const layout = {name: 'dagre',
+     rankDir: 'LR',
+     nodeDimensionsIncludeLabels: true,
+     spacingFactor: 1.2,
+     edgeSep: 2,
+     minLen: function( edge ){ return 0; },
+    
+    };
 
     const style = { width: '100%', 
                     height: '60vh', 
