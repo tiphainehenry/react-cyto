@@ -7,6 +7,12 @@
         "source-endpoint": "inside-to-node"
       }
     },
+        {
+      "selector": "edge.include, edge.exclude, edge.response]",
+      "style": {
+        "target-arrow-shape": "triangle"
+      }
+    },
     {
       "selector": "edge.include, edge.exclude, edge.response]",
       "style": {
@@ -17,7 +23,11 @@
       "selector": "edge.include",
       "style": {
         "line-color": "#29A81A",
-        "target-arrow-color": "#29A81A"
+        "color":"#29A81A",
+        "target-arrow-color": "#29A81A",
+        "target-label": "+",
+        "target-text-offset":"10px",
+        "target-text-margin-y":"6px"
       }
     },
     {
@@ -31,15 +41,26 @@
       "selector": "edge.response",
       "style": {
         "line-color": "#1E90FF",
-        "target-arrow-color": "#1E90FF"
+        "target-arrow-color": "#1E90FF",
+        "curve-style": "straight"
       }
     },
+    {
+      "selector": "edge.response.back",
+      "style": {
+        "line-color": "#1E90FF",
+        "target-arrow-color": "#1E90FF",
+        "curve-style": "straight",
+        "target-arrow-shape": "circle"
+      }
+    },
+
     {
       "selector": "edge.condition",
       "style": {
         "line-color": "#FFA500",
         "target-arrow-color": "#FFA500",
-        "target-arrow-shape": "circle"
+        "target-arrow-shape": "circle-triangle"     
       }
     },
     {

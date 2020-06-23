@@ -194,7 +194,7 @@ def bodyExternal(event, num_task, externalIds):
                             },
                     #'position': { "x": num_task*100, "y": 100},
                     'group': "nodes",
-                    'classes': "proj, external"
+                    'classes': "external"
         }
 
     else:
@@ -204,8 +204,7 @@ def bodyExternal(event, num_task, externalIds):
                                 'name':name
                             },
                     #'position': { "x": num_task*100, "y": 100},
-                    'group': "nodes",
-                    'classes': "proj"
+                    'group': "nodes"
         }
     return body
 
@@ -225,7 +224,7 @@ def bodyChoreo(event, num_task, externalIds):
                             },
                     #'position': { "x": num_task*100, "y": 100},
                     'group': "nodes",
-                    'classes': "proj"
+                    'classes': "external"
         }
     else:
         body = {
@@ -265,18 +264,30 @@ def cytoEdges(edges):
     cEdges = []
     for relation in edges:
         elems = getRelationElems(relation)
-
         cEdges.append(
-            {
-                'data': { 
-                    'id': elems['r_from'] + '_' + elems['r_to'] + '_' + elems['r_type'], 
-                    'source': elems['r_from'], 
-                    'target': elems['r_to'],
-                },
-                'group': "edges",
-                'classes': elems['r_type']
-          }  
-        ) 
+                {
+                    'data': { 
+                        'id': elems['r_from'] + '_' + elems['r_to'] + '_' + elems['r_type'], 
+                        'source': elems['r_from'], 
+                        'target': elems['r_to'],
+                    },
+                    'group': "edges",
+                    'classes': elems['r_type']
+            }  
+            ) 
+
+        if elems['r_type'] == 'response':
+            cEdges.append(
+                {
+                    'data': { 
+                        'id': elems['r_from'] + '_' + elems['r_to'] + '_' + elems['r_type'] + '_back', 
+                        'source': elems['r_to'], 
+                        'target': elems['r_from'],
+                    },
+                    'group': "edges",
+                    'classes': elems['r_type'] + ' back'
+            }  
+            ) 
 
     return cEdges
 

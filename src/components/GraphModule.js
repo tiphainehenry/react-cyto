@@ -14,8 +14,8 @@ var node_style = require('../resources/nodeStyle.json')
 var edge_style = require('../resources/edgeStyle.json')
 
 var dataChoreo = require('../resources/dataChoreo.json')
-var dataR1 = require('../resources/dataBlockchain.json')
-var dataR2 = require('../resources/dataCustomer.json')
+var dataR1 = require('../resources/dataCustomer.json')
+var dataR2 = require('../resources/dataBlockchain.json')
 var dataR3 = require('../resources/dataRental.json')
 
 class GraphModule extends React.Component {
@@ -24,8 +24,8 @@ class GraphModule extends React.Component {
     this.state = {text:null,
                   toBeDisp:'', 
                   choreo:'Choreography Projection', 
-                  r1:'Blockchain Projection',
-                  r2:'Customer Projection',
+                  r1:'Customer Projection',
+                  r2:'Blockchain Projection',
                   r3:'Rental Projection'
                 };
     this.handleChange = this.handleChange.bind(this);

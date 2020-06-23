@@ -7,6 +7,9 @@ from projalgoChoreo import projectChoreo
 from projalgoRoles import projRoles
 from utils.formatting import getFileName
 
+def getRoles():
+    return ['Blockchain', 'Rental', 'Customer']
+
 def main():
     filename = getFileName()
     file = open(os.path.join(filename), 'r')
@@ -16,7 +19,10 @@ def main():
     target='src/resources/'
 
     projectChoreo(data, target)
-    projRoles(data, target)
+
+    for role in getRoles():
+        projRoles(data, target, role)
+        
 
 if __name__ == "__main__":
     main()

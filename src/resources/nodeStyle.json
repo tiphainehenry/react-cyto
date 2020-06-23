@@ -58,15 +58,10 @@
           "border-width": 2
         }
       },
-      {
-        "selector": "node.proj",
-        "style": {
-          }
-        },
         {
           "selector": "node.external",
           "style": {
-            "background-color": "red"
+            "background-color": "#FFDAB9"
             }
           }
   
