@@ -19,15 +19,9 @@ var edge_style = require('../resources/edgeStyle.json')
 
 var dataGlobal = require('../resources/dataGlobal.json')
 var dataChoreo = require('../resources/dataChoreo.json')
-var dataR1 = require('../resources/dataCustomer.json')
-var dataR2 = require('../resources/dataDriver.json')
-var dataR3 = require('../resources/dataFlorist.json')
-
-// var dataGlobal = require('../resources/dataGlobal.json')
-// var dataChoreo = require('../resources/dataChoreo.json')
-// var dataR1 = require('../resources/dataCustomer.json')
-// var dataR2 = require('../resources/dataDriver.json')
-// var dataR3 = require('../resources/dataFlorist.json')
+var dataR1 = require('../resources/dataCustomer_ok.json')
+var dataR2 = require('../resources/dataBlockchain_ok.json')
+var dataR3 = require('../resources/dataRental_ok.json')
 
 class GraphModule extends React.Component {
   constructor(props){
@@ -37,8 +31,8 @@ class GraphModule extends React.Component {
                   global: 'Global DCR to project',
                   choreo:'Choreography Projection', 
                   r1:'Customer Projection',
-                  r2:'Driver Projection',
-                  r3:'Florist Projection'
+                  r2:'Blockchain Projection',
+                  r3:'Rental Projection'
                 };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -90,6 +84,9 @@ class GraphModule extends React.Component {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                   <Nav className="mr-auto">
+                    <Nav.Link href="#global">{this.state.global}</Nav.Link>
+                    <Nav.Link href="#choreo">{this.state.choreo}</Nav.Link>
+
                     <NavDropdown title="Role Projections" id="collasible-nav-dropdown">
                       <NavDropdown.Item href="#r1">{this.state.r1}</NavDropdown.Item>
                       <NavDropdown.Item href="#r2">{this.state.r2}</NavDropdown.Item>
@@ -111,6 +108,8 @@ class GraphModule extends React.Component {
                   </Nav>
                 </Navbar.Collapse>
               </Navbar>
+
+
               <Card id="global" style={{width: '95%', height:'70%','margin-top':'3vh'}}>
                 <Card.Header as="p" style= {{color:'white', 'background-color': 'red', 'font-size': '10pt', 'font-weight': 200, padding: '2ex 1ex'}}>
                   {this.state.global}</Card.Header>

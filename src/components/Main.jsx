@@ -99,7 +99,7 @@ class Main extends React.Component {
                             type='submit'
                             value='Launch Projection'
                         />
-                        <Link to={{pathname:"/GraphPage",
+                        <Link to={{pathname:"/graph",
                                   textProps:'blabla'
                                 }}>{this.state.inputVal}</Link>
 

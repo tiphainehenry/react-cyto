@@ -6,10 +6,10 @@ import sys
 from projalgoGlobal import projectGlobal
 from projalgoChoreo import projectChoreo
 from projalgoRoles import projRoles
-from utils.formatting import getFileName
+from utils.formatting import getFileName, removeGroups
 
 def getRoles():
-    return ['Blockchain', 'Rental', 'Customer']
+    return ['Florist', 'Driver', 'Customer']
 
 def main():
     filename = getFileName()
@@ -19,12 +19,13 @@ def main():
 
     target='src/resources/'
 
-    projectGlobal(data, target)
+    _data = removeGroups(data)
 
-    projectChoreo(data, target)
+    projectGlobal(_data, target)
+    projectChoreo(_data, target)
 
     for role in getRoles():
-        projRoles(data, target, role)
+        projRoles(_data, target, role)
         
 
 if __name__ == "__main__":

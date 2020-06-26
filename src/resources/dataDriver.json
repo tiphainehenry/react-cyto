@@ -1,0 +1,550 @@
+[
+  {
+    "data": {
+      "id": "e2s",
+      "name": "!(Shipping, Driver-->=,F,l,o,r,i,s,t)"
+    },
+    "group": "nodes"
+  },
+  {
+    "data": {
+      "id": "e3r",
+      "name": "?(MonitorTemperature, TempSensor-->Driver)"
+    },
+    "group": "nodes"
+  },
+  {
+    "data": {
+      "id": "e4r",
+      "name": "?(MonitorLocation, GPSSensor-->Driver)"
+    },
+    "group": "nodes"
+  },
+  {
+    "data": {
+      "id": "e5",
+      "name": "Customer\nCheckDelivery\nFlorist"
+    },
+    "group": "nodes",
+    "classes": "external"
+  },
+  {
+    "data": {
+      "id": "e8",
+      "name": "Customer\nAccept\nFlorist"
+    },
+    "group": "nodes",
+    "classes": "external"
+  },
+  {
+    "data": {
+      "id": "e9",
+      "name": "Customer\nReject\nFlorist"
+    },
+    "group": "nodes",
+    "classes": "external"
+  },
+  {
+    "data": {
+      "id": "e5",
+      "name": "Customer\nCheckDelivery\nFlorist"
+    },
+    "group": "nodes",
+    "classes": "external"
+  },
+  {
+    "data": {
+      "id": "e8",
+      "name": "Customer\nAccept\nFlorist"
+    },
+    "group": "nodes",
+    "classes": "external"
+  },
+  {
+    "data": {
+      "id": "e9",
+      "name": "Customer\nReject\nFlorist"
+    },
+    "group": "nodes",
+    "classes": "external"
+  },
+  {
+    "data": {
+      "id": "e10",
+      "name": "Customer\nPay\nFlorist"
+    },
+    "group": "nodes",
+    "classes": "external"
+  },
+  {
+    "data": {
+      "id": "CallDriver",
+      "name": "CallDriver"
+    },
+    "group": "nodes"
+  },
+  {
+    "data": {
+      "id": "ReturnTruck",
+      "name": "ReturnTruck"
+    },
+    "group": "nodes"
+  },
+  {
+    "data": {
+      "id": "PrepareCommand",
+      "name": "PrepareCommand"
+    },
+    "group": "nodes",
+    "classes": "external"
+  },
+  {
+    "data": {
+      "id": "SettleCommand",
+      "name": "SettleCommand"
+    },
+    "group": "nodes",
+    "classes": "external"
+  },
+  {
+    "data": {
+      "id": "e2s_e3r_response",
+      "source": "e2s",
+      "target": "e3r"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e2s_e3r_response_back",
+      "source": "e3r",
+      "target": "e2s"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e2s_e3r_include",
+      "source": "e2s",
+      "target": "e3r"
+    },
+    "group": "edges",
+    "classes": "include"
+  },
+  {
+    "data": {
+      "id": "e2s_e4r_include",
+      "source": "e2s",
+      "target": "e4r"
+    },
+    "group": "edges",
+    "classes": "include"
+  },
+  {
+    "data": {
+      "id": "e2s_e4r_response",
+      "source": "e2s",
+      "target": "e4r"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e2s_e4r_response_back",
+      "source": "e4r",
+      "target": "e2s"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "CallDriver_e2s_condition",
+      "source": "CallDriver",
+      "target": "e2s"
+    },
+    "group": "edges",
+    "classes": "condition"
+  },
+  {
+    "data": {
+      "id": "CallDriver_e2s_response",
+      "source": "CallDriver",
+      "target": "e2s"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "CallDriver_e2s_response_back",
+      "source": "e2s",
+      "target": "CallDriver"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "ReturnTruck_e14r_condition",
+      "source": "ReturnTruck",
+      "target": "e14r"
+    },
+    "group": "edges",
+    "classes": "condition"
+  },
+  {
+    "data": {
+      "id": "ReturnTruck_e14r_response",
+      "source": "ReturnTruck",
+      "target": "e14r"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "ReturnTruck_e14r_response_back",
+      "source": "e14r",
+      "target": "ReturnTruck"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e11s_e11s_exclude",
+      "source": "e11s",
+      "target": "e11s"
+    },
+    "group": "edges",
+    "classes": "exclude"
+  },
+  {
+    "data": {
+      "id": "ReturnTruck_ReturnTruck_exclude",
+      "source": "ReturnTruck",
+      "target": "ReturnTruck"
+    },
+    "group": "edges",
+    "classes": "exclude"
+  },
+  {
+    "data": {
+      "id": "e14r_e14r_exclude",
+      "source": "e14r",
+      "target": "e14r"
+    },
+    "group": "edges",
+    "classes": "exclude"
+  },
+  {
+    "data": {
+      "id": "e3r_e3r_response",
+      "source": "e3r",
+      "target": "e3r"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e3r_e3r_response_back",
+      "source": "e3r",
+      "target": "e3r"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e4r_e4r_response",
+      "source": "e4r",
+      "target": "e4r"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e4r_e4r_response_back",
+      "source": "e4r",
+      "target": "e4r"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e11s_ReturnTruck_response",
+      "source": "e11s",
+      "target": "ReturnTruck"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e11s_ReturnTruck_response_back",
+      "source": "ReturnTruck",
+      "target": "e11s"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e11s_e14r_response",
+      "source": "e11s",
+      "target": "e14r"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e11s_e14r_response_back",
+      "source": "e14r",
+      "target": "e11s"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e2s_e5_response",
+      "source": "e2s",
+      "target": "e5"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e2s_e5_response_back",
+      "source": "e5",
+      "target": "e2s"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e3r_e5_response",
+      "source": "e3r",
+      "target": "e5"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e3r_e5_response_back",
+      "source": "e5",
+      "target": "e3r"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e4r_e5_response",
+      "source": "e4r",
+      "target": "e5"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e4r_e5_response_back",
+      "source": "e5",
+      "target": "e4r"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e8_e11s_include",
+      "source": "e8",
+      "target": "e11s"
+    },
+    "group": "edges",
+    "classes": "include"
+  },
+  {
+    "data": {
+      "id": "e8_e11s_response",
+      "source": "e8",
+      "target": "e11s"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e8_e11s_response_back",
+      "source": "e11s",
+      "target": "e8"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "PrepareCommand_CallDriver_condition",
+      "source": "PrepareCommand",
+      "target": "CallDriver"
+    },
+    "group": "edges",
+    "classes": "condition"
+  },
+  {
+    "data": {
+      "id": "PrepareCommand_CallDriver_response",
+      "source": "PrepareCommand",
+      "target": "CallDriver"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "PrepareCommand_CallDriver_response_back",
+      "source": "CallDriver",
+      "target": "PrepareCommand"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e14r_SettleCommand_condition",
+      "source": "e14r",
+      "target": "SettleCommand"
+    },
+    "group": "edges",
+    "classes": "condition"
+  },
+  {
+    "data": {
+      "id": "e14r_SettleCommand_response",
+      "source": "e14r",
+      "target": "SettleCommand"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e14r_SettleCommand_response_back",
+      "source": "SettleCommand",
+      "target": "e14r"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e9_e11s_exclude",
+      "source": "e9",
+      "target": "e11s"
+    },
+    "group": "edges",
+    "classes": "exclude"
+  },
+  {
+    "data": {
+      "id": "e9_ReturnTruck_response",
+      "source": "e9",
+      "target": "ReturnTruck"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e9_ReturnTruck_response_back",
+      "source": "ReturnTruck",
+      "target": "e9"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e9_e14r_response",
+      "source": "e9",
+      "target": "e14r"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e9_e14r_response_back",
+      "source": "e14r",
+      "target": "e9"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e10_ReturnTruck_response",
+      "source": "e10",
+      "target": "ReturnTruck"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e10_ReturnTruck_response_back",
+      "source": "ReturnTruck",
+      "target": "e10"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e10_e14r_response",
+      "source": "e10",
+      "target": "e14r"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e10_e14r_response_back",
+      "source": "e14r",
+      "target": "e10"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e11s_SettleCommand_response",
+      "source": "e11s",
+      "target": "SettleCommand"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e11s_SettleCommand_response_back",
+      "source": "SettleCommand",
+      "target": "e11s"
+    },
+    "group": "edges",
+    "classes": "response back"
+  }
+]

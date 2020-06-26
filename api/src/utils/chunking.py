@@ -16,7 +16,7 @@ def extractGroupRelations(groupings, linkages):
                 linkages[count] = newLine.replace('"', '')
         count = count +1
 
-
+    cleaned_linkages = linkages
     # verify if group expends on several lines: create grouping dict
     for group in groupings:
 
@@ -83,6 +83,7 @@ def extractGroupRelations(groupings, linkages):
         for relation in linkages:
             if groupName not in relation:
                 cleaned_linkages.append(relation)
+
     return cleaned_linkages
 
 
@@ -101,8 +102,6 @@ def extractChunks(data):
                     elemclean = elem.strip().replace('tgt=', '').replace('src=', '').replace(']', '')
                     if elemclean != '' and (elemclean not in roles):
                         roles.append(elemclean)
-        elif 'Group' in line and line[0] != '#':
-            groupings.append(line)
         elif '->' in line:
             linkages.append(line.strip())
         elif ('role=' in line) and ('#' not in elem):

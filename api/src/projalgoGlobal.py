@@ -11,13 +11,17 @@ from utils.graphDataTranslator import generateGraph
 
 def generateGlobalProjection(chunks):
     # Extract events
+
     globalEvents = []
     for event in chunks['events'] + chunks['internalEvents']: #events refer here to choreography events
+        print(event)
         globalEvents.append(event.strip())
 
     # Extract linkages
     linkages = ["\n## Linkages ##"] + chunks['linkages'] 
     
+    for elem in linkages:
+        print(elem)
 
     # Merge projection items
     projection = ["##### Choreography Projection #######"] + globalEvents + linkages

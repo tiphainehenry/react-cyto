@@ -1,288 +1,180 @@
 [
   {
     "data": {
-      "id": "e0",
-      "name": "Customer\nAskforHousing\nRental"
-    },
-    "group": "nodes"
-  },
-  {
-    "data": {
-      "id": "e1",
-      "name": "Rental\nConfirmBooking\nCustomer"
-    },
-    "group": "nodes"
-  },
-  {
-    "data": {
       "id": "e2",
-      "name": "Blockchain\nWithholdMoney\nRental"
+      "name": "Driver\nShipping\nFlorist"
     },
     "group": "nodes"
   },
   {
     "data": {
       "id": "e3",
-      "name": "Rental\nProvideAccomodation\nCustomer"
+      "name": "TempSensor\nMonitorTemperature\nDriver"
     },
     "group": "nodes"
   },
   {
     "data": {
       "id": "e4",
-      "name": "Blockchain\nSendRent\nRental"
+      "name": "GPSSensor\nMonitorLocation\nDriver"
     },
     "group": "nodes"
   },
   {
     "data": {
       "id": "e5",
-      "name": "Customer\nLeaveAppartment\nRental"
+      "name": "Customer\nCheckDelivery\nFlorist"
     },
     "group": "nodes"
   },
   {
     "data": {
-      "id": "e6",
-      "name": "Blockchain\nSendCaution\nCustomer"
+      "id": "e8",
+      "name": "Customer\nAccept\nFlorist"
     },
     "group": "nodes"
   },
   {
     "data": {
-      "id": "e7",
-      "name": "Blockchain\nSendCaution\nRental"
+      "id": "e9",
+      "name": "Customer\nReject\nFlorist"
     },
     "group": "nodes"
   },
   {
     "data": {
-      "id": "CheckRoom",
-      "name": "CheckRoom"
+      "id": "e10",
+      "name": "Customer\nPay\nFlorist"
+    },
+    "group": "nodes"
+  },
+  {
+    "data": {
+      "id": "e11",
+      "name": "Driver\nUnloadTruck\nCustomer"
+    },
+    "group": "nodes"
+  },
+  {
+    "data": {
+      "id": "e14",
+      "name": "Florist\nPayDriver\nDriver"
+    },
+    "group": "nodes"
+  },
+  {
+    "data": {
+      "id": "CallDriver",
+      "name": "CallDriver"
     },
     "group": "nodes",
     "classes": "external"
   },
   {
     "data": {
-      "id": "CheckRoom",
-      "name": "CheckRoom"
+      "id": "CallDriver",
+      "name": "CallDriver"
     },
     "group": "nodes",
     "classes": "external"
   },
   {
     "data": {
-      "id": "CheckRoom",
-      "name": "CheckRoom"
+      "id": "ReturnTruck",
+      "name": "ReturnTruck"
     },
     "group": "nodes",
     "classes": "external"
   },
   {
     "data": {
-      "id": "CheckRoom",
-      "name": "CheckRoom"
+      "id": "ReturnTruck",
+      "name": "ReturnTruck"
     },
     "group": "nodes",
     "classes": "external"
   },
   {
     "data": {
-      "id": "CheckRoom",
-      "name": "CheckRoom"
+      "id": "SettleCommand",
+      "name": "SettleCommand"
     },
     "group": "nodes",
     "classes": "external"
   },
   {
     "data": {
-      "id": "CheckRoom",
-      "name": "CheckRoom"
+      "id": "SettleCommand",
+      "name": "SettleCommand"
     },
     "group": "nodes",
     "classes": "external"
   },
   {
     "data": {
-      "id": "SettleRenting",
-      "name": "SettleRenting"
+      "id": "ReturnTruck",
+      "name": "ReturnTruck"
     },
     "group": "nodes",
     "classes": "external"
   },
   {
     "data": {
-      "id": "SettleRenting",
-      "name": "SettleRenting"
+      "id": "SettleCommand",
+      "name": "SettleCommand"
     },
     "group": "nodes",
     "classes": "external"
   },
   {
     "data": {
-      "id": "SettleRenting",
-      "name": "SettleRenting"
+      "id": "ReturnTruck",
+      "name": "ReturnTruck"
     },
     "group": "nodes",
     "classes": "external"
   },
   {
     "data": {
-      "id": "SettleRenting",
-      "name": "SettleRenting"
+      "id": "SettleCommand",
+      "name": "SettleCommand"
     },
     "group": "nodes",
     "classes": "external"
   },
   {
     "data": {
-      "id": "SettleWithholding",
-      "name": "SettleWithholding"
+      "id": "ReturnTruck",
+      "name": "ReturnTruck"
     },
     "group": "nodes",
     "classes": "external"
   },
   {
     "data": {
-      "id": "SettleWithholding",
-      "name": "SettleWithholding"
+      "id": "SettleCommand",
+      "name": "SettleCommand"
     },
     "group": "nodes",
     "classes": "external"
   },
   {
     "data": {
-      "id": "SettleWithholding",
-      "name": "SettleWithholding"
-    },
-    "group": "nodes",
-    "classes": "external"
-  },
-  {
-    "data": {
-      "id": "SettleWithholding",
-      "name": "SettleWithholding"
-    },
-    "group": "nodes",
-    "classes": "external"
-  },
-  {
-    "data": {
-      "id": "e0_e1_condition",
-      "source": "e0",
-      "target": "e1"
-    },
-    "group": "edges",
-    "classes": "condition"
-  },
-  {
-    "data": {
-      "id": "e0_e1_response",
-      "source": "e0",
-      "target": "e1"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e0_e1_response_back",
-      "source": "e1",
-      "target": "e0"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
-      "id": "e1_e2_condition",
-      "source": "e1",
-      "target": "e2"
-    },
-    "group": "edges",
-    "classes": "condition"
-  },
-  {
-    "data": {
-      "id": "e1_e2_response",
-      "source": "e1",
-      "target": "e2"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e1_e2_response_back",
+      "id": "e2_e5_response",
       "source": "e2",
-      "target": "e1"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
-      "id": "e2_e3_condition",
-      "source": "e2",
-      "target": "e3"
-    },
-    "group": "edges",
-    "classes": "condition"
-  },
-  {
-    "data": {
-      "id": "e2_e3_response",
-      "source": "e2",
-      "target": "e3"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e2_e3_response_back",
-      "source": "e3",
-      "target": "e2"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
-      "id": "e3_e4_condition",
-      "source": "e3",
-      "target": "e4"
-    },
-    "group": "edges",
-    "classes": "condition"
-  },
-  {
-    "data": {
-      "id": "e3_e4_response",
-      "source": "e3",
-      "target": "e4"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e3_e4_response_back",
-      "source": "e4",
-      "target": "e3"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
-      "id": "e3_e5_condition",
-      "source": "e3",
       "target": "e5"
     },
     "group": "edges",
-    "classes": "condition"
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e2_e5_response_back",
+      "source": "e5",
+      "target": "e2"
+    },
+    "group": "edges",
+    "classes": "response back"
   },
   {
     "data": {
@@ -304,26 +196,89 @@
   },
   {
     "data": {
-      "id": "e5_CheckRoom_condition",
-      "source": "e5",
-      "target": "CheckRoom"
-    },
-    "group": "edges",
-    "classes": "condition"
-  },
-  {
-    "data": {
-      "id": "e5_CheckRoom_response",
-      "source": "e5",
-      "target": "CheckRoom"
+      "id": "e4_e5_response",
+      "source": "e4",
+      "target": "e5"
     },
     "group": "edges",
     "classes": "response"
   },
   {
     "data": {
-      "id": "e5_CheckRoom_response_back",
-      "source": "CheckRoom",
+      "id": "e4_e5_response_back",
+      "source": "e5",
+      "target": "e4"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e2_e3_response",
+      "source": "e2",
+      "target": "e3"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e2_e3_response_back",
+      "source": "e3",
+      "target": "e2"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e2_e3_include",
+      "source": "e2",
+      "target": "e3"
+    },
+    "group": "edges",
+    "classes": "include"
+  },
+  {
+    "data": {
+      "id": "e2_e4_include",
+      "source": "e2",
+      "target": "e4"
+    },
+    "group": "edges",
+    "classes": "include"
+  },
+  {
+    "data": {
+      "id": "e2_e4_response",
+      "source": "e2",
+      "target": "e4"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e2_e4_response_back",
+      "source": "e4",
+      "target": "e2"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e5_e8_response",
+      "source": "e5",
+      "target": "e8"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e5_e8_response_back",
+      "source": "e8",
       "target": "e5"
     },
     "group": "edges",
@@ -331,162 +286,432 @@
   },
   {
     "data": {
-      "id": "CheckRoom_e6_include",
-      "source": "CheckRoom",
-      "target": "e6"
+      "id": "e5_e9_response",
+      "source": "e5",
+      "target": "e9"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e5_e9_response_back",
+      "source": "e9",
+      "target": "e5"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e8_e10_include",
+      "source": "e8",
+      "target": "e10"
     },
     "group": "edges",
     "classes": "include"
   },
   {
     "data": {
-      "id": "CheckRoom_e6_response",
-      "source": "CheckRoom",
-      "target": "e6"
+      "id": "e8_e10_response",
+      "source": "e8",
+      "target": "e10"
     },
     "group": "edges",
     "classes": "response"
   },
   {
     "data": {
-      "id": "CheckRoom_e6_response_back",
-      "source": "e6",
-      "target": "CheckRoom"
+      "id": "e8_e10_response_back",
+      "source": "e10",
+      "target": "e8"
     },
     "group": "edges",
     "classes": "response back"
   },
   {
     "data": {
-      "id": "CheckRoom_e7_include",
-      "source": "CheckRoom",
-      "target": "e7"
+      "id": "e8_e11_include",
+      "source": "e8",
+      "target": "e11"
     },
     "group": "edges",
     "classes": "include"
   },
   {
     "data": {
-      "id": "CheckRoom_e7_response",
-      "source": "CheckRoom",
-      "target": "e7"
+      "id": "e8_e11_response",
+      "source": "e8",
+      "target": "e11"
     },
     "group": "edges",
     "classes": "response"
   },
   {
     "data": {
-      "id": "CheckRoom_e7_response_back",
-      "source": "e7",
-      "target": "CheckRoom"
+      "id": "e8_e11_response_back",
+      "source": "e11",
+      "target": "e8"
     },
     "group": "edges",
     "classes": "response back"
   },
   {
     "data": {
-      "id": "e6_SettleRenting_condition",
-      "source": "e6",
-      "target": "SettleRenting"
+      "id": "e8_e8_exclude",
+      "source": "e8",
+      "target": "e8"
     },
     "group": "edges",
-    "classes": "condition"
+    "classes": "exclude"
   },
   {
     "data": {
-      "id": "e7_SettleRenting_condition",
-      "source": "e7",
-      "target": "SettleRenting"
+      "id": "e8_e9_exclude",
+      "source": "e8",
+      "target": "e9"
     },
     "group": "edges",
-    "classes": "condition"
+    "classes": "exclude"
   },
   {
     "data": {
-      "id": "e6_SettleRenting_response",
-      "source": "e6",
-      "target": "SettleRenting"
+      "id": "e9_e8_exclude",
+      "source": "e9",
+      "target": "e8"
+    },
+    "group": "edges",
+    "classes": "exclude"
+  },
+  {
+    "data": {
+      "id": "e9_e9_exclude",
+      "source": "e9",
+      "target": "e9"
+    },
+    "group": "edges",
+    "classes": "exclude"
+  },
+  {
+    "data": {
+      "id": "e9_e10_exclude",
+      "source": "e9",
+      "target": "e10"
+    },
+    "group": "edges",
+    "classes": "exclude"
+  },
+  {
+    "data": {
+      "id": "e9_e11_exclude",
+      "source": "e9",
+      "target": "e11"
+    },
+    "group": "edges",
+    "classes": "exclude"
+  },
+  {
+    "data": {
+      "id": "e10_e10_exclude",
+      "source": "e10",
+      "target": "e10"
+    },
+    "group": "edges",
+    "classes": "exclude"
+  },
+  {
+    "data": {
+      "id": "e11_e11_exclude",
+      "source": "e11",
+      "target": "e11"
+    },
+    "group": "edges",
+    "classes": "exclude"
+  },
+  {
+    "data": {
+      "id": "e14_e14_exclude",
+      "source": "e14",
+      "target": "e14"
+    },
+    "group": "edges",
+    "classes": "exclude"
+  },
+  {
+    "data": {
+      "id": "e3_e3_response",
+      "source": "e3",
+      "target": "e3"
     },
     "group": "edges",
     "classes": "response"
   },
   {
     "data": {
-      "id": "e6_SettleRenting_response_back",
-      "source": "SettleRenting",
-      "target": "e6"
+      "id": "e3_e3_response_back",
+      "source": "e3",
+      "target": "e3"
     },
     "group": "edges",
     "classes": "response back"
   },
   {
     "data": {
-      "id": "e7_SettleRenting_response",
-      "source": "e7",
-      "target": "SettleRenting"
+      "id": "e4_e4_response",
+      "source": "e4",
+      "target": "e4"
     },
     "group": "edges",
     "classes": "response"
   },
   {
     "data": {
-      "id": "e7_SettleRenting_response_back",
-      "source": "SettleRenting",
-      "target": "e7"
+      "id": "e4_e4_response_back",
+      "source": "e4",
+      "target": "e4"
     },
     "group": "edges",
     "classes": "response back"
   },
   {
     "data": {
-      "id": "e6_SettleWithholding_condition",
-      "source": "e6",
-      "target": "SettleWithholding"
-    },
-    "group": "edges",
-    "classes": "condition"
-  },
-  {
-    "data": {
-      "id": "e7_SettleWithholding_condition",
-      "source": "e7",
-      "target": "SettleWithholding"
-    },
-    "group": "edges",
-    "classes": "condition"
-  },
-  {
-    "data": {
-      "id": "e6_SettleWithholding_response",
-      "source": "e6",
-      "target": "SettleWithholding"
+      "id": "e9_e14_response",
+      "source": "e9",
+      "target": "e14"
     },
     "group": "edges",
     "classes": "response"
   },
   {
     "data": {
-      "id": "e6_SettleWithholding_response_back",
-      "source": "SettleWithholding",
-      "target": "e6"
+      "id": "e9_e14_response_back",
+      "source": "e14",
+      "target": "e9"
     },
     "group": "edges",
     "classes": "response back"
   },
   {
     "data": {
-      "id": "e7_SettleWithholding_response",
-      "source": "e7",
-      "target": "SettleWithholding"
+      "id": "e10_e14_response",
+      "source": "e10",
+      "target": "e14"
     },
     "group": "edges",
     "classes": "response"
   },
   {
     "data": {
-      "id": "e7_SettleWithholding_response_back",
-      "source": "SettleWithholding",
-      "target": "e7"
+      "id": "e10_e14_response_back",
+      "source": "e14",
+      "target": "e10"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e11_e14_response",
+      "source": "e11",
+      "target": "e14"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e11_e14_response_back",
+      "source": "e14",
+      "target": "e11"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "CallDriver_e2_condition",
+      "source": "CallDriver",
+      "target": "e2"
+    },
+    "group": "edges",
+    "classes": "condition"
+  },
+  {
+    "data": {
+      "id": "CallDriver_e2_response",
+      "source": "CallDriver",
+      "target": "e2"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "CallDriver_e2_response_back",
+      "source": "e2",
+      "target": "CallDriver"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "ReturnTruck_e14_condition",
+      "source": "ReturnTruck",
+      "target": "e14"
+    },
+    "group": "edges",
+    "classes": "condition"
+  },
+  {
+    "data": {
+      "id": "ReturnTruck_e14_response",
+      "source": "ReturnTruck",
+      "target": "e14"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "ReturnTruck_e14_response_back",
+      "source": "e14",
+      "target": "ReturnTruck"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e14_SettleCommand_condition",
+      "source": "e14",
+      "target": "SettleCommand"
+    },
+    "group": "edges",
+    "classes": "condition"
+  },
+  {
+    "data": {
+      "id": "e14_SettleCommand_response",
+      "source": "e14",
+      "target": "SettleCommand"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e14_SettleCommand_response_back",
+      "source": "SettleCommand",
+      "target": "e14"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e9_ReturnTruck_response",
+      "source": "e9",
+      "target": "ReturnTruck"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e9_ReturnTruck_response_back",
+      "source": "ReturnTruck",
+      "target": "e9"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e9_SettleCommand_response",
+      "source": "e9",
+      "target": "SettleCommand"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e9_SettleCommand_response_back",
+      "source": "SettleCommand",
+      "target": "e9"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e10_ReturnTruck_response",
+      "source": "e10",
+      "target": "ReturnTruck"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e10_ReturnTruck_response_back",
+      "source": "ReturnTruck",
+      "target": "e10"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e10_SettleCommand_response",
+      "source": "e10",
+      "target": "SettleCommand"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e10_SettleCommand_response_back",
+      "source": "SettleCommand",
+      "target": "e10"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e11_ReturnTruck_response",
+      "source": "e11",
+      "target": "ReturnTruck"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e11_ReturnTruck_response_back",
+      "source": "ReturnTruck",
+      "target": "e11"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e11_SettleCommand_response",
+      "source": "e11",
+      "target": "SettleCommand"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e11_SettleCommand_response_back",
+      "source": "SettleCommand",
+      "target": "e11"
     },
     "group": "edges",
     "classes": "response back"

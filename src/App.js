@@ -17,7 +17,9 @@ import GraphModule from './components/GraphModule';
 const App = () => (
   <BrowserRouter>
       <div className="sans-serif">
-      <Route exact path="/" component={GraphModule} />
+      <Route exact path="/" component={Main} />
+      <Route exact path="/graph" component={GraphModule} />
+
     </div>
   </BrowserRouter>
 );

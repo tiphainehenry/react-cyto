@@ -1,0 +1,97 @@
+[
+  {
+    "data": {
+      "id": "e4s",
+      "name": "!(MonitorLocation, GPSSensor-->=,D,r,i,v,e,r)"
+    },
+    "group": "nodes"
+  },
+  {
+    "data": {
+      "id": "e1",
+      "name": "Florist\nApproveShipment\nDriver"
+    },
+    "group": "nodes",
+    "classes": "external"
+  },
+  {
+    "data": {
+      "id": "e2",
+      "name": "Driver\nDeliver\nFlorist"
+    },
+    "group": "nodes",
+    "classes": "external"
+  },
+  {
+    "data": {
+      "id": "e4s_e4s_response",
+      "source": "e4s",
+      "target": "e4s"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e4s_e4s_response_back",
+      "source": "e4s",
+      "target": "e4s"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e2_e4s_include",
+      "source": "e2",
+      "target": "e4s"
+    },
+    "group": "edges",
+    "classes": "include"
+  },
+  {
+    "data": {
+      "id": "e2_e4s_response",
+      "source": "e2",
+      "target": "e4s"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e2_e4s_response_back",
+      "source": "e4s",
+      "target": "e2"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e1_e4s_response",
+      "source": "e1",
+      "target": "e4s"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e1_e4s_response_back",
+      "source": "e4s",
+      "target": "e1"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e1_e4s_condition",
+      "source": "e1",
+      "target": "e4s"
+    },
+    "group": "edges",
+    "classes": "condition"
+  }
+]

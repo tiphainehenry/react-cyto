@@ -10,25 +10,12 @@ from utils.graphDataTranslator import generateGraph
 
 
 def getChoreographyDetails(role, event):
-    targets = []
-    task = []
-    source = ''
-    for elem in event.split(' '):
-        if 'src' in elem:
-            source=elem.replace('src=', '')
-        elif 'tgt' in elem:
-            targets.append(elem.replace('tgt=', '').replace(']','').strip())
-        elif '"' in elem:
-            task.append(elem.replace('"', ''))
-    
-    eventName, task = cleanName(task)
-    
-#    print("eventName --> " + eventName)
-#    print("src       --> "+ source)
-#    print("targets   --> "+ str(targets))
-#    print("task      --> "+ str(cleanedTsk))
+    src= event.split('src=')[1].split('tgt')[0].strip()
+    tgts= event.split('tgt')[1].replace(']','').strip()
+    task=event.split('[')[1].split('src=')[0].strip()
+    eventName=event.split('[')[0].strip().replace('"','').replace(' ','')
 
-    return eventName, task, source, targets
+    return eventName, task, src, tgts
 
 
 def getRoleEvents(role, events, internalEvents):
@@ -37,7 +24,8 @@ def getRoleEvents(role, events, internalEvents):
 
     for line in events:
         if role in line:
-            eventName, task, src, tgts = getChoreographyDetails(role, line)         
+            eventName, task, src, tgts = getChoreographyDetails(role, line)
+            newEvent = line        
             if src == role:
                 newEvent = eventName+'s["!('+ str(task) +', '+ str(src) + '-&gt;'+str(','.join(tgts))+')"]'
                 projRefs.append(eventName+'s')  
@@ -47,6 +35,7 @@ def getRoleEvents(role, events, internalEvents):
                 projRefs.append(eventName+'r')  
             else:
                 projRefs.append(line)
+
             projEvents.append(newEvent)
 
     for line in internalEvents:
@@ -133,19 +122,12 @@ def addExternalEvents(roleIds, chunks, choreoEventsProj):
 def generateRoleProjection(chunks, role, choreoEventsProj):
     # get simple role projection
     projEvents, projRefs = getRoleEvents(role, chunks['events'], chunks['internalEvents'])
+
     rawLinkages = getLinkages(projRefs, chunks['linkages'])
     updatedLinkages = filterOnRoles(rawLinkages, projRefs)
 
-    for elem in projEvents:
-        print(elem)
-    print(updatedLinkages)
-
     # apply composition algo
     externalIds, externalEvents, externalLinkages = addExternalEvents(projRefs, chunks, choreoEventsProj)
-
-    print(externalIds)
-    print(externalEvents)
-    print(externalLinkages)
 
     # Merge projection items
     tasks = projRefs + externalIds
@@ -157,35 +139,15 @@ def generateRoleProjection(chunks, role, choreoEventsProj):
     projGrouping = groupItems(role, tasks)
     projection = ["##### Projection over role [" + role + "] #######"] + events + projGrouping + linkages 
 
-    for elem in projection:
-        print(elem)
-    # Save Proj text
-    #projPath = os.path.join(projDir, "projection"+role+".txt")
-    #f= open(projPath,"w+")
-    #for i in range(len(projection)):
-    #    f.write(projection[i]+'\n')
-    #f.close()
 
     return projection, externalIds
 
 
 def projRoles(data, target, role):
-    #filename = getFileName()
-    #file = open(os.path.join(filename), 'r')
-    #data = file.readlines()
-    #file.close()
-
-    #projectPath = pathlib.Path(filename).parent.absolute().parent.absolute()
-    #projDir = os.path.join(projectPath, 'projection_'+filename.split('/')[-1]).replace(os.sep, '/')
-
-    #if not (os.path.exists(projDir)):
-    #   os.mkdir(projDir)
-    #    print('[INFO] Folder Created at ' + str(projDir))
     chunks, roles = extractChunks(data)
 
     choreoEventsProj = []
-    for role in roles:
-        for line in chunks['events']:
+    for line in chunks['events']:
                 eventName, task, src, tgts = getChoreographyDetails(role, line)         
                 if src == role:
                     newEvent = eventName+'s["!('+ str(task) +', '+ str(src) + '-&gt;'+str(','.join(tgts))+')"]'
@@ -201,7 +163,3 @@ def projRoles(data, target, role):
 
     print('[INFO] Projection of role '+role+' generated')
 
-
-
-#if __name__ == "__main__":
-#    main()
