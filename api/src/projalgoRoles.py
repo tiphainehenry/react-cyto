@@ -10,8 +10,8 @@ from utils.graphDataTranslator import generateGraph
 
 
 def getChoreographyDetails(role, event):
-    src= event.split('src=')[1].split('tgt')[0].strip()
-    tgts= event.split('tgt')[1].replace(']','').strip()
+    src= event.split('src=')[1].split('tgt=')[0].strip()
+    tgts= ' '.join(event.split('tgt=')[1:]).replace(']','').replace('tgt=', ',').replace('  ', ',').strip()
     task=event.split('[')[1].split('src=')[0].strip()
     eventName=event.split('[')[0].strip().replace('"','').replace(' ','')
 
@@ -23,15 +23,18 @@ def getRoleEvents(role, events, internalEvents):
     projRefs = []
 
     for line in events:
+
         if role in line:
             eventName, task, src, tgts = getChoreographyDetails(role, line)
             newEvent = line        
             if src == role:
-                newEvent = eventName+'s["!('+ str(task) +', '+ str(src) + '-&gt;'+str(','.join(tgts))+')"]'
+                newEvent = eventName+'s["!('+ str(task) +', '+ str(src) + '-&gt;'+str(tgts)+')"]'
                 projRefs.append(eventName+'s')  
 
             elif role in tgts:
+                print(line)
                 newEvent = eventName+'r["?('+ str(task) +', '+ str(src) + '-&gt;'+role+')"]'
+                print(newEvent)
                 projRefs.append(eventName+'r')  
             else:
                 projRefs.append(line)
@@ -45,9 +48,10 @@ def getRoleEvents(role, events, internalEvents):
             name = line.split("[")[0].strip()
             projRefs.append(name)
 
-
     #projGrouping = groupItems(role, projRefs)
 
+    print(projRefs)
+    print(projEvents)
     return projEvents, projRefs
 
 
@@ -97,10 +101,11 @@ def addExternalEvents(roleIds, chunks, choreoEventsProj):
         for _id in externalIds:
             if toTest in _id:
                 externalEvents.append(elem)
-    #update externalLinkages:
-    
+
+    #update externalLinkages:   ## issue here: shouldn't send back e10s
     _externalLinkages = []
     for link in externalLinkages:
+        print(link)
         event1 = link.split()[0].strip()
         event2 = link.split()[2].strip()
         if event1 in externalIds:
@@ -119,12 +124,16 @@ def addExternalEvents(roleIds, chunks, choreoEventsProj):
     
     return externalIds, externalEvents, externalLinkages
 
+
+
+
+
 def generateRoleProjection(chunks, role, choreoEventsProj):
     # get simple role projection
-    projEvents, projRefs = getRoleEvents(role, chunks['events'], chunks['internalEvents'])
+    projEvents, projRefs = getRoleEvents(role, chunks['events'], chunks['internalEvents']) ## 
 
-    rawLinkages = getLinkages(projRefs, chunks['linkages'])
-    updatedLinkages = filterOnRoles(rawLinkages, projRefs)
+    rawLinkages = getLinkages(projRefs, chunks['linkages']) 
+    updatedLinkages = filterOnRoles(rawLinkages, projRefs) ## checked
 
     # apply composition algo
     externalIds, externalEvents, externalLinkages = addExternalEvents(projRefs, chunks, choreoEventsProj)
@@ -150,7 +159,7 @@ def projRoles(data, target, role):
     for line in chunks['events']:
                 eventName, task, src, tgts = getChoreographyDetails(role, line)         
                 if src == role:
-                    newEvent = eventName+'s["!('+ str(task) +', '+ str(src) + '-&gt;'+str(','.join(tgts))+')"]'
+                    newEvent = eventName+'s["!('+ str(task) +', '+ str(src) + '-&gt;'+str(tgts)+')"]'
                     choreoEventsProj.append(newEvent)
                 elif role in tgts:
                     newEvent = eventName+'r["?('+ str(task) +', '+ str(src) + '-&gt;'+role+')"]'

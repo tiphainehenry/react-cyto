@@ -26,7 +26,6 @@ def main():
 
     for role in getRoles():
         projRoles(_data, target, role)
-        
 
 if __name__ == "__main__":
     main()

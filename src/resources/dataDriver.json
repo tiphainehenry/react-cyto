@@ -2,7 +2,7 @@
   {
     "data": {
       "id": "e2s",
-      "name": "!(Shipping, Driver-->=,F,l,o,r,i,s,t)"
+      "name": "!(Shipping, Driver-->Florist,Customer)"
     },
     "group": "nodes"
   },
@@ -22,51 +22,24 @@
   },
   {
     "data": {
-      "id": "e5",
-      "name": "Customer\nCheckDelivery\nFlorist"
+      "id": "e5r",
+      "name": "?(CheckDelivery, Customer-->Driver)"
     },
-    "group": "nodes",
-    "classes": "external"
+    "group": "nodes"
   },
   {
     "data": {
-      "id": "e8",
-      "name": "Customer\nAccept\nFlorist"
+      "id": "e8r",
+      "name": "?(Accept, Customer-->Driver)"
     },
-    "group": "nodes",
-    "classes": "external"
+    "group": "nodes"
   },
   {
     "data": {
-      "id": "e9",
-      "name": "Customer\nReject\nFlorist"
+      "id": "e9r",
+      "name": "?(Reject, Customer-->Driver)"
     },
-    "group": "nodes",
-    "classes": "external"
-  },
-  {
-    "data": {
-      "id": "e5",
-      "name": "Customer\nCheckDelivery\nFlorist"
-    },
-    "group": "nodes",
-    "classes": "external"
-  },
-  {
-    "data": {
-      "id": "e8",
-      "name": "Customer\nAccept\nFlorist"
-    },
-    "group": "nodes",
-    "classes": "external"
-  },
-  {
-    "data": {
-      "id": "e9",
-      "name": "Customer\nReject\nFlorist"
-    },
-    "group": "nodes",
-    "classes": "external"
+    "group": "nodes"
   },
   {
     "data": {
@@ -105,6 +78,60 @@
     },
     "group": "nodes",
     "classes": "external"
+  },
+  {
+    "data": {
+      "id": "e2s_e5r_response",
+      "source": "e2s",
+      "target": "e5r"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e2s_e5r_response_back",
+      "source": "e5r",
+      "target": "e2s"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e3r_e5r_response",
+      "source": "e3r",
+      "target": "e5r"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e3r_e5r_response_back",
+      "source": "e5r",
+      "target": "e3r"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e4r_e5r_response",
+      "source": "e4r",
+      "target": "e5r"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e4r_e5r_response_back",
+      "source": "e5r",
+      "target": "e4r"
+    },
+    "group": "edges",
+    "classes": "response back"
   },
   {
     "data": {
@@ -162,6 +189,69 @@
   },
   {
     "data": {
+      "id": "e5r_e8r_response",
+      "source": "e5r",
+      "target": "e8r"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e5r_e8r_response_back",
+      "source": "e8r",
+      "target": "e5r"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e5r_e9r_response",
+      "source": "e5r",
+      "target": "e9r"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e5r_e9r_response_back",
+      "source": "e9r",
+      "target": "e5r"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e8r_e11s_include",
+      "source": "e8r",
+      "target": "e11s"
+    },
+    "group": "edges",
+    "classes": "include"
+  },
+  {
+    "data": {
+      "id": "e8r_e11s_response",
+      "source": "e8r",
+      "target": "e11s"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e8r_e11s_response_back",
+      "source": "e11s",
+      "target": "e8r"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
       "id": "CallDriver_e2s_condition",
       "source": "CallDriver",
       "target": "e2s"
@@ -213,6 +303,51 @@
     },
     "group": "edges",
     "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e8r_e8r_exclude",
+      "source": "e8r",
+      "target": "e8r"
+    },
+    "group": "edges",
+    "classes": "exclude"
+  },
+  {
+    "data": {
+      "id": "e8r_e9r_exclude",
+      "source": "e8r",
+      "target": "e9r"
+    },
+    "group": "edges",
+    "classes": "exclude"
+  },
+  {
+    "data": {
+      "id": "e9r_e8r_exclude",
+      "source": "e9r",
+      "target": "e8r"
+    },
+    "group": "edges",
+    "classes": "exclude"
+  },
+  {
+    "data": {
+      "id": "e9r_e9r_exclude",
+      "source": "e9r",
+      "target": "e9r"
+    },
+    "group": "edges",
+    "classes": "exclude"
+  },
+  {
+    "data": {
+      "id": "e9r_e11s_exclude",
+      "source": "e9r",
+      "target": "e11s"
+    },
+    "group": "edges",
+    "classes": "exclude"
   },
   {
     "data": {
@@ -279,6 +414,42 @@
   },
   {
     "data": {
+      "id": "e9r_ReturnTruck_response",
+      "source": "e9r",
+      "target": "ReturnTruck"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e9r_ReturnTruck_response_back",
+      "source": "ReturnTruck",
+      "target": "e9r"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e9r_e14r_response",
+      "source": "e9r",
+      "target": "e14r"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e9r_e14r_response_back",
+      "source": "e14r",
+      "target": "e9r"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
       "id": "e11s_ReturnTruck_response",
       "source": "e11s",
       "target": "ReturnTruck"
@@ -315,81 +486,27 @@
   },
   {
     "data": {
-      "id": "e2s_e5_response",
-      "source": "e2s",
-      "target": "e5"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e2s_e5_response_back",
-      "source": "e5",
-      "target": "e2s"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
-      "id": "e3r_e5_response",
-      "source": "e3r",
-      "target": "e5"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e3r_e5_response_back",
-      "source": "e5",
-      "target": "e3r"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
-      "id": "e4r_e5_response",
-      "source": "e4r",
-      "target": "e5"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e4r_e5_response_back",
-      "source": "e5",
-      "target": "e4r"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
-      "id": "e8_e11s_include",
-      "source": "e8",
-      "target": "e11s"
+      "id": "e8r_e10_include",
+      "source": "e8r",
+      "target": "e10"
     },
     "group": "edges",
     "classes": "include"
   },
   {
     "data": {
-      "id": "e8_e11s_response",
-      "source": "e8",
-      "target": "e11s"
+      "id": "e8r_e10_response",
+      "source": "e8r",
+      "target": "e10"
     },
     "group": "edges",
     "classes": "response"
   },
   {
     "data": {
-      "id": "e8_e11s_response_back",
-      "source": "e11s",
-      "target": "e8"
+      "id": "e8r_e10_response_back",
+      "source": "e10",
+      "target": "e8r"
     },
     "group": "edges",
     "classes": "response back"
@@ -450,45 +567,27 @@
   },
   {
     "data": {
-      "id": "e9_e11s_exclude",
-      "source": "e9",
-      "target": "e11s"
+      "id": "e9r_e10_exclude",
+      "source": "e9r",
+      "target": "e10"
     },
     "group": "edges",
     "classes": "exclude"
   },
   {
     "data": {
-      "id": "e9_ReturnTruck_response",
-      "source": "e9",
-      "target": "ReturnTruck"
+      "id": "e9r_SettleCommand_response",
+      "source": "e9r",
+      "target": "SettleCommand"
     },
     "group": "edges",
     "classes": "response"
   },
   {
     "data": {
-      "id": "e9_ReturnTruck_response_back",
-      "source": "ReturnTruck",
-      "target": "e9"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
-      "id": "e9_e14r_response",
-      "source": "e9",
-      "target": "e14r"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e9_e14r_response_back",
-      "source": "e14r",
-      "target": "e9"
+      "id": "e9r_SettleCommand_response_back",
+      "source": "SettleCommand",
+      "target": "e9r"
     },
     "group": "edges",
     "classes": "response back"

@@ -29,14 +29,6 @@
   },
   {
     "data": {
-      "id": "e11",
-      "name": "Driver\nUnloadTruck\nCustomer"
-    },
-    "group": "nodes",
-    "classes": "external"
-  },
-  {
-    "data": {
       "id": "e3",
       "name": "TempSensor\nMonitorTemperature\nDriver"
     },
@@ -47,14 +39,6 @@
     "data": {
       "id": "e4",
       "name": "GPSSensor\nMonitorLocation\nDriver"
-    },
-    "group": "nodes",
-    "classes": "external"
-  },
-  {
-    "data": {
-      "id": "e11",
-      "name": "Driver\nUnloadTruck\nCustomer"
     },
     "group": "nodes",
     "classes": "external"
@@ -164,6 +148,33 @@
     "data": {
       "id": "e8r_e10r_response_back",
       "source": "e10r",
+      "target": "e8r"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e8r_e11r_include",
+      "source": "e8r",
+      "target": "e11r"
+    },
+    "group": "edges",
+    "classes": "include"
+  },
+  {
+    "data": {
+      "id": "e8r_e11r_response",
+      "source": "e8r",
+      "target": "e11r"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e8r_e11r_response_back",
+      "source": "e11r",
       "target": "e8r"
     },
     "group": "edges",
@@ -297,9 +308,27 @@
   },
   {
     "data": {
+      "id": "e9r_e11r_exclude",
+      "source": "e9r",
+      "target": "e11r"
+    },
+    "group": "edges",
+    "classes": "exclude"
+  },
+  {
+    "data": {
       "id": "e10r_e10r_exclude",
       "source": "e10r",
       "target": "e10r"
+    },
+    "group": "edges",
+    "classes": "exclude"
+  },
+  {
+    "data": {
+      "id": "e11r_e11r_exclude",
+      "source": "e11r",
+      "target": "e11r"
     },
     "group": "edges",
     "classes": "exclude"
@@ -396,6 +425,42 @@
   },
   {
     "data": {
+      "id": "e11r_e14s_response",
+      "source": "e11r",
+      "target": "e14s"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e11r_e14s_response_back",
+      "source": "e14s",
+      "target": "e11r"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e11r_SettleCommand_response",
+      "source": "e11r",
+      "target": "SettleCommand"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e11r_SettleCommand_response_back",
+      "source": "SettleCommand",
+      "target": "e11r"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
       "id": "e3_e5r_response",
       "source": "e3",
       "target": "e5r"
@@ -486,33 +551,6 @@
   },
   {
     "data": {
-      "id": "e8r_e11_include",
-      "source": "e8r",
-      "target": "e11"
-    },
-    "group": "edges",
-    "classes": "include"
-  },
-  {
-    "data": {
-      "id": "e8r_e11_response",
-      "source": "e8r",
-      "target": "e11"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e8r_e11_response_back",
-      "source": "e11",
-      "target": "e8r"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
       "id": "ReturnTruck_e14s_condition",
       "source": "ReturnTruck",
       "target": "e14s"
@@ -537,15 +575,6 @@
     },
     "group": "edges",
     "classes": "response back"
-  },
-  {
-    "data": {
-      "id": "e9r_e11_exclude",
-      "source": "e9r",
-      "target": "e11"
-    },
-    "group": "edges",
-    "classes": "exclude"
   },
   {
     "data": {
@@ -585,36 +614,18 @@
   },
   {
     "data": {
-      "id": "e11_e14s_response",
-      "source": "e11",
-      "target": "e14s"
+      "id": "e11r_ReturnTruck_response",
+      "source": "e11r",
+      "target": "ReturnTruck"
     },
     "group": "edges",
     "classes": "response"
   },
   {
     "data": {
-      "id": "e11_e14s_response_back",
-      "source": "e14s",
-      "target": "e11"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
-      "id": "e11_SettleCommand_response",
-      "source": "e11",
-      "target": "SettleCommand"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e11_SettleCommand_response_back",
-      "source": "SettleCommand",
-      "target": "e11"
+      "id": "e11r_ReturnTruck_response_back",
+      "source": "ReturnTruck",
+      "target": "e11r"
     },
     "group": "edges",
     "classes": "response back"

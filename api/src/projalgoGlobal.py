@@ -20,9 +20,6 @@ def generateGlobalProjection(chunks):
     # Extract linkages
     linkages = ["\n## Linkages ##"] + chunks['linkages'] 
     
-    for elem in linkages:
-        print(elem)
-
     # Merge projection items
     projection = ["##### Choreography Projection #######"] + globalEvents + linkages
 
@@ -36,7 +33,6 @@ def projectGlobal(data, target):
     generateGraph(projection, externalIds, target, "Global")
 
     #vectorize(projectionData, projPath)
-
     print('[INFO] Global Projection generated')
  
 #if __name__ == "__main__":

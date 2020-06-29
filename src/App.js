@@ -10,15 +10,22 @@ import {
   Link,
   BrowserRouter
 } from "react-router-dom";
-import GraphModule from './components/GraphModule';
+import GraphModuleGlobal from './components/GraphModuleGlobal';
+import GraphModuleChoreography from './components/GraphModuleChoreography';
+import GraphModuleFlorist from './components/GraphModuleFlorist';
+import GraphModuleDriver from './components/GraphModuleDriver';
+import GraphModuleCustomer from './components/GraphModuleCustomer';
 
 
 
 const App = () => (
   <BrowserRouter>
       <div className="sans-serif">
-      <Route exact path="/" component={Main} />
-      <Route exact path="/graph" component={GraphModule} />
+      <Route exact path="/" component={GraphModuleGlobal} />
+      <Route exact path="/choreography" component={GraphModuleChoreography} />
+      <Route exact path="/florist" component={GraphModuleFlorist} />
+      <Route exact path="/driver" component={GraphModuleDriver} />
+      <Route exact path="/customer" component={GraphModuleCustomer} />
 
     </div>
   </BrowserRouter>

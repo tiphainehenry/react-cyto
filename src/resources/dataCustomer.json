@@ -1,40 +1,31 @@
 [
   {
     "data": {
-      "id": "e2",
-      "name": "Driver\nShipping\nFlorist"
+      "id": "e2r",
+      "name": "?(Shipping, Driver-->Customer)"
     },
-    "group": "nodes",
-    "classes": "external"
+    "group": "nodes"
   },
   {
     "data": {
       "id": "e5s",
-      "name": "!(CheckDelivery, Customer-->=,F,l,o,r,i,s,t)"
+      "name": "!(CheckDelivery, Customer-->Florist,Driver)"
     },
     "group": "nodes"
   },
   {
     "data": {
       "id": "e8s",
-      "name": "!(Accept, Customer-->=,F,l,o,r,i,s,t)"
+      "name": "!(Accept, Customer-->Florist,Driver)"
     },
     "group": "nodes"
   },
   {
     "data": {
       "id": "e9s",
-      "name": "!(Reject, Customer-->=,F,l,o,r,i,s,t)"
+      "name": "!(Reject, Customer-->Florist,Driver)"
     },
     "group": "nodes"
-  },
-  {
-    "data": {
-      "id": "e2",
-      "name": "Driver\nShipping\nFlorist"
-    },
-    "group": "nodes",
-    "classes": "external"
   },
   {
     "data": {
@@ -62,6 +53,14 @@
   },
   {
     "data": {
+      "id": "CallDriver",
+      "name": "CallDriver"
+    },
+    "group": "nodes",
+    "classes": "external"
+  },
+  {
+    "data": {
       "id": "SettleCommand",
       "name": "SettleCommand"
     },
@@ -75,6 +74,24 @@
     },
     "group": "nodes",
     "classes": "external"
+  },
+  {
+    "data": {
+      "id": "e2r_e5s_response",
+      "source": "e2r",
+      "target": "e5s"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e2r_e5s_response_back",
+      "source": "e5s",
+      "target": "e2r"
+    },
+    "group": "edges",
+    "classes": "response back"
   },
   {
     "data": {
@@ -240,24 +257,6 @@
   },
   {
     "data": {
-      "id": "e2_e5s_response",
-      "source": "e2",
-      "target": "e5s"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e2_e5s_response_back",
-      "source": "e5s",
-      "target": "e2"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
       "id": "e3_e5s_response",
       "source": "e3",
       "target": "e5s"
@@ -288,6 +287,87 @@
       "id": "e4_e5s_response_back",
       "source": "e5s",
       "target": "e4"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e2r_e3_response",
+      "source": "e2r",
+      "target": "e3"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e2r_e3_response_back",
+      "source": "e3",
+      "target": "e2r"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e2r_e3_include",
+      "source": "e2r",
+      "target": "e3"
+    },
+    "group": "edges",
+    "classes": "include"
+  },
+  {
+    "data": {
+      "id": "e2r_e4_include",
+      "source": "e2r",
+      "target": "e4"
+    },
+    "group": "edges",
+    "classes": "include"
+  },
+  {
+    "data": {
+      "id": "e2r_e4_response",
+      "source": "e2r",
+      "target": "e4"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e2r_e4_response_back",
+      "source": "e4",
+      "target": "e2r"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "CallDriver_e2r_condition",
+      "source": "CallDriver",
+      "target": "e2r"
+    },
+    "group": "edges",
+    "classes": "condition"
+  },
+  {
+    "data": {
+      "id": "CallDriver_e2r_response",
+      "source": "CallDriver",
+      "target": "e2r"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "CallDriver_e2r_response_back",
+      "source": "e2r",
+      "target": "CallDriver"
     },
     "group": "edges",
     "classes": "response back"

@@ -2,7 +2,7 @@
     {
       "selector": "edge",
       "style": {
-        "width": 2,
+        "width": 5,
         "curve-style": "bezier",
         "source-endpoint": "inside-to-node"
       }
