@@ -14,7 +14,6 @@ def generateGlobalProjection(chunks):
 
     globalEvents = []
     for event in chunks['events'] + chunks['internalEvents']: #events refer here to choreography events
-        print(event)
         globalEvents.append(event.strip())
 
     # Extract linkages

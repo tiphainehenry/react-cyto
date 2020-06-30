@@ -32,9 +32,7 @@ def getRoleEvents(role, events, internalEvents):
                 projRefs.append(eventName+'s')  
 
             elif role in tgts:
-                print(line)
                 newEvent = eventName+'r["?('+ str(task) +', '+ str(src) + '-&gt;'+role+')"]'
-                print(newEvent)
                 projRefs.append(eventName+'r')  
             else:
                 projRefs.append(line)
@@ -49,9 +47,6 @@ def getRoleEvents(role, events, internalEvents):
             projRefs.append(name)
 
     #projGrouping = groupItems(role, projRefs)
-
-    print(projRefs)
-    print(projEvents)
     return projEvents, projRefs
 
 
@@ -94,7 +89,6 @@ def addExternalEvents(roleIds, chunks, choreoEventsProj):
             _externalIds.append(elem)
     externalIds = _externalIds
 
-    #print(externalLinkages)
     externalEvents = []
     for elem in chunks['internalEvents'] + chunks['events']:
         toTest = elem.split('[')[0].strip() 
@@ -105,7 +99,6 @@ def addExternalEvents(roleIds, chunks, choreoEventsProj):
     #update externalLinkages:   ## issue here: shouldn't send back e10s
     _externalLinkages = []
     for link in externalLinkages:
-        print(link)
         event1 = link.split()[0].strip()
         event2 = link.split()[2].strip()
         if event1 in externalIds:
@@ -123,10 +116,6 @@ def addExternalEvents(roleIds, chunks, choreoEventsProj):
     externalLinkages = _externalLinkages
     
     return externalIds, externalEvents, externalLinkages
-
-
-
-
 
 def generateRoleProjection(chunks, role, choreoEventsProj):
     # get simple role projection
@@ -147,7 +136,6 @@ def generateRoleProjection(chunks, role, choreoEventsProj):
 
     projGrouping = groupItems(role, tasks)
     projection = ["##### Projection over role [" + role + "] #######"] + events + projGrouping + linkages 
-
 
     return projection, externalIds
 

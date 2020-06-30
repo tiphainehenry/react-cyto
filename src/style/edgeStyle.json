@@ -26,6 +26,7 @@
         "color":"#29A81A",
         "target-arrow-color": "#29A81A",
         "target-label": "+",
+        "font-size": "20",
         "target-text-offset":"15px",
         "target-text-margin-y":"15px"
       }

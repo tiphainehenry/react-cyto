@@ -29,6 +29,20 @@
   },
   {
     "data": {
+      "id": "e10s",
+      "name": "!(Pay, Customer-->Florist)"
+    },
+    "group": "nodes"
+  },
+  {
+    "data": {
+      "id": "e11r",
+      "name": "?(UnloadTruck, Driver-->Customer)"
+    },
+    "group": "nodes"
+  },
+  {
+    "data": {
       "id": "e3",
       "name": "TempSensor\nMonitorTemperature\nDriver"
     },

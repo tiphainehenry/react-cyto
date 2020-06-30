@@ -4,12 +4,20 @@
       "id": "e2r",
       "name": "?(Shipping, Driver-->Florist)"
     },
+    "position": {
+      "x": 600,
+      "y": 100
+    },
     "group": "nodes"
   },
   {
     "data": {
       "id": "e5r",
       "name": "?(CheckDelivery, Customer-->Florist)"
+    },
+    "position": {
+      "x": 900,
+      "y": 100
     },
     "group": "nodes"
   },
@@ -18,6 +26,10 @@
       "id": "e8r",
       "name": "?(Accept, Customer-->Florist)"
     },
+    "position": {
+      "x": 1200,
+      "y": -100
+    },
     "group": "nodes"
   },
   {
@@ -25,12 +37,53 @@
       "id": "e9r",
       "name": "?(Reject, Customer-->Florist)"
     },
+    "position": {
+      "x": 1200,
+      "y": 300
+    },
+    "group": "nodes"
+  },
+  {
+    "data": {
+      "id": "e10r",
+      "name": "?(Pay, Customer-->Florist)"
+    },
+    "position": {
+      "x": 1600,
+      "y": 300
+    },
+    "group": "nodes"
+  },
+  {
+    "data": {
+      "id": "e11r",
+      "name": "?(UnloadTruck, Driver-->Florist)"
+    },
+    "position": {
+      "x": 1500,
+      "y": -150
+    },
+    "group": "nodes"
+  },
+  {
+    "data": {
+      "id": "e14s",
+      "name": "!(PayDriver, Florist-->Driver)"
+    },
+    "position": {
+      "x": 1800,
+      "y": -150
+    },
     "group": "nodes"
   },
   {
     "data": {
       "id": "e3",
       "name": "TempSensor\nMonitorTemperature\nDriver"
+    },
+    "position": {
+      "x": 600,
+      "y": 300
     },
     "group": "nodes",
     "classes": "external"
@@ -40,6 +93,10 @@
       "id": "e4",
       "name": "GPSSensor\nMonitorLocation\nDriver"
     },
+    "position": {
+      "x": 600,
+      "y": -100
+    },
     "group": "nodes",
     "classes": "external"
   },
@@ -48,12 +105,20 @@
       "id": "PrepareCommand",
       "name": "PrepareCommand"
     },
+    "position": {
+      "x": 0,
+      "y": 100
+    },
     "group": "nodes"
   },
   {
     "data": {
       "id": "CallDriver",
       "name": "CallDriver"
+    },
+    "position": {
+      "x": 300,
+      "y": 100
     },
     "group": "nodes"
   },
@@ -62,12 +127,20 @@
       "id": "SettleCommand",
       "name": "SettleCommand"
     },
+    "position": {
+      "x": 1800,
+      "y": 100
+    },
     "group": "nodes"
   },
   {
     "data": {
       "id": "ReturnTruck",
       "name": "ReturnTruck"
+    },
+    "position": {
+      "x": 2100,
+      "y": 100
     },
     "group": "nodes",
     "classes": "external"

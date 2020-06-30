@@ -43,6 +43,20 @@
   },
   {
     "data": {
+      "id": "e11s",
+      "name": "!(UnloadTruck, Driver-->Customer,Florist)"
+    },
+    "group": "nodes"
+  },
+  {
+    "data": {
+      "id": "e14r",
+      "name": "?(PayDriver, Florist-->Driver)"
+    },
+    "group": "nodes"
+  },
+  {
+    "data": {
       "id": "e10",
       "name": "Customer\nPay\nFlorist"
     },

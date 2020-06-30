@@ -3,14 +3,14 @@
       "selector": "node",
       "style": {
         "shape": "rectangle",
-        "height": 345,
-        "width": 630,
+        "height": "120",
+        "width": "150",
         "background-color": "#ccc",
         "border-style": "dashed",
-        "border-width": 10,
-        "border-color": "#2F4F4F",
-        "color": "#2F4F4F",
-        "font-size": 60,
+        "border-width": 3,
+        "border-color": "#343a40",
+        "color": "#343a40",
+        "font-size": "10",
         "text-halign": "center",
         "text-valign": "center",
         "text-wrap": "wrap",
@@ -60,7 +60,8 @@
         {
           "selector": "node.external",
           "style": {
-            "background-color": "#FFDAB9"
+            "background-color": "#343a40",
+            "color":"white"
             }
           }
   

@@ -117,6 +117,35 @@ def extractChunks(data):
     }
     return chunks, roles
 
+def extractRoleChunks(data):
+    events, internalEvents = [], []
+    groupings, linkages = [], []
+    roles = []
+    #misc = []
+
+    for line in data:
+
+        if line[0] != '#':
+            if 'role' in line:
+                internalEvents.append(line)
+            elif ('src=' in line) or ('?' in line) or ('!' in line):
+                events.append(line)
+            elif ('-' in line) and ('>' in line):
+                linkages.append(line)
+
+        for i in range(0, len(linkages)):
+            if (linkages[i][0] == '#'):
+                linkages.remove(linkages[i])
+
+
+    chunks = {
+        'events':events,
+        'internalEvents':internalEvents,
+        'linkages':linkages,
+    }
+
+    return chunks
+
 def getRelationElems(relation):
 
     typeID=0
@@ -142,7 +171,6 @@ def getRelationElems(relation):
         'r_to': id_to
     }
     return  relationElems
-
 
 def bodyInternal(event, num_task, externalIds):
     _id= event.split('[')[0].strip()
@@ -190,7 +218,7 @@ def bodyExternal(event, num_task, externalIds):
         body = {
                     'data': { 
                                 'id': _id, 
-                                'name':name
+                                'name':name,
                             },
                     #'position': { "x": num_task*100, "y": 100},
                     'group': "nodes",
@@ -293,11 +321,18 @@ def cytoEdges(edges):
 
 def generateGraph(data, externalIds, target, role):
     # chunk events
-    chunks, roles = extractChunks(data)
 
-    # generate tasks and relations
-    cTasks = cytoTasks(chunks['events']+chunks['internalEvents'], externalIds)
-    cEdges = cytoEdges(chunks['linkages'])
+    if (role not in ['Global','Choreo']):
+        chunks = extractRoleChunks(data)
+        # generate tasks and relations
+        cTasks = cytoTasks(chunks['events']+chunks['internalEvents'], externalIds)
+        cEdges = cytoEdges(chunks['linkages'])
+
+    else:
+        # generate tasks and relations
+        chunks, roles = extractChunks(data)
+        cTasks = cytoTasks(chunks['events']+chunks['internalEvents'], externalIds)
+        cEdges = cytoEdges(chunks['linkages'])
 
     cData = cTasks + cEdges
 

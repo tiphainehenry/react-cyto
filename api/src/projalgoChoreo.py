@@ -88,7 +88,7 @@ def projectChoreo(data, target):
 
     # generate choreography projection
     projection, externalIds = generateChoreographyProjection(chunks.copy()) 
-    generateGraph(projection, externalIds, target, "choreo")
+    generateGraph(projection, externalIds, target, "Choreo")
 
     # generate vectorization
     #file = open(projPath, 'r')    

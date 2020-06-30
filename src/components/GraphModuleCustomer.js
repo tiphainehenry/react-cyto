@@ -1,22 +1,22 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
-import CardGroup from 'react-bootstrap/Card';
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 
 import Cytoscape from "cytoscape";
 import CytoscapeComponent from 'react-cytoscapejs';
 import Header from './Header';
 import axios from 'axios';
 //import klay from 'cytoscape-klay';
-//import COSEBilkent from "cytoscape-cose-bilkent";
-import dagre from 'cytoscape-dagre';
-//Cytoscape.use(COSEBilkent);
 //Cytoscape.use(klay);
+
+//import COSEBilkent from "cytoscape-cose-bilkent";
+//Cytoscape.use(COSEBilkent);
+
+import dagre from 'cytoscape-dagre';
 Cytoscape.use(dagre);
 
-var node_style = require('../resources/nodeStyle.json')
-var edge_style = require('../resources/edgeStyle.json')
-
+var node_style = require('../style/nodeStyle.json')
+var edge_style = require('../style/edgeStyle.json')
+var cyto_style = require('../style/cytoStyle.json')
 var dataR3 = require('../resources/dataCustomer.json')
 
 class GraphModuleCustomer extends React.Component {
@@ -56,52 +56,12 @@ class GraphModuleCustomer extends React.Component {
 
 
   render(){
-//    const layout = {name: 'breadthfirst',
-//                    spacingFactor: 1.5};
-     const layout = {name: 'dagre',
-     rankDir: 'LR',
-     nodeDimensionsIncludeLabels: true,
-     spacingFactor: 1.2,
-     edgeSep: 2,
-     minLen: function( edge ){ return 0; },
-    
-    };
-
-    const style = { width: '100%', 
-                    height: '60vh', 
-                    margin: '0 auto', /* Added */
-                  }
-    
-    const stylesheet = node_style.concat(edge_style)
+    const layout = cyto_style['layout'];
+    const style = cyto_style['style'];
+    const stylesheet = node_style.concat(edge_style);
 
     return  <div>
-              <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky="top">
-                <Navbar.Brand href="/">DCR Portal</Navbar.Brand>
-                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                <Navbar.Collapse id="responsive-navbar-nav">
-                  <Nav className="mr-auto">
-                    <Nav.Link href="/choreography">Choreography</Nav.Link>
-                    <NavDropdown title="Role Projections" id="collasible-nav-dropdown">
-                      <NavDropdown.Item href="/florist">{this.state.r1}</NavDropdown.Item>
-                      <NavDropdown.Item href="/driver">{this.state.r2}</NavDropdown.Item>
-                      <NavDropdown.Item href="/customer">{this.state.r3}</NavDropdown.Item>
-                    </NavDropdown>
-                  </Nav>
-                  <Nav pullRight>
-                    
-                    <NavDropdown title="Constraints Legend" id="collasible-nav-dropdown">
-                      <NavDropdown.Item style={{"font-size":'16px'}}>Post-execution</NavDropdown.Item>
-                      <NavDropdown.Item style={{color:"#29A81A", "font-size":'12px'}}> -- Include</NavDropdown.Item>
-                      <NavDropdown.Item style={{color:"#FF0000", "font-size":'12px'}}> -- Exclude</NavDropdown.Item>
-                      <NavDropdown.Item style={{color:"#1E90FF", "font-size":'12px'}}> -- Response</NavDropdown.Item>
-                      <NavDropdown.Divider />
-                      <NavDropdown.Item style={{"font-size":'16px'}}>Pre-execution</NavDropdown.Item>
-                      <NavDropdown.Item style={{color:"#FFA500", "font-size":'12px'}}> -- Condition</NavDropdown.Item>
-                      <NavDropdown.Item style={{color:"#BC1AF2", "font-size":'12px'}}> -- Milestone</NavDropdown.Item>
-                    </NavDropdown>
-                  </Nav>
-                </Navbar.Collapse>
-              </Navbar>
+            <Header/>
 
               <Card id="r3" style={{width: '95%', height:'70%','margin-bottom':'3vh'}}>
               <Card.Header as="p" style= {{color:'white', 'background-color': '#006588', 'font-size': '10pt', 'font-weight': 200, padding: '2ex 1ex'}}>
@@ -111,6 +71,12 @@ class GraphModuleCustomer extends React.Component {
                                         stylesheet={stylesheet} 
                                         layout={layout} 
                                         style={style} />    
+                </Card.Body>
+              </Card>
+              <Card id="exec_r3" style={{width: '95%', height:'70%','margin-top':'3vh'}}>
+              <Card.Header as="p" style= {{color:'white', 'background-color': '#006588', 'font-size': '10pt', 'font-weight': 200, padding: '2ex 1ex'}}>
+                  Execution logs</Card.Header>
+                <Card.Body >
                 </Card.Body>
               </Card>
             </div>;
