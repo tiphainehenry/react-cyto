@@ -1,31 +1,27 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
-
 import Cytoscape from "cytoscape";
 import CytoscapeComponent from 'react-cytoscapejs';
-import Header from './Header';
-import ExecLogger from './execLogger'
 import axios from 'axios';
-//import klay from 'cytoscape-klay';
+import ExecLogger from './execLogger'
 import COSEBilkent from "cytoscape-cose-bilkent";
-// import dagre from 'cytoscape-dagre';
 Cytoscape.use(COSEBilkent);
 
 var node_style = require('../style/nodeStyle.json')
 var edge_style = require('../style/edgeStyle.json')
 var cyto_style = require('../style/cytoStyle.json')
-var dataChoreo = require('../resources/dataChoreo.json')
 
-class GraphModuleChoreography extends React.Component {
+class DCRgraph extends React.Component {
   constructor(props){
     super(props);
     this.state = {text:null,
                   toBeDisp:'', 
                   global: 'Global DCR to project',
                   choreo:'Choreography Projection', 
-                  r1:'Florist Projection',
+                  r1:'Florist  Projection',
                   r2:'Driver Projection',
                   r3:'Customer Projection',
+                  idClicked:'',
                   nameClicked:'',
                   execlogs: []
                 };
@@ -43,29 +39,41 @@ class GraphModuleChoreography extends React.Component {
   }
   
   componentDidMount() {
-
-    // axios.get(`http://localhost:5000/process`,     {
-      // headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-    // })
-    // .then(res => {
-      // console.log(res);
-    // });
     this.setUpListeners();
-   }
+  }
 
    setUpListeners = () => {
     this.cy.on('click', 'node', (event) => {
+ 
+      //getClikedNode
       console.log(event.target['_private']['data']);
-      this.setState({nameClicked:event.target['_private']['data']['name']})
+
+      this.setState({nameClicked:event.target['_private']['data']['name']});
+      this.setState({idClicked:event.target['_private']['data']['id']});
+
       this.setState({execlogs:this.state.execlogs.concat({
-        'id':event.target['_private']['data']['id'], 
+        'id':this.state.idClicked, 
         'name':this.state.nameClicked,
         'timestamp': new Date().toISOString().substr(0, 19).replace('T', ' ')
+      })});
     
-    })})
+    //updateGraphMarkings
+    event.preventDefault()
+    const idClicked = this.state.idClicked;
+    axios.post(`http://localhost:5000/process`, 
+      {idClicked}
+    )
+    .then(res => {
+        console.log(res);
+        console.log(res.data);
     })
+    .catch(err => {
+        console.log(err);
+        alert(err); //See this error
+    });  
+    
+    });
   }
-
 
   render(){
     const layout = cyto_style['layoutCose'];
@@ -73,13 +81,11 @@ class GraphModuleChoreography extends React.Component {
     const stylesheet = node_style.concat(edge_style)
 
     return  <div>
-              <Header/>
-
-              <Card id="choreo" style={{width: '95%', height:'70%','margin-top':'3vh'}}>
-                <Card.Header as="p" style= {{color:'white', 'background-color': '#00881d', 'font-size': '10pt', 'font-weight': 200, padding: '2ex 1ex'}}>
-                  {this.state.choreo}</Card.Header>
-                <Card.Body>
-                  <CytoscapeComponent elements={dataChoreo} 
+              <Card style={{width: '95%', height:'90%','margin-top':'3vh'}}>
+              <Card.Header as="p" style= {{color:'white', 'background-color': '#006588', 'font-size': '10pt', 'font-weight': 200, padding: '2ex 1ex'}}>
+                  {this.props.id}</Card.Header>
+                <Card.Body >
+                  <CytoscapeComponent elements={this.props.data} 
                                         stylesheet={stylesheet} 
                                         layout={layout} 
                                         style={style} 
@@ -88,10 +94,10 @@ class GraphModuleChoreography extends React.Component {
                                         />    
                 </Card.Body>
               </Card>
-              <ExecLogger  execlogs = {this.state.execlogs}/>
 
+              <ExecLogger  execlogs = {this.state.execlogs}/>
             </div>; 
   }
 }
 
-export default GraphModuleChoreography
+export default DCRgraph

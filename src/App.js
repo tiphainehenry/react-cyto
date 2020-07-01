@@ -1,13 +1,10 @@
 import React from 'react';
 import './style/App.css';
-import Main from './components/Main';
-import Header from './components/Header'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
   BrowserRouter
 } from "react-router-dom";
 import GraphModuleGlobal from './components/GraphModuleGlobal';

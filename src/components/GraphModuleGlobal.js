@@ -6,7 +6,7 @@ import Header from './Header';
 import axios from 'axios';
 //import klay from 'cytoscape-klay';
 import COSEBilkent from "cytoscape-cose-bilkent";
-import dagre from 'cytoscape-dagre';
+// import dagre from 'cytoscape-dagre';
 Cytoscape.use(COSEBilkent);
 //Cytoscape.use(klay);
 // Cytoscape.use(dagre);

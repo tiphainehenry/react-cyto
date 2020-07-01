@@ -9,7 +9,7 @@ import json
 
 from utils.formatting import getFileName, NumpyEncoder
 from utils.chunking import extractChunks, extractRoleChunks
-from utils.initializeGraph import initializeGraph
+from utils.graphManager import initializeGraph
 
 def getRelationElems(relation):
 
