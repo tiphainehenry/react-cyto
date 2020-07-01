@@ -61,7 +61,7 @@ class DCRgraph extends React.Component {
     event.preventDefault()
     const idClicked = this.state.idClicked;
     axios.post(`http://localhost:5000/process`, 
-      {idClicked}
+      {idClicked, projId:this.props.id}
     )
     .then(res => {
         console.log(res);

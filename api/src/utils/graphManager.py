@@ -6,7 +6,6 @@ def initializeGraph(filename):
     with open(filename) as json_data:
         data = json.load(json_data)
     
-    relations = data['relations']
     included = data['markings'][0]['included']   
 
     dataFilename = filename.replace('vect','data')
@@ -31,7 +30,6 @@ def initializeGraph(filename):
     with open(os.path.join(dataFilename), 'w') as outfile:
         json.dump(updProj, outfile, indent=2)
 
-
 def retrieveActivityRelations(relations, activity_id, dataProj):
     conditions = relations['condition']
     milestones = relations['milestone']
@@ -43,61 +41,127 @@ def retrieveActivityRelations(relations, activity_id, dataProj):
     cnt = 0
     for conditionFrom in conditions:
         if conditionFrom[activity_id] == 1:
-            print(conditionFrom[activity_id])
-            fromCondition.append(dataProj[cnt]['data']['id'])
+            fromCondition.append({
+                'vectid':cnt,
+                'projid':dataProj[cnt]['data']['id']})
         cnt = cnt + 1
 
     fromMilestone = []
     cnt = 0
     for milestoneFrom in milestones:
         if milestoneFrom[activity_id] == 1:
-            print(milestoneFrom[activity_id])
-            fromMilestone.append(dataProj[cnt]['data']['id'])
+            fromMilestone.append({
+                'vectid':cnt,
+                'projid':dataProj[cnt]['data']['id']})
         cnt = cnt + 1
     
     toInclude = []
     cnt = 0
     for to_include in includes[activity_id]:
         if to_include == 1:
-            toInclude.append(dataProj[cnt]['data']['id'])
+            toInclude.append({
+                'vectid':cnt,
+                'projid':dataProj[cnt]['data']['id']})
         cnt = cnt + 1
 
     toExclude = []
     cnt = 0
     for to_exclude in excludes[activity_id]:
         if to_exclude == 1:
-            toExclude.append(dataProj[cnt]['data']['id'])
+            toExclude.append({
+                'vectid':cnt,
+                'projid':dataProj[cnt]['data']['id']})
         cnt = cnt + 1
 
     toRespond = []
     cnt = 0
     for to_resp in responses[activity_id]:
         if to_resp == 1:
-            toRespond.append(dataProj[cnt]['data']['id'])
+            toRespond.append({
+                'vectid':cnt,
+                'projid':dataProj[cnt]['data']['id']})
         cnt = cnt + 1
 
-    print('Conditions:')
-    print(fromCondition)
-    print('Milestones:')
-    print(fromMilestone)
-    print('Include:')
-    print(toInclude)
-    print('Exclude:')
-    print(toExclude)
-    print('Responses:')
-    print(toRespond)
+    # print('Conditions:')
+    # print(fromCondition)
+    # print('Milestones:')
+    # print(fromMilestone)
+    # print('Include:')
+    # print(toInclude)
+    # print('Exclude:')
+    # print(toExclude)
+    # print('Responses:')
+    # print(toRespond)
 
     return fromCondition, fromMilestone, toInclude, toExclude, toRespond
 
 
-#def executeNode(data):
-    # projId = data['projId']
-    # activity_name = data['idClicked']
+def preExecCheck(fromCondition, fromMilestone, executed, included):
+    ## if conditions not empty: get markings of conditions --> if not executed yet and included: error
+    if (len(fromCondition)!=0):
+        for elem in fromCondition:
+            if (executed[elem['vectid']] == 0) and (included[elem['vectid']] == 1):
+                print('[INFO] error - elem condition not executed')
+                return False
 
-def executeNode(projId, activity_name):
+    ## if milestones not empty --> similar behavior
+    if (len(fromMilestone)!=0):
+        for elem in fromMilestone:
+            if (executed[elem['vectid']] == 0) and (included[elem['vectid']] == 1):
+                print('[INFO] error - elem milestone not executed')
+                return False
+
+    return True
+
+def postExecManager(toInclude, toExclude, toRespond, included, pending):
+    if(len(toInclude)!=0):
+        for elem in toInclude:
+            included[elem['vectid']] = 1
+
+    if(len(toExclude)!=0):
+        for elem in toExclude:
+            included[elem['vectid']] = 0
+
+    if(len(toRespond)!=0):
+        for elem in toRespond:
+            pending[elem['vectid']] = 1
+    
+    return included, pending
+
+
+
+def updCytoData(dataProj, included, executed, pending):
+    cnt=0
+
+    for elem in dataProj: 
+        if(elem['group']=='nodes'):
+            if ('classes' in elem.keys()) and ('external' in elem['classes']):
+                pass
+            else:
+                classes = []
+                if included[cnt] == 1:
+                    classes.append('included')
+                if executed[cnt] == 1:
+                    classes.append('executed')
+                if pending[cnt] ==1:
+                    classes.append('pending')
+                cnt = cnt+1
+
+                elem.update({'classes': ' '.join(classes)})
+
+    return dataProj
+
+# def executeNode(projId, activity_name):
+
+def executeNode(data):
+    projId = data['projId']
+    activity_name = data['idClicked']
+
     status = 'waiting'
 
     # retrieve activity data
+    print(glob.glob('../../../src/resources/data'+projId+'*'))
+    exit(-1)
     pData = glob.glob('../../../src/resources/data'+projId+'*')[0]
     pVect = glob.glob('../../../src/resources/vect'+projId+'*')[0]
 
@@ -130,46 +194,31 @@ def executeNode(projId, activity_name):
         activity_id, dataProj)
 
         # pre_execution evaluation
-        ## if conditions not empty: get markings of conditions --> if not executed yet and included: error
-
-        ## if milestones not empty: get markings --> similar behavior
-
-
-
-            # condition?
-            # for (var i = 0; i < a.condition.length; i++) 
-                # if(!activities[a.condition[i]].executed && activities[a.condition[i]].included) {
-                    # throw;
-                    # return;
-                # }
-            # milestone?
-            # for (i = 0; i < a.milestone.length; i++) 
-                # if(activities[a.milestone[i]].pending && activities[a.milestone[i]].included) {
-                    # throw;
-                    # return;
-                # }
+        status = preExecCheck(fromCondition, fromMilestone, executed, included)
+        if not status : 
+            return 'throw error - prexec conditions not executed'
 
         # Update markings:
         executed[activity_id] = 1
         pending[activity_id] = 0
 
         # post_execution evaluation  --> upd markings included, excluded, response
-            # for (i = 0; i < a.include.length; i++) 
-                # activities[a.include[i]].included = true;
-            # for (i = 0; i < a.exclude.length; i++) 
-                # activities[a.exclude[i]].included = false;
-            # for (i = 0; i < a.response.length; i++) 
-                # activities[a.response[i]].pending = true; 
+        included, pending = postExecManager(toInclude, toExclude, toRespond, included, pending)
 
-        # rewrite dataRole.json, rewrite , send status
+        ## rewrite vectData
+        with open(pVect, 'w') as outfile:
+            json.dump(dataVect, outfile, indent=2)
 
-        return status
+        ## update projData classes and rewrite
+        updProj = updCytoData(dataProj, included, executed, pending)
+        with open(pData, 'w') as outfile:
+            json.dump(updProj, outfile, indent=2)
 
-
+        return status ## append status to execlog (?)
 
 def main():
     projId = 'Florist'
-    activity_name = 'CallShipper'
+    activity_name = 'PrepareCommand'
 
     executeNode(projId, activity_name)
 

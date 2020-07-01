@@ -21,9 +21,9 @@ CORS(app, expose_headers='Authorization')
 @app.route('/process', methods=['POST', 'GET'])
 def processData():
    data = request.get_json(silent=True)
-   executeNode(data['idClicked'])
+   status = executeNode(data)
    
-   return 'all good', 200, {'Access-Control-Allow-Origin': '*'}
+   return status, 200, {'Access-Control-Allow-Origin': '*'}
 
 
 if __name__ == "__main__":
