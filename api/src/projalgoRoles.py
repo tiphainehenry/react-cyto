@@ -5,7 +5,7 @@ import sys
 
 from utils.formatting import cleanName, getFileName, groupItems
 from utils.chunking import extractChunks, getLinkages
-from utils.vectorization import vectorize
+from utils.vectorization import vectorizeRole
 from utils.graphDataTranslator import generateGraph
 
 
@@ -157,6 +157,7 @@ def projRoles(data, target, role):
 
     projection, externalIds = generateRoleProjection(chunks.copy(), role, choreoEventsProj.copy())            
     generateGraph(projection, externalIds, target, role)
+    vectorizeRole(projection, os.path.join(target,"vect"+role))
 
     print('[INFO] Projection of role '+role+' generated')
 

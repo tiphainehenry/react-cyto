@@ -73,28 +73,12 @@ def generateChoreographyProjection(chunks):
     return projection, externalIds
 
 def projectChoreo(data, target):
-    # filename = getFileName()
-    #file = open(os.path.join(filename), 'r')
-    #data = file.readlines()
-    #file.close()
-
-    #projectPath = pathlib.Path(filename).parent.absolute().parent.absolute()
-    #projDir = os.path.join(projectPath, 'projection_'+filename.split('/')[-1]).replace(os.sep, '/')
-
-    #if not (os.path.exists(projDir)):
-    #    os.mkdir(projDir)
-    #    print('[INFO] Folder Created at ' + str(projDir))
     chunks, roles = extractChunks(data)
 
     # generate choreography projection
     projection, externalIds = generateChoreographyProjection(chunks.copy()) 
     generateGraph(projection, externalIds, target, "Choreo")
-
-    # generate vectorization
-    #file = open(projPath, 'r')    
-    #projectionData = file.readlines()
-    #file.close()
-    #vectorize(projectionData, projPath)
+    vectorize(projection, os.path.join(target,"vectChoreo"))
 
     print('[INFO] Choreography Projection generated')
  

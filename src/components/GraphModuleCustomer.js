@@ -8,11 +8,11 @@ import axios from 'axios';
 //import klay from 'cytoscape-klay';
 //Cytoscape.use(klay);
 
-//import COSEBilkent from "cytoscape-cose-bilkent";
-//Cytoscape.use(COSEBilkent);
+import COSEBilkent from "cytoscape-cose-bilkent";
+Cytoscape.use(COSEBilkent);
 
-import dagre from 'cytoscape-dagre';
-Cytoscape.use(dagre);
+// import dagre from 'cytoscape-dagre';
+// Cytoscape.use(dagre);
 
 var node_style = require('../style/nodeStyle.json')
 var edge_style = require('../style/edgeStyle.json')
@@ -56,7 +56,7 @@ class GraphModuleCustomer extends React.Component {
 
 
   render(){
-    const layout = cyto_style['layout'];
+    const layout = cyto_style['layoutCose'];
     const style = cyto_style['style'];
     const stylesheet = node_style.concat(edge_style);
 

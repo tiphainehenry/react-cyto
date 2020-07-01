@@ -8,7 +8,7 @@ import json
 
 
 from utils.formatting import getFileName, NumpyEncoder
-from utils.chunking import extractChunks
+from utils.chunking import extractChunks, extractRoleChunks
 
 
 def getRelationElems(relation):
@@ -108,7 +108,7 @@ def generateInitialMarkings(chunks):
 
     relations = chunks['linkages']
     events = chunks['events'] + chunks['internalEvents'] 
-
+    
     # get list of events
     eventsList = []
     for event in events:
@@ -136,11 +136,23 @@ def generateInitialMarkings(chunks):
 
 def vectorize(data, filename):
     chunks, roles = extractChunks(data)
+    bitvectors = {
+        'relations':generateRelationMatrices(chunks),
+        'markings': generateInitialMarkings(chunks)
+
+    }
+    with open(filename+'.json', 'w') as outfile:
+        json.dump(bitvectors, outfile, indent=2, cls=NumpyEncoder)
+
+def vectorizeRole(data, filename):
+
+    chunks = extractRoleChunks(data)
+
 
     bitvectors = {
         'relations':generateRelationMatrices(chunks),
         'markings': generateInitialMarkings(chunks)
 
     }
-    with open(filename.replace('.txt', '.json'), 'w') as outfile:
+    with open(filename+'.json', 'w') as outfile:
         json.dump(bitvectors, outfile, indent=2, cls=NumpyEncoder)

@@ -4,20 +4,12 @@
       "id": "e2r",
       "name": "?(Shipping, Driver-->Florist)"
     },
-    "position": {
-      "x": 600,
-      "y": 100
-    },
     "group": "nodes"
   },
   {
     "data": {
       "id": "e5r",
       "name": "?(CheckDelivery, Customer-->Florist)"
-    },
-    "position": {
-      "x": 900,
-      "y": 100
     },
     "group": "nodes"
   },
@@ -26,20 +18,12 @@
       "id": "e8r",
       "name": "?(Accept, Customer-->Florist)"
     },
-    "position": {
-      "x": 1200,
-      "y": -100
-    },
     "group": "nodes"
   },
   {
     "data": {
       "id": "e9r",
       "name": "?(Reject, Customer-->Florist)"
-    },
-    "position": {
-      "x": 1200,
-      "y": 300
     },
     "group": "nodes"
   },
@@ -48,20 +32,12 @@
       "id": "e10r",
       "name": "?(Pay, Customer-->Florist)"
     },
-    "position": {
-      "x": 1600,
-      "y": 300
-    },
     "group": "nodes"
   },
   {
     "data": {
       "id": "e11r",
       "name": "?(UnloadTruck, Driver-->Florist)"
-    },
-    "position": {
-      "x": 1500,
-      "y": -150
     },
     "group": "nodes"
   },
@@ -70,20 +46,12 @@
       "id": "e14s",
       "name": "!(PayDriver, Florist-->Driver)"
     },
-    "position": {
-      "x": 1800,
-      "y": -150
-    },
     "group": "nodes"
   },
   {
     "data": {
       "id": "e3",
       "name": "TempSensor\nMonitorTemperature\nDriver"
-    },
-    "position": {
-      "x": 600,
-      "y": 300
     },
     "group": "nodes",
     "classes": "external"
@@ -93,10 +61,6 @@
       "id": "e4",
       "name": "GPSSensor\nMonitorLocation\nDriver"
     },
-    "position": {
-      "x": 600,
-      "y": -100
-    },
     "group": "nodes",
     "classes": "external"
   },
@@ -105,20 +69,12 @@
       "id": "PrepareCommand",
       "name": "PrepareCommand"
     },
-    "position": {
-      "x": 0,
-      "y": 100
-    },
     "group": "nodes"
   },
   {
     "data": {
       "id": "CallDriver",
       "name": "CallDriver"
-    },
-    "position": {
-      "x": 300,
-      "y": 100
     },
     "group": "nodes"
   },
@@ -127,10 +83,6 @@
       "id": "SettleCommand",
       "name": "SettleCommand"
     },
-    "position": {
-      "x": 1800,
-      "y": 100
-    },
     "group": "nodes"
   },
   {
@@ -138,12 +90,17 @@
       "id": "ReturnTruck",
       "name": "ReturnTruck"
     },
-    "position": {
-      "x": 2100,
-      "y": 100
-    },
     "group": "nodes",
     "classes": "external"
+  },
+  {
+    "data": {
+      "id": "e2r_e5r_milestone",
+      "source": "e2r",
+      "target": "e5r"
+    },
+    "group": "edges",
+    "classes": "milestone"
   },
   {
     "data": {
@@ -198,6 +155,24 @@
     },
     "group": "edges",
     "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e5r_e8r_milestone",
+      "source": "e5r",
+      "target": "e8r"
+    },
+    "group": "edges",
+    "classes": "milestone"
+  },
+  {
+    "data": {
+      "id": "e5r_e9r_milestone",
+      "source": "e5r",
+      "target": "e9r"
+    },
+    "group": "edges",
+    "classes": "milestone"
   },
   {
     "data": {
@@ -531,6 +506,24 @@
     },
     "group": "edges",
     "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e3_e5r_milestone",
+      "source": "e3",
+      "target": "e5r"
+    },
+    "group": "edges",
+    "classes": "milestone"
+  },
+  {
+    "data": {
+      "id": "e4_e5r_milestone",
+      "source": "e4",
+      "target": "e5r"
+    },
+    "group": "edges",
+    "classes": "milestone"
   },
   {
     "data": {

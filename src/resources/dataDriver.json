@@ -95,6 +95,33 @@
   },
   {
     "data": {
+      "id": "e2s_e5r_milestone",
+      "source": "e2s",
+      "target": "e5r"
+    },
+    "group": "edges",
+    "classes": "milestone"
+  },
+  {
+    "data": {
+      "id": "e3r_e5r_milestone",
+      "source": "e3r",
+      "target": "e5r"
+    },
+    "group": "edges",
+    "classes": "milestone"
+  },
+  {
+    "data": {
+      "id": "e4r_e5r_milestone",
+      "source": "e4r",
+      "target": "e5r"
+    },
+    "group": "edges",
+    "classes": "milestone"
+  },
+  {
+    "data": {
       "id": "e2s_e5r_response",
       "source": "e2s",
       "target": "e5r"
@@ -236,6 +263,24 @@
     },
     "group": "edges",
     "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e5r_e8r_milestone",
+      "source": "e5r",
+      "target": "e8r"
+    },
+    "group": "edges",
+    "classes": "milestone"
+  },
+  {
+    "data": {
+      "id": "e5r_e9r_milestone",
+      "source": "e5r",
+      "target": "e9r"
+    },
+    "group": "edges",
+    "classes": "milestone"
   },
   {
     "data": {

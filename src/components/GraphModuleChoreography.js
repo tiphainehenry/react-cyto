@@ -8,9 +8,9 @@ import CytoscapeComponent from 'react-cytoscapejs';
 import Header from './Header';
 import axios from 'axios';
 //import klay from 'cytoscape-klay';
-//import COSEBilkent from "cytoscape-cose-bilkent";
-import dagre from 'cytoscape-dagre';
-Cytoscape.use(dagre);
+import COSEBilkent from "cytoscape-cose-bilkent";
+// import dagre from 'cytoscape-dagre';
+// Cytoscape.use(dagre);
 
 var node_style = require('../style/nodeStyle.json')
 var edge_style = require('../style/edgeStyle.json')
@@ -54,7 +54,7 @@ class GraphModuleChoreography extends React.Component {
 
 
   render(){
-    const layout = cyto_style['layout'];
+    const layout = cyto_style['layoutCose'];
     const style = cyto_style['style'];
     const stylesheet = node_style.concat(edge_style)
 
@@ -71,6 +71,13 @@ class GraphModuleChoreography extends React.Component {
                                         style={style} />    
                 </Card.Body>
               </Card>
+              <Card id="exec_choreo" style={{width: '95%', height:'70%','margin-top':'3vh'}}>
+                <Card.Header as="p" style= {{color:'white', 'background-color': '#00881d', 'font-size': '10pt', 'font-weight': 200, padding: '2ex 1ex'}}>
+                  Execution logs</Card.Header>
+                <Card.Body>
+                </Card.Body>
+              </Card>
+
 
             </div>; 
   }

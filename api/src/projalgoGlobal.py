@@ -31,7 +31,7 @@ def projectGlobal(data, target):
     projection, externalIds = generateGlobalProjection(chunks.copy()) 
     generateGraph(projection, externalIds, target, "Global")
 
-    #vectorize(projectionData, projPath)
+    vectorize(projection, os.path.join(target,"vectGlobal"))
     print('[INFO] Global Projection generated')
  
 #if __name__ == "__main__":

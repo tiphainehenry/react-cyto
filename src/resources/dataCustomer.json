@@ -91,6 +91,15 @@
   },
   {
     "data": {
+      "id": "e2r_e5s_milestone",
+      "source": "e2r",
+      "target": "e5s"
+    },
+    "group": "edges",
+    "classes": "milestone"
+  },
+  {
+    "data": {
       "id": "e2r_e5s_response",
       "source": "e2r",
       "target": "e5s"
@@ -142,6 +151,24 @@
     },
     "group": "edges",
     "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e5s_e8s_milestone",
+      "source": "e5s",
+      "target": "e8s"
+    },
+    "group": "edges",
+    "classes": "milestone"
+  },
+  {
+    "data": {
+      "id": "e5s_e9s_milestone",
+      "source": "e5s",
+      "target": "e9s"
+    },
+    "group": "edges",
+    "classes": "milestone"
   },
   {
     "data": {
@@ -268,6 +295,24 @@
     },
     "group": "edges",
     "classes": "exclude"
+  },
+  {
+    "data": {
+      "id": "e3_e5s_milestone",
+      "source": "e3",
+      "target": "e5s"
+    },
+    "group": "edges",
+    "classes": "milestone"
+  },
+  {
+    "data": {
+      "id": "e4_e5s_milestone",
+      "source": "e4",
+      "target": "e5s"
+    },
+    "group": "edges",
+    "classes": "milestone"
   },
   {
     "data": {

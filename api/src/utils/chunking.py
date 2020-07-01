@@ -94,29 +94,30 @@ def extractChunks(data):
     #misc = []
 
     for line in data:
-        if (line[0] == 'e') and ((line[2] == '[') or (line[3]== '[')): 
-            lineclean = line.replace('= ', '=').replace(' =', '=').replace(' = ', '=')
-            events.append(lineclean)
-            for elem in line.split(' '):
-                if ('src' in elem) or ('tgt' in elem):
-                    elemclean = elem.strip().replace('tgt=', '').replace('src=', '').replace(']', '')
-                    if elemclean != '' and (elemclean not in roles):
-                        roles.append(elemclean)
-        elif '->' in line:
-            linkages.append(line.strip())
-        elif ('role=' in line) and ('#' not in elem):
-            nameChunk = line.split()
-            role = nameChunk.pop()
-            name=''.join(nameChunk).replace('"', '')
-            cleanedInternalEvent = name+' '+ role
-            internalEvents.append(cleanedInternalEvent)
-        else:
-            pass
-            #misc.append(line)
-        
-        for i in range(0, len(linkages)):
-            if (linkages[i][0] == '#'):
-                linkages.remove(linkages[i])
+        if (line[0] !=  '#'):
+            if ('src' in line) and ('tgt' in line):
+                lineclean = line.replace('= ', '=').replace(' =', '=').replace(' = ', '=')
+                events.append(lineclean)
+                for elem in line.split(' '):
+                    if ('src' in elem) or ('tgt' in elem):
+                        elemclean = elem.strip().replace('tgt=', '').replace('src=', '').replace(']', '')
+                        if elemclean != '' and (elemclean not in roles):
+                            roles.append(elemclean)
+            elif ('-' in line) and ('>' in line):
+                linkages.append(line.strip())
+            elif ('role=' in line):
+                nameChunk = line.split()
+                role = nameChunk.pop()
+                name=''.join(nameChunk).replace('"', '')
+                cleanedInternalEvent = name+' '+ role
+                internalEvents.append(cleanedInternalEvent)
+            else:
+                pass
+                #misc.append(line)
+            
+            for i in range(0, len(linkages)):
+                if (linkages[i][0] == '#'):
+                    linkages.remove(linkages[i])
 
     linkages = extractGroupRelations(groupings, linkages)
 
@@ -126,6 +127,31 @@ def extractChunks(data):
         'linkages':linkages,
     }
     return chunks, roles
+
+
+def extractRoleChunks(data):
+    events, internalEvents = [], []
+    linkages = []
+
+    for line in data:
+        if (line[0] != '#'): 
+            if 'role=' in line:
+                internalEvents.append(line)
+            elif ('src=' in line) or ('tgt=' in line) or ('?(' in line) or ('!(' in line):
+                events.append(line)
+            elif ('-' in line) and ('>' in line):
+                linkages.append(line)
+            else:
+                pass
+            
+    chunks = {
+        'events':events,
+        'internalEvents':internalEvents,
+        'linkages':linkages,
+    }
+    return chunks
+
+
 
 def getLinkages(projRefs, linkages):
     for ref in projRefs:
