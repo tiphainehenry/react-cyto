@@ -65,13 +65,6 @@
   },
   {
     "data": {
-      "id": "CallDriver",
-      "name": "CallDriver"
-    },
-    "group": "nodes"
-  },
-  {
-    "data": {
       "id": "ReturnTruck",
       "name": "ReturnTruck"
     },
@@ -79,8 +72,8 @@
   },
   {
     "data": {
-      "id": "PrepareCommand",
-      "name": "PrepareCommand"
+      "id": "CallShipper",
+      "name": "CallShipper"
     },
     "group": "nodes",
     "classes": "external"
@@ -305,33 +298,6 @@
       "id": "e8r_e11s_response_back",
       "source": "e11s",
       "target": "e8r"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
-      "id": "CallDriver_e2s_condition",
-      "source": "CallDriver",
-      "target": "e2s"
-    },
-    "group": "edges",
-    "classes": "condition"
-  },
-  {
-    "data": {
-      "id": "CallDriver_e2s_response",
-      "source": "CallDriver",
-      "target": "e2s"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "CallDriver_e2s_response_back",
-      "source": "e2s",
-      "target": "CallDriver"
     },
     "group": "edges",
     "classes": "response back"
@@ -572,27 +538,27 @@
   },
   {
     "data": {
-      "id": "PrepareCommand_CallDriver_condition",
-      "source": "PrepareCommand",
-      "target": "CallDriver"
+      "id": "CallShipper_e2s_condition",
+      "source": "CallShipper",
+      "target": "e2s"
     },
     "group": "edges",
     "classes": "condition"
   },
   {
     "data": {
-      "id": "PrepareCommand_CallDriver_response",
-      "source": "PrepareCommand",
-      "target": "CallDriver"
+      "id": "CallShipper_e2s_response",
+      "source": "CallShipper",
+      "target": "e2s"
     },
     "group": "edges",
     "classes": "response"
   },
   {
     "data": {
-      "id": "PrepareCommand_CallDriver_response_back",
-      "source": "CallDriver",
-      "target": "PrepareCommand"
+      "id": "CallShipper_e2s_response_back",
+      "source": "e2s",
+      "target": "CallShipper"
     },
     "group": "edges",
     "classes": "response back"

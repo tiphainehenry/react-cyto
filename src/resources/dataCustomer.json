@@ -67,8 +67,8 @@
   },
   {
     "data": {
-      "id": "CallDriver",
-      "name": "CallDriver"
+      "id": "CallShipper",
+      "name": "CallShipper"
     },
     "group": "nodes",
     "classes": "external"
@@ -406,8 +406,8 @@
   },
   {
     "data": {
-      "id": "CallDriver_e2r_condition",
-      "source": "CallDriver",
+      "id": "CallShipper_e2r_condition",
+      "source": "CallShipper",
       "target": "e2r"
     },
     "group": "edges",
@@ -415,8 +415,8 @@
   },
   {
     "data": {
-      "id": "CallDriver_e2r_response",
-      "source": "CallDriver",
+      "id": "CallShipper_e2r_response",
+      "source": "CallShipper",
       "target": "e2r"
     },
     "group": "edges",
@@ -424,9 +424,9 @@
   },
   {
     "data": {
-      "id": "CallDriver_e2r_response_back",
+      "id": "CallShipper_e2r_response_back",
       "source": "e2r",
-      "target": "CallDriver"
+      "target": "CallShipper"
     },
     "group": "edges",
     "classes": "response back"

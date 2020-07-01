@@ -69,12 +69,13 @@
       "id": "PrepareCommand",
       "name": "PrepareCommand"
     },
-    "group": "nodes"
+    "group": "nodes",
+    "classes": "included executable"
   },
   {
     "data": {
-      "id": "CallDriver",
-      "name": "CallDriver"
+      "id": "CallShipper",
+      "name": "CallShipper"
     },
     "group": "nodes"
   },
@@ -230,26 +231,26 @@
   },
   {
     "data": {
-      "id": "PrepareCommand_CallDriver_condition",
+      "id": "PrepareCommand_CallShipper_condition",
       "source": "PrepareCommand",
-      "target": "CallDriver"
+      "target": "CallShipper"
     },
     "group": "edges",
     "classes": "condition"
   },
   {
     "data": {
-      "id": "PrepareCommand_CallDriver_response",
+      "id": "PrepareCommand_CallShipper_response",
       "source": "PrepareCommand",
-      "target": "CallDriver"
+      "target": "CallShipper"
     },
     "group": "edges",
     "classes": "response"
   },
   {
     "data": {
-      "id": "PrepareCommand_CallDriver_response_back",
-      "source": "CallDriver",
+      "id": "PrepareCommand_CallShipper_response_back",
+      "source": "CallShipper",
       "target": "PrepareCommand"
     },
     "group": "edges",
@@ -257,8 +258,8 @@
   },
   {
     "data": {
-      "id": "CallDriver_e2r_condition",
-      "source": "CallDriver",
+      "id": "CallShipper_e2r_condition",
+      "source": "CallShipper",
       "target": "e2r"
     },
     "group": "edges",
@@ -266,8 +267,8 @@
   },
   {
     "data": {
-      "id": "CallDriver_e2r_response",
-      "source": "CallDriver",
+      "id": "CallShipper_e2r_response",
+      "source": "CallShipper",
       "target": "e2r"
     },
     "group": "edges",
@@ -275,9 +276,9 @@
   },
   {
     "data": {
-      "id": "CallDriver_e2r_response_back",
+      "id": "CallShipper_e2r_response_back",
       "source": "e2r",
-      "target": "CallDriver"
+      "target": "CallShipper"
     },
     "group": "edges",
     "classes": "response back"

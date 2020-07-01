@@ -9,7 +9,7 @@ import json
 
 from utils.formatting import getFileName, NumpyEncoder
 from utils.chunking import extractChunks, extractRoleChunks
-
+from utils.initializeGraph import initializeGraph
 
 def getRelationElems(relation):
 
@@ -141,8 +141,13 @@ def vectorize(data, filename):
         'markings': generateInitialMarkings(chunks)
 
     }
-    with open(filename+'.json', 'w') as outfile:
+
+    path = filename+'.json'
+    with open(path, 'w') as outfile:
         json.dump(bitvectors, outfile, indent=2, cls=NumpyEncoder)
+
+    initializeGraph(path)
+
 
 def vectorizeRole(data, filename):
 
@@ -154,5 +159,8 @@ def vectorizeRole(data, filename):
         'markings': generateInitialMarkings(chunks)
 
     }
-    with open(filename+'.json', 'w') as outfile:
+    path = filename+'.json'
+    with open(path, 'w') as outfile:
         json.dump(bitvectors, outfile, indent=2, cls=NumpyEncoder)
+
+    initializeGraph(path)
