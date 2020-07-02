@@ -136,7 +136,7 @@ def postExecManager(toInclude, toExclude, toRespond, markings):
     if(len(toRespond)!=0):
         for elem in toRespond:
             retrieveMarkingOnName(markings, elem['projid'])['pending'] = 1
-    
+            retrieveMarkingOnName(markings, elem['projid'])['include'] = 1    
     return markings
 
 def updCytoData(dataProj, markings):
@@ -151,7 +151,7 @@ def updCytoData(dataProj, markings):
                 if retrieveMarkingOnId(markings, elem)['executed'] == 1:
                     classes.append('executed')
                 if retrieveMarkingOnId(markings, elem)['pending'] == 1:
-                    classes.append('pending')
+                    classes.append('pending executable')
 
                 elem.update({'classes': ' '.join(classes)})
 

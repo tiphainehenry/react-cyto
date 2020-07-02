@@ -85,7 +85,7 @@
       "name": "CallShipper"
     },
     "group": "nodes",
-    "classes": "pending"
+    "classes": "included pending executable"
   },
   {
     "data": {

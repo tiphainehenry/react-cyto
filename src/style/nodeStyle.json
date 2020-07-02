@@ -42,7 +42,8 @@
       {
        "selector": "node.executed",
         "style": {
-          "color": "#29A81A"
+          "color": "#29A81A",
+          "background-color":"white"
         }
       },
       {

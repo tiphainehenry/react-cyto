@@ -92,7 +92,7 @@ class DCRgraph extends React.Component {
                 </Card.Body>
               </Card>
 
-              <ExecLogger  execlogs = {this.state.execlogs}/>
+              {/* <ExecLogger  execlogs = {this.state.execlogs}/> */}
 
               <Reinit/>
             </div>; 
