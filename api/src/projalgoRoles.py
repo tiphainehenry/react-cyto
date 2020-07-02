@@ -3,10 +3,10 @@ import pathlib
 import argparse
 import sys
 
-from utils.formatting import cleanName, getFileName, groupItems
-from utils.chunking import extractChunks, getLinkages
-from utils.vectorization import vectorizeRole
-from utils.graphDataTranslator import generateGraph
+from src.utils.formatting import cleanName, getFileName, groupItems
+from src.utils.chunking import extractChunks, getLinkages
+from src.utils.vectorization import vectorizeRole
+from src.utils.graphDataTranslator import generateGraph
 
 
 def getChoreographyDetails(role, event):

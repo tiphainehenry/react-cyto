@@ -7,9 +7,9 @@ import numpy as np
 import json
 
 
-from utils.formatting import getFileName, NumpyEncoder
-from utils.chunking import extractChunks, extractRoleChunks
-from utils.graphManager import initializeGraph
+from src.utils.formatting import getFileName, NumpyEncoder
+from src.utils.chunking import extractChunks, extractRoleChunks
+from src.utils.graphManager import initializeGraph
 
 def getRelationElems(relation):
 
@@ -66,7 +66,6 @@ def generateRelationMatrices(chunks):
     if relations == []:
         return []
 
-        
     # get list of events
     eventsList = []
     for event in events:
@@ -84,9 +83,9 @@ def generateRelationMatrices(chunks):
 
     return relationMatrices
 
-def generateIncludedMarking(eventsList, events, relations):
-    m_Matrix = np.zeros(len(eventsList))
-
+def generateInitialMarking(eventsList, events, relations):
+    #m_Matrix = np.zeros(len(eventsList))
+    m2 = []
     # get list of events without from activities
     
     #step1: extract to events 
@@ -98,10 +97,14 @@ def generateIncludedMarking(eventsList, events, relations):
 
     #step2: filter on events without to elem
     for event in eventsList:
+        include = 0
         if event not in to_events:
-            m_Matrix[eventsList.index(event)] = 1  # update their id to 1
+            include = 1
+            #m_Matrix[eventsList.index(event)] = 1  # update their id to 1
 
-    return m_Matrix
+        m2.append({'id':event, 'include':include, 'executed':0, 'pending':0})
+
+    return m2 #m_Matrix
 
 def generateInitialMarkings(chunks):
     #print('[INFO] Generating Initial Markings')
@@ -115,13 +118,7 @@ def generateInitialMarkings(chunks):
         eventsList.append(getEventId(event))
 
     # generate markings
-    markingMatrices =  [
-                    {
-                        'included':generateIncludedMarking(eventsList, events, relations),
-                        'pending': np.zeros(len(eventsList)),
-                        'executed':np.zeros(len(eventsList)),
-                    }
-        ]
+    markingMatrices =  generateInitialMarking(eventsList, events, relations)
 
     return markingMatrices
  
@@ -152,7 +149,6 @@ def vectorize(data, filename):
 def vectorizeRole(data, filename):
 
     chunks = extractRoleChunks(data)
-
 
     bitvectors = {
         'relations':generateRelationMatrices(chunks),

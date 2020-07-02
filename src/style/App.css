@@ -92,3 +92,8 @@
   justify-content: center;
   align-items: center;
 }
+
+.scrollable{
+  overflow-y: auto;
+  max-height: 300px;
+}

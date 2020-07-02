@@ -3,10 +3,10 @@ import pathlib
 import argparse
 import sys
 
-from utils.formatting import cleanName, getFileName, groupItems
-from utils.chunking import extractChunks
-from utils.vectorization import vectorize
-from utils.graphDataTranslator import generateGraph
+from src.utils.formatting import cleanName, getFileName, groupItems
+from src.utils.chunking import extractChunks
+from src.utils.vectorization import vectorize
+from src.utils.graphDataTranslator import generateGraph
 
 def filterOnChoreo(choreoIds, linkages):   
     choreoLinkages = []

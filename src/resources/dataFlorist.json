@@ -4,49 +4,56 @@
       "id": "e2r",
       "name": "?(Shipping, Driver-->Florist)"
     },
-    "group": "nodes"
+    "group": "nodes",
+    "classes": ""
   },
   {
     "data": {
       "id": "e5r",
       "name": "?(CheckDelivery, Customer-->Florist)"
     },
-    "group": "nodes"
+    "group": "nodes",
+    "classes": ""
   },
   {
     "data": {
       "id": "e8r",
       "name": "?(Accept, Customer-->Florist)"
     },
-    "group": "nodes"
+    "group": "nodes",
+    "classes": ""
   },
   {
     "data": {
       "id": "e9r",
       "name": "?(Reject, Customer-->Florist)"
     },
-    "group": "nodes"
+    "group": "nodes",
+    "classes": ""
   },
   {
     "data": {
       "id": "e10r",
       "name": "?(Pay, Customer-->Florist)"
     },
-    "group": "nodes"
+    "group": "nodes",
+    "classes": ""
   },
   {
     "data": {
       "id": "e11r",
       "name": "?(UnloadTruck, Driver-->Florist)"
     },
-    "group": "nodes"
+    "group": "nodes",
+    "classes": ""
   },
   {
     "data": {
       "id": "e14s",
       "name": "!(PayDriver, Florist-->Driver)"
     },
-    "group": "nodes"
+    "group": "nodes",
+    "classes": ""
   },
   {
     "data": {
@@ -70,21 +77,23 @@
       "name": "PrepareCommand"
     },
     "group": "nodes",
-    "classes": "included executable"
+    "classes": "included executed"
   },
   {
     "data": {
       "id": "CallShipper",
       "name": "CallShipper"
     },
-    "group": "nodes"
+    "group": "nodes",
+    "classes": "pending"
   },
   {
     "data": {
       "id": "SettleCommand",
       "name": "SettleCommand"
     },
-    "group": "nodes"
+    "group": "nodes",
+    "classes": ""
   },
   {
     "data": {

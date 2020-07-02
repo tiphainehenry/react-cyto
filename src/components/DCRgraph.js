@@ -3,7 +3,8 @@ import Card from 'react-bootstrap/Card';
 import Cytoscape from "cytoscape";
 import CytoscapeComponent from 'react-cytoscapejs';
 import axios from 'axios';
-import ExecLogger from './execLogger'
+import ExecLogger from './execLogger';
+import Reinit from './Reinit';
 import COSEBilkent from "cytoscape-cose-bilkent";
 Cytoscape.use(COSEBilkent);
 
@@ -67,10 +68,6 @@ class DCRgraph extends React.Component {
         console.log(res);
         console.log(res.data);
     })
-    .catch(err => {
-        console.log(err);
-        alert(err); //See this error
-    });  
     
     });
   }
@@ -96,6 +93,8 @@ class DCRgraph extends React.Component {
               </Card>
 
               <ExecLogger  execlogs = {this.state.execlogs}/>
+
+              <Reinit/>
             </div>; 
   }
 }

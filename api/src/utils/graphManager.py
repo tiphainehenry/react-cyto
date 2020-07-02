@@ -2,30 +2,41 @@ import os
 import json
 import glob
 
+
+def retrieveMarkingOnId(markings, elem):
+    id = elem['data']['id']
+    for item in markings:
+        if item['id'] == id:
+            return item
+    else:
+        return []
+
+def retrieveMarkingOnName(markings, activity_name):
+    for elem in markings:
+        if elem['id'] == activity_name:
+            return elem
+    return False
+
 def initializeGraph(filename):
     with open(filename) as json_data:
-        data = json.load(json_data)
-    
-    included = data['markings'][0]['included']   
+        data = json.load(json_data)    
+    markings = data['markings'] 
 
     dataFilename = filename.replace('vect','data')
     with open(dataFilename) as json_data:
         dataProj = json.load(json_data)
 
-    for activity_id in included:
-        print(activity_id)
-
     updProj = []
-    id = 0
     for elem in dataProj:
         if elem['group'] == 'nodes':
             #filter out external events
             if (('classes' not in elem.keys()) or ('external' not in elem['classes'])):
-                if included[id] == 1:
-                        elem.update({'classes': 'included executable'})
+                elemMarking =retrieveMarkingOnId(markings, elem)
+
+                if elemMarking['include'] == 1:
+                    elem.update({'classes': 'included executable'})
                 
         updProj.append(elem)
-        id = id + 1
 
     with open(os.path.join(dataFilename), 'w') as outfile:
         json.dump(updProj, outfile, indent=2)
@@ -82,76 +93,69 @@ def retrieveActivityRelations(relations, activity_id, dataProj):
                 'projid':dataProj[cnt]['data']['id']})
         cnt = cnt + 1
 
-    # print('Conditions:')
-    # print(fromCondition)
-    # print('Milestones:')
-    # print(fromMilestone)
-    # print('Include:')
-    # print(toInclude)
-    # print('Exclude:')
-    # print(toExclude)
-    # print('Responses:')
-    # print(toRespond)
+    """print('Conditions:')
+    print(fromCondition)
+    print('Milestones:')
+    print(fromMilestone)
+    print('Include:')
+    print(toInclude)
+    print('Exclude:')
+    print(toExclude)
+    print('Responses:')
+    print(toRespond)"""
 
     return fromCondition, fromMilestone, toInclude, toExclude, toRespond
 
-
-def preExecCheck(fromCondition, fromMilestone, executed, included):
+def preExecCheck(fromCondition, fromMilestone, markings):
     ## if conditions not empty: get markings of conditions --> if not executed yet and included: error
     if (len(fromCondition)!=0):
         for elem in fromCondition:
-            if (executed[elem['vectid']] == 0) and (included[elem['vectid']] == 1):
+            if (retrieveMarkingOnName(markings, elem['projid'])['executed'] == 0) and (retrieveMarkingOnName(markings, elem)['include'] == 1):
                 print('[INFO] error - elem condition not executed')
                 return False
 
     ## if milestones not empty --> similar behavior
     if (len(fromMilestone)!=0):
         for elem in fromMilestone:
-            if (executed[elem['vectid']] == 0) and (included[elem['vectid']] == 1):
+            if (retrieveMarkingOnName(markings, elem['projid'])['executed'] == 0) and (retrieveMarkingOnName(markings, elem)['include'] == 1):
                 print('[INFO] error - elem milestone not executed')
                 return False
 
     return True
 
-def postExecManager(toInclude, toExclude, toRespond, included, pending):
+def postExecManager(toInclude, toExclude, toRespond, markings):
+
     if(len(toInclude)!=0):
         for elem in toInclude:
-            included[elem['vectid']] = 1
+            retrieveMarkingOnName(markings, elem['projid'])['include'] = 1
 
     if(len(toExclude)!=0):
         for elem in toExclude:
-            included[elem['vectid']] = 0
+            retrieveMarkingOnName(markings, elem['projid'])['include'] = 0
 
     if(len(toRespond)!=0):
         for elem in toRespond:
-            pending[elem['vectid']] = 1
+            retrieveMarkingOnName(markings, elem['projid'])['pending'] = 1
     
-    return included, pending
+    return markings
 
-
-
-def updCytoData(dataProj, included, executed, pending):
-    cnt=0
-
+def updCytoData(dataProj, markings):
     for elem in dataProj: 
         if(elem['group']=='nodes'):
             if ('classes' in elem.keys()) and ('external' in elem['classes']):
                 pass
             else:
                 classes = []
-                if included[cnt] == 1:
+                if retrieveMarkingOnId(markings, elem)['include'] == 1:
                     classes.append('included')
-                if executed[cnt] == 1:
+                if retrieveMarkingOnId(markings, elem)['executed'] == 1:
                     classes.append('executed')
-                if pending[cnt] ==1:
+                if retrieveMarkingOnId(markings, elem)['pending'] == 1:
                     classes.append('pending')
-                cnt = cnt+1
 
                 elem.update({'classes': ' '.join(classes)})
 
     return dataProj
-
-# def executeNode(projId, activity_name):
 
 def executeNode(data):
     projId = data['projId']
@@ -160,33 +164,31 @@ def executeNode(data):
     status = 'waiting'
 
     # retrieve activity data
-    print(glob.glob('../../../src/resources/data'+projId+'*'))
-    exit(-1)
-    pData = glob.glob('../../../src/resources/data'+projId+'*')[0]
-    pVect = glob.glob('../../../src/resources/vect'+projId+'*')[0]
-
+    pData = glob.glob('./src/resources/data'+projId+'*')[0]
+    pVect = glob.glob('./src/resources/vect'+projId+'*')[0]
     with open(pData) as json_data:
         dataProj = json.load(json_data)
     with open(pVect) as json_data:
         dataVect = json.load(json_data)
 
+    # retrieve markings activity_name and check inclusion:
+    markings= dataVect['markings']
     activity_id = 0
-    while (dataProj[activity_id]['data']['id']!=activity_name):
+    while(dataProj[activity_id]['data']['id'] != activity_name):
         activity_id = activity_id+1
 
-    if ('classes' not in dataProj[activity_id]) or ('included' not in dataProj[activity_id]['classes']):
+    activity_marking = retrieveMarkingOnName(markings, activity_name)
+    if activity_marking['include'] != 1:
         print('[INFO] error - elem not included')
         return 'throw error - not included'
+
+    # if ('classes' not in dataProj[activity_id]) or ('included' not in dataProj[activity_id]['classes']):
+        # print('[INFO] error - elem not included')
+        # return 'throw error - not included'
 
     else:
         print('[INFO] success - elem included')
         status = 'executed'
-
-        # retrieve activity relations (conditions, milestones, included, excluded, response)
-        markings= dataVect['markings'][0]
-        included = markings['included'] 
-        executed = markings['executed']  
-        pending = markings['pending']  
 
         # retrieve activity relations (conditions, milestones, included, excluded, response)
         relations = dataVect['relations'][0]
@@ -194,33 +196,26 @@ def executeNode(data):
         activity_id, dataProj)
 
         # pre_execution evaluation
-        status = preExecCheck(fromCondition, fromMilestone, executed, included)
+        status = preExecCheck(fromCondition, fromMilestone, markings)
+
         if not status : 
             return 'throw error - prexec conditions not executed'
 
         # Update markings:
-        executed[activity_id] = 1
-        pending[activity_id] = 0
+        activity_marking['executed'] = 1
+        activity_marking['pending'] = 0
 
         # post_execution evaluation  --> upd markings included, excluded, response
-        included, pending = postExecManager(toInclude, toExclude, toRespond, included, pending)
+        markings = postExecManager(toInclude, toExclude, toRespond, markings)
 
         ## rewrite vectData
         with open(pVect, 'w') as outfile:
             json.dump(dataVect, outfile, indent=2)
 
         ## update projData classes and rewrite
-        updProj = updCytoData(dataProj, included, executed, pending)
+        updProj = updCytoData(dataProj, markings)
         with open(pData, 'w') as outfile:
             json.dump(updProj, outfile, indent=2)
 
         return status ## append status to execlog (?)
 
-def main():
-    projId = 'Florist'
-    activity_name = 'PrepareCommand'
-
-    executeNode(projId, activity_name)
-
-if __name__ == "__main__":
-    main()
