@@ -11,8 +11,8 @@ The global DCR textual description can be found under inputExample.tex
 ## The DCR portal
 
 ### Algorithms
-The projection and bitvector algorithms can be found in the folder <em>./api/src/</em>
-The generated data is stored under <em>./src/resources/</em>
+The projection and bitvector algorithms can be found in the folder ./api/src/
+The generated data is stored under ./src/resources/
 
 ### Running the code
 To run the code locally, 
