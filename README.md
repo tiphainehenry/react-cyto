@@ -9,37 +9,23 @@ This portal projects an input global DCR choreography over each tenant view.
 The global DCR textual description can be found under inputExample.tex
 
 ## The DCR portal
-To run the p
+
+### Algorithms
+The projection and bitvector algorithms can be found in the folder ./api/src/
+The generated data is stored under ./src/resources/data/
+
+### Running the code
+To run the code locally, 
+
+Launch the front-end by opening a first bash terminal and running 
+    npm start
+
+Launch the backend by opening a second bash terminal and running 
+    python api/api.py
+    
+The script runs on http://localhost:3000
+
 
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-
