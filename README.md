@@ -1,14 +1,15 @@
 #  Towards Trusted DCR Choreographies
-
 This code implements the proof-of-concept presented in the paper <em>Towards Trusted DCR Choreographies</em> submitted for the Coopis'20 conference. 
+This portal projects an input global DCR choreography over each tenant view. 
+- The shared public tasks are gathered together in a public DCR graph. The later is compiled and updated in the blokchain for trust purposes. 
+- The tenant projections are updated locally for privacy concerns. Each one of the incorporated public tasks communicates with the blockchain-based DCR graph. 
+
 
 ## Input DCR
-
-The global DCR textual description can be found in .tex
+The global DCR textual description can be found under inputExample.tex
 
 ## The DCR portal
-
-
+To run the p
 
 
 
