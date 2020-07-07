@@ -164,8 +164,8 @@ def executeNode(data):
     status = 'waiting'
 
     # retrieve activity data
-    pData = glob.glob('./src/resources/data'+projId+'*')[0]
-    pVect = glob.glob('./src/resources/vect'+projId+'*')[0]
+    pData = glob.glob('./src/projections/data'+projId+'*')[0]
+    pVect = glob.glob('./src/projections/vect'+projId+'*')[0]
     with open(pData) as json_data:
         dataProj = json.load(json_data)
     with open(pVect) as json_data:
@@ -217,5 +217,5 @@ def executeNode(data):
         with open(pData, 'w') as outfile:
             json.dump(updProj, outfile, indent=2)
 
-        return status ## append status to execlog (?)
+        return 'executed' ## append status to execlog (?)
 

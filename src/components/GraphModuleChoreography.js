@@ -14,7 +14,7 @@ Cytoscape.use(COSEBilkent);
 var node_style = require('../style/nodeStyle.json')
 var edge_style = require('../style/edgeStyle.json')
 var cyto_style = require('../style/cytoStyle.json')
-var dataChoreo = require('../resources/dataChoreo.json')
+var dataChoreo = require('../projections/dataChoreo.json')
 
 class GraphModuleChoreography extends React.Component {
   constructor(props){
@@ -50,6 +50,7 @@ class GraphModuleChoreography extends React.Component {
     // .then(res => {
       // console.log(res);
     // });
+    this.cy.fit();
     this.setUpListeners();
    }
 
@@ -81,7 +82,7 @@ class GraphModuleChoreography extends React.Component {
                 <Card.Body>
                   <CytoscapeComponent elements={dataChoreo} 
                                         stylesheet={stylesheet} 
-                                        layout={layout} 
+//                                        layout={layout} 
                                         style={style} 
                                         cy={(cy) => {this.cy = cy}}
                                         boxSelectionEnabled={false}

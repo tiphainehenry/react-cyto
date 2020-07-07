@@ -4,61 +4,86 @@
       "id": "e2r",
       "name": "?(Shipping, Driver-->Florist)"
     },
-    "group": "nodes",
-    "classes": ""
+    "position": {
+      "x": 800,
+      "y": 0
+    },
+    "group": "nodes"
   },
   {
     "data": {
       "id": "e5r",
       "name": "?(CheckDelivery, Customer-->Florist)"
     },
-    "group": "nodes",
-    "classes": ""
+    "position": {
+      "x": 1200,
+      "y": 0
+    },
+    "group": "nodes"
   },
   {
     "data": {
       "id": "e8r",
       "name": "?(Accept, Customer-->Florist)"
     },
-    "group": "nodes",
-    "classes": ""
+    "position": {
+      "x": 1400,
+      "y": 200
+    },
+    "group": "nodes"
   },
   {
     "data": {
       "id": "e9r",
       "name": "?(Reject, Customer-->Florist)"
     },
-    "group": "nodes",
-    "classes": ""
+    "position": {
+      "x": 1400,
+      "y": -200
+    },
+    "group": "nodes"
   },
   {
     "data": {
       "id": "e10r",
       "name": "?(Pay, Customer-->Florist)"
     },
-    "group": "nodes",
-    "classes": ""
+    "position": {
+      "x": 1800,
+      "y": 200
+    },
+    "group": "nodes"
   },
   {
     "data": {
       "id": "e11r",
       "name": "?(UnloadTruck, Driver-->Florist)"
     },
-    "group": "nodes",
-    "classes": ""
+    "position": {
+      "x": 1800,
+      "y": 0
+    },
+    "group": "nodes"
   },
   {
     "data": {
       "id": "e14s",
       "name": "!(PayDriver, Florist-->Driver)"
     },
-    "group": "nodes",
-    "classes": ""
+    "position": {
+      "x": 2000,
+      "y": -400
+    },
+    "group": "nodes"
   },
   {
     "data": {
       "id": "e3",
       "name": "TempSensor\nMonitorTemperature\nDriver"
+    },
+    "position": {
+      "x": 900,
+      "y": 200
     },
     "group": "nodes",
     "classes": "external"
@@ -68,6 +93,10 @@
       "id": "e4",
       "name": "GPSSensor\nMonitorLocation\nDriver"
     },
+    "position": {
+      "x": 900,
+      "y": -200
+    },
     "group": "nodes",
     "classes": "external"
   },
@@ -76,29 +105,43 @@
       "id": "PrepareCommand",
       "name": "PrepareCommand"
     },
+    "position": {
+      "x": 0,
+      "y": 0
+    },
     "group": "nodes",
-    "classes": "included executed"
+    "classes": "included executable"
   },
   {
     "data": {
       "id": "CallShipper",
       "name": "CallShipper"
     },
-    "group": "nodes",
-    "classes": "included pending executable"
+    "position": {
+      "x": 400,
+      "y": 0
+    },
+    "group": "nodes"
   },
   {
     "data": {
       "id": "SettleCommand",
       "name": "SettleCommand"
     },
-    "group": "nodes",
-    "classes": ""
+    "position": {
+      "x": 2100,
+      "y": 0
+    },
+    "group": "nodes"
   },
   {
     "data": {
       "id": "ReturnTruck",
       "name": "ReturnTruck"
+    },
+    "position": {
+      "x": 1400,
+      "y": -400
     },
     "group": "nodes",
     "classes": "external"

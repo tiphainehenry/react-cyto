@@ -334,10 +334,14 @@ def generateGraph(data, externalIds, target, role):
         cTasks = cytoTasks(chunks['events']+chunks['internalEvents'], externalIds)
         cEdges = cytoEdges(chunks['linkages'])
 
-    cData = cTasks + cEdges
+    # fix ctask coordinates:
+    with open(os.path.join(target.replace('projections','resources'),'data'+role+'_init.json')) as json_file:
+        cData = json.load(json_file)
+
+    # cData = cTasks + cEdges
 
     # json dumps
     with open(os.path.join(target, 'data'+role+'.json'), 'w') as outfile:
+        # json.dump(cData, outfile, indent=2)
         json.dump(cData, outfile, indent=2)
-
 

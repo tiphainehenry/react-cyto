@@ -4,10 +4,35 @@ import os
 import pathlib
 import argparse
 import sys
+import json
 
 
 def getRoles():
     return ['Florist', 'Driver', 'Customer']
+
+def reinitBis(filename):
+    srcFolder = 'src/resources/'
+    target='src/projections/'
+
+    # reinit choreo
+    choreoFile = open(os.path.join(srcFolder,'dataChoreo_init.json'), 'r')
+    dataChoreo = choreoFile.readlines()
+    choreoFile.close()
+
+    print(dataChoreo)
+    with open(os.path.join(target, 'dataChoreo.json'), 'w') as outfile:
+        json.dump(dataChoreo, outfile, indent=2)
+
+    # reinit roles
+    for role in getRoles():
+        # reinit choreo
+        file = open(os.path.join(srcFolder,'data'+role+'_init.json'), 'r')
+        dataRole = file.readlines()
+        file.close()
+        with open(os.path.join(target, 'data'+role+'.json'), 'w') as outfile:
+            json.dump(dataRole, outfile, indent=2)
+
+
 
 def reinit(filename):
     from api.src.projalgoGlobal import projectGlobal
@@ -19,7 +44,7 @@ def reinit(filename):
     data = file.readlines()
     file.close()
 
-    target='src/resources/'
+    target='src/projections/'
 
     _data = removeGroups(data)
 
@@ -36,7 +61,7 @@ def main():
     data = file.readlines()
     file.close()
 
-    target='src/resources/'
+    target='src/projections/'
 
     _data = removeGroups(data)
 

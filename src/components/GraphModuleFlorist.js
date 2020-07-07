@@ -2,7 +2,7 @@ import React from 'react';
 import Header from './Header';
 import DCRgraph from './DCRgraph'
 
-var data = require('../resources/dataFlorist.json')
+var data = require('../projections/dataFlorist.json')
 
 class GraphModuleFlorist extends React.Component {
   constructor(props){

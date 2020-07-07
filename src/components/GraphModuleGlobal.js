@@ -14,7 +14,7 @@ Cytoscape.use(COSEBilkent);
 var node_style = require('../style/nodeStyle.json')
 var edge_style = require('../style/edgeStyle.json')
 var cyto_style = require('../style/cytoStyle.json')
-var dataGlobal = require('../resources/dataGlobal.json')
+var dataGlobal = require('../projections/dataGlobal.json')
 
 class GraphModuleGlobal extends React.Component {
   constructor(props){
@@ -42,15 +42,15 @@ class GraphModuleGlobal extends React.Component {
   
   componentDidMount() {
 
+    this.cy.fit();
+
     axios.get(`http://localhost:5000/process`,     {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     })
     .then(res => {
       console.log(res);
-
     })
    }
-
 
   render(){
     const layout = cyto_style['layoutCose'];
@@ -65,7 +65,8 @@ class GraphModuleGlobal extends React.Component {
                 <Card.Body>
                   <CytoscapeComponent elements={dataGlobal} 
                                         stylesheet={stylesheet} 
-                                        layout={layout} 
+                                        cy={(cy) => {this.cy = cy}}
+//                                        layout={layout} 
                                         style={style} />    
                 </Card.Body>
               </Card>

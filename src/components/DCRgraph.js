@@ -40,6 +40,7 @@ class DCRgraph extends React.Component {
   }
   
   componentDidMount() {
+    this.cy.fit();
     this.setUpListeners();
   }
 
@@ -84,7 +85,7 @@ class DCRgraph extends React.Component {
                 <Card.Body >
                   <CytoscapeComponent elements={this.props.data} 
                                         stylesheet={stylesheet} 
-                                        layout={layout} 
+//                                        layout={layout} 
                                         style={style} 
                                         cy={(cy) => {this.cy = cy}}
                                         boxSelectionEnabled={false}
