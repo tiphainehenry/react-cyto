@@ -21,7 +21,7 @@ Launch the front-end by opening a first bash terminal and running
 <code>npm start</code>
 
 Launch the backend by opening a second bash terminal and running 
-'''python api/api.py'''
+<code>python api/api.py</code>
     
 The script runs on http://localhost:3000
 
