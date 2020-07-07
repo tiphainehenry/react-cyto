@@ -18,10 +18,10 @@ The generated data is stored under ./src/resources/data/
 To run the code locally, 
 
 Launch the front-end by opening a first bash terminal and running 
-    npm start
+'''npm start'''
 
 Launch the backend by opening a second bash terminal and running 
-    python api/api.py
+'''python api/api.py'''
     
 The script runs on http://localhost:3000
 
