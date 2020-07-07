@@ -1,5 +1,7 @@
 import React from 'react';
 import { Navbar, Nav, NavDropdown} from 'react-bootstrap';
+import axios from 'axios';
+
 
 class Header extends React.Component {
 
@@ -13,6 +15,12 @@ class Header extends React.Component {
                   r2:'Driver Projection',
                   r3:'Customer Projection'
                 };
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(event) {
+    event.preventDefault();
+    axios.post(`http://localhost:5000/reinit`, 'reinit')
   }
 
   render(){
@@ -30,9 +38,9 @@ class Header extends React.Component {
                       <NavDropdown.Item href="/customer">{this.state.r3}</NavDropdown.Item>
                     </NavDropdown>
                   </Nav>
+
                   <Nav pullRight>
-                    
-                    <NavDropdown title="Constraints Legend" id="collasible-nav-dropdown">
+                  <NavDropdown title="Constraints Legend" id="collasible-nav-dropdown">
                       <NavDropdown.Item style={{"font-size":'16px'}}>Post-execution</NavDropdown.Item>
                       <NavDropdown.Item style={{color:"#29A81A", "font-size":'12px'}}> -- Include</NavDropdown.Item>
                       <NavDropdown.Item style={{color:"#FF0000", "font-size":'12px'}}> -- Exclude</NavDropdown.Item>
@@ -42,6 +50,8 @@ class Header extends React.Component {
                       <NavDropdown.Item style={{color:"#FFA500", "font-size":'12px'}}> -- Condition</NavDropdown.Item>
                       <NavDropdown.Item style={{color:"#BC1AF2", "font-size":'12px'}}> -- Milestone</NavDropdown.Item>
                     </NavDropdown>
+
+                    <Nav.Link style={{color: 'white','background-color':'red'}} onClick={this.handleClick}>Reinitialise Process</Nav.Link> 
                   </Nav>
                 </Navbar.Collapse>
               </Navbar>

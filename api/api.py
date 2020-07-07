@@ -12,11 +12,25 @@ import pathlib
 import argparse
 import sys
 import json
+import glob
+from datetime import datetime
+from json.decoder import JSONDecodeError
 
 from src.projalgoGlobal import projectGlobal
 from src.projalgoChoreo import projectChoreo
 from src.projalgoRoles import projRoles
 from src.utils.formatting import removeGroups
+
+logging.basicConfig(level=logging.INFO)
+
+logger = logging.getLogger('HELLO WORLD')
+
+
+app = Flask(__name__)
+app.config['CORS_HEADERS'] = 'Content-Type'
+CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app, expose_headers='Authorization')
+
 
 def getRoles():
     return ['Florist', 'Driver', 'Customer']
@@ -59,26 +73,44 @@ def reinit(filename):
     for role in getRoles():
         projRoles(_data, target, role)
 
+    execlogs = glob.glob(target+'exec*')
+    for elem in execlogs:
+        with open(elem, 'w') as outfile:
+            json.dump({"execLogs":[]}, outfile, indent=2)
 
-
-
-logging.basicConfig(level=logging.INFO)
-
-logger = logging.getLogger('HELLO WORLD')
-
-
-app = Flask(__name__)
-app.config['CORS_HEADERS'] = 'Content-Type'
-CORS(app, resources={r"/*": {"origins": "*"}})
-CORS(app, expose_headers='Authorization')
 
 # Nassim
 @app.route('/process', methods=['POST', 'GET'])
 def processData():
-   data = request.get_json(silent=True)
-   status = executeNode(data)
+    data = request.get_json(silent=True)
+    status = executeNode(data)
+
+    # update execLog
+    projId = data['projId']
+    activity_name = data['idClicked']
+
+    pExec = glob.glob('./src/projections/exec'+projId+'*')[0]
+    print(pExec)
+    with open(pExec) as json_file:
+        try:
+            execData = json.load(json_file)
+        except JSONDecodeError:
+            execData = {'execLogs':[]}
+
+    now = datetime.now()
+    date_time = now.strftime("%m/%d/%Y, %H:%M:%S")    
+
+    execData['execLogs'].append({
+        'task':activity_name,
+        'status':status,
+        'timestamp':date_time
+    })
+
+    with open(pExec, 'w') as outfile:
+        json.dump(execData, outfile, indent=2)
    
-   return status, 200, {'Access-Control-Allow-Origin': '*'}
+
+    return status, 200, {'Access-Control-Allow-Origin': '*'}
 
 @app.route('/reinit', methods=['POST', 'GET'])
 def reinitialise():

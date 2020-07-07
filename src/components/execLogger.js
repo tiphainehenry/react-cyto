@@ -1,5 +1,8 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
 import '../style/App.css';
 
 class ExecLogger extends React.Component {
@@ -12,9 +15,14 @@ class ExecLogger extends React.Component {
                 <Card.Body style={{height:'20%'}}>
                   <div class="scrollable">
                   <p class="card-text">
-                    {this.props.execlogs.map(item=> 
-                    <div key={item.id+item.timestamp}>{item.timestamp} | TaskName: {item.name}</div>
-                    )}</p>
+                    {this.props.execLogs.execLogs.map(item=> 
+                      <Row  style= {{'font-size': '10pt', 'font-weight': 200}} xs={2} md={4} >
+                        <Col sm>{item.timestamp}</Col>
+                        <Col sm>Task: {item.task}</Col>
+                        <Col sm>Status: {item.status}</Col>
+                      </Row>
+                    )}
+                  </p>
                   </div>
                 </Card.Body>
               </Card>

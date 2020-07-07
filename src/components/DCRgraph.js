@@ -4,7 +4,6 @@ import Cytoscape from "cytoscape";
 import CytoscapeComponent from 'react-cytoscapejs';
 import axios from 'axios';
 import ExecLogger from './execLogger';
-import Reinit from './Reinit';
 import COSEBilkent from "cytoscape-cose-bilkent";
 Cytoscape.use(COSEBilkent);
 
@@ -23,8 +22,7 @@ class DCRgraph extends React.Component {
                   r2:'Driver Projection',
                   r3:'Customer Projection',
                   idClicked:'',
-                  nameClicked:'',
-                  execlogs: []
+                  nameClicked:''
                 };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -53,11 +51,11 @@ class DCRgraph extends React.Component {
       this.setState({nameClicked:event.target['_private']['data']['name']});
       this.setState({idClicked:event.target['_private']['data']['id']});
 
-      this.setState({execlogs:this.state.execlogs.concat({
-        'id':this.state.idClicked, 
-        'name':this.state.nameClicked,
-        'timestamp': new Date().toISOString().substr(0, 19).replace('T', ' ')
-      })});
+      // this.setState({execlogs:this.state.execlogs.concat({
+        // 'id':this.state.idClicked, 
+        // 'name':this.state.nameClicked,
+        // 'timestamp': new Date().toISOString().substr(0, 19).replace('T', ' ')
+      // })});
     
     //updateGraphMarkings
     event.preventDefault()
@@ -74,7 +72,7 @@ class DCRgraph extends React.Component {
   }
 
   render(){
-    const layout = cyto_style['layoutCose'];
+    // const layout = cyto_style['layoutCose'];
     const style = cyto_style['style'];
     const stylesheet = node_style.concat(edge_style)
 
@@ -85,17 +83,14 @@ class DCRgraph extends React.Component {
                 <Card.Body >
                   <CytoscapeComponent elements={this.props.data} 
                                         stylesheet={stylesheet} 
-//                                        layout={layout} 
+//                                      layout={layout} 
                                         style={style} 
                                         cy={(cy) => {this.cy = cy}}
                                         boxSelectionEnabled={false}
                                         />    
                 </Card.Body>
               </Card>
-
-              {/* <ExecLogger  execlogs = {this.state.execlogs}/> */}
-
-              <Reinit/>
+              <ExecLogger  execLogs = {this.props.execLogs}/>
             </div>; 
   }
 }
