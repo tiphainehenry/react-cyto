@@ -19,7 +19,7 @@ const App = () => (
   <BrowserRouter>
       <div className="sans-serif">
       <Route exact path="/" component={GraphModuleGlobal} />
-      <Route exact path="/choreography" component={GraphModuleChoreography} />
+      <Route exact path="/public" component={GraphModuleChoreography} />
       <Route exact path="/florist" component={GraphModuleFlorist} />
       <Route exact path="/driver" component={GraphModuleDriver} />
       <Route exact path="/customer" component={GraphModuleCustomer} />

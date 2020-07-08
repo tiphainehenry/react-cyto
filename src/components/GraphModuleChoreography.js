@@ -15,6 +15,7 @@ var node_style = require('../style/nodeStyle.json')
 var edge_style = require('../style/edgeStyle.json')
 var cyto_style = require('../style/cytoStyle.json')
 var dataChoreo = require('../projections/dataChoreo.json')
+var execLogs = require('../projections/execChoreo.json')
 
 class GraphModuleChoreography extends React.Component {
   constructor(props){
@@ -22,12 +23,12 @@ class GraphModuleChoreography extends React.Component {
     this.state = {text:null,
                   toBeDisp:'', 
                   global: 'Global DCR to project',
-                  choreo:'Choreography Projection', 
+                  choreo:'Public Projection', 
                   r1:'Florist Projection',
                   r2:'Driver Projection',
                   r3:'Customer Projection',
                   nameClicked:'',
-                  execlogs: []
+                  execLogs: execLogs
                 };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -89,7 +90,7 @@ class GraphModuleChoreography extends React.Component {
                                         />    
                 </Card.Body>
               </Card>
-              <ExecLogger  execlogs = {this.state.execlogs}/>
+              <ExecLogger  execLogs = {this.state.execLogs}/>
 
             </div>; 
   }

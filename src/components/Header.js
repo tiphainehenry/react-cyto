@@ -10,7 +10,7 @@ class Header extends React.Component {
     this.state = {text:null,
                   toBeDisp:'', 
                   global: 'Global DCR to project',
-                  choreo:'Choreography Projection', 
+                  choreo:'Public Projection', 
                   r1:'Florist Projection',
                   r2:'Driver Projection',
                   r3:'Customer Projection'
@@ -31,7 +31,7 @@ class Header extends React.Component {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                   <Nav className="mr-auto">
-                    <Nav.Link href="/choreography">Choreography</Nav.Link>
+                    <Nav.Link href="/public">Public Projection</Nav.Link>
                     <NavDropdown title="Role Projections" id="collasible-nav-dropdown">
                       <NavDropdown.Item href="/florist">{this.state.r1}</NavDropdown.Item>
                       <NavDropdown.Item href="/driver">{this.state.r2}</NavDropdown.Item>

@@ -16,7 +16,7 @@ class ExecLogger extends React.Component {
                   <div class="scrollable">
                   <p class="card-text">
                     {this.props.execLogs.execLogs.map(item=> 
-                      <Row  style= {{'font-size': '10pt', 'font-weight': 200}} xs={2} md={4} >
+                      <Row  style= {{'font-size': '10pt', 'font-weight': 200}} xs={1} md={4} >
                         <Col sm>{item.timestamp}</Col>
                         <Col sm>Task: {item.task}</Col>
                         <Col sm>Status: {item.status}</Col>
