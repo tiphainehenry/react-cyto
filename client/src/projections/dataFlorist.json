@@ -1,0 +1,761 @@
+[
+  {
+    "data": {
+      "id": "e2r",
+      "name": "?(Shipping, Driver-->Florist)"
+    },
+    "position": {
+      "x": 800,
+      "y": 0
+    },
+    "group": "nodes",
+    "classes": "included executed"
+  },
+  {
+    "data": {
+      "id": "e5r",
+      "name": "?(CheckDelivery, Customer-->Florist)"
+    },
+    "position": {
+      "x": 1200,
+      "y": 0
+    },
+    "group": "nodes",
+    "classes": "included pending executable"
+  },
+  {
+    "data": {
+      "id": "e8r",
+      "name": "?(Accept, Customer-->Florist)"
+    },
+    "position": {
+      "x": 1400,
+      "y": 200
+    },
+    "group": "nodes",
+    "classes": ""
+  },
+  {
+    "data": {
+      "id": "e9r",
+      "name": "?(Reject, Customer-->Florist)"
+    },
+    "position": {
+      "x": 1400,
+      "y": -200
+    },
+    "group": "nodes",
+    "classes": ""
+  },
+  {
+    "data": {
+      "id": "e10r",
+      "name": "?(Pay, Customer-->Florist)"
+    },
+    "position": {
+      "x": 1800,
+      "y": 200
+    },
+    "group": "nodes",
+    "classes": ""
+  },
+  {
+    "data": {
+      "id": "e11r",
+      "name": "?(UnloadTruck, Driver-->Florist)"
+    },
+    "position": {
+      "x": 1800,
+      "y": 0
+    },
+    "group": "nodes",
+    "classes": ""
+  },
+  {
+    "data": {
+      "id": "e14s",
+      "name": "!(PayDriver, Florist-->Driver)"
+    },
+    "position": {
+      "x": 2000,
+      "y": -400
+    },
+    "group": "nodes",
+    "classes": ""
+  },
+  {
+    "data": {
+      "id": "e3",
+      "name": "TempSensor\nMonitorTemperature\nDriver"
+    },
+    "position": {
+      "x": 900,
+      "y": 200
+    },
+    "group": "nodes",
+    "classes": "external"
+  },
+  {
+    "data": {
+      "id": "e4",
+      "name": "GPSSensor\nMonitorLocation\nDriver"
+    },
+    "position": {
+      "x": 900,
+      "y": -200
+    },
+    "group": "nodes",
+    "classes": "external"
+  },
+  {
+    "data": {
+      "id": "PrepareCommand",
+      "name": "PrepareCommand"
+    },
+    "position": {
+      "x": 0,
+      "y": 0
+    },
+    "group": "nodes",
+    "classes": "included executed"
+  },
+  {
+    "data": {
+      "id": "CallShipper",
+      "name": "CallShipper"
+    },
+    "position": {
+      "x": 400,
+      "y": 0
+    },
+    "group": "nodes",
+    "classes": "included executed"
+  },
+  {
+    "data": {
+      "id": "SettleCommand",
+      "name": "SettleCommand"
+    },
+    "position": {
+      "x": 2100,
+      "y": 0
+    },
+    "group": "nodes",
+    "classes": ""
+  },
+  {
+    "data": {
+      "id": "ReturnTruck",
+      "name": "ReturnTruck"
+    },
+    "position": {
+      "x": 1400,
+      "y": -400
+    },
+    "group": "nodes",
+    "classes": "external"
+  },
+  {
+    "data": {
+      "id": "e2r_e5r_milestone",
+      "source": "e2r",
+      "target": "e5r"
+    },
+    "group": "edges",
+    "classes": "milestone"
+  },
+  {
+    "data": {
+      "id": "e2r_e5r_response",
+      "source": "e2r",
+      "target": "e5r"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e2r_e5r_response_back",
+      "source": "e5r",
+      "target": "e2r"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e5r_e8r_response",
+      "source": "e5r",
+      "target": "e8r"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e5r_e8r_response_back",
+      "source": "e8r",
+      "target": "e5r"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e5r_e9r_response",
+      "source": "e5r",
+      "target": "e9r"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e5r_e9r_response_back",
+      "source": "e9r",
+      "target": "e5r"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e5r_e8r_milestone",
+      "source": "e5r",
+      "target": "e8r"
+    },
+    "group": "edges",
+    "classes": "milestone"
+  },
+  {
+    "data": {
+      "id": "e5r_e9r_milestone",
+      "source": "e5r",
+      "target": "e9r"
+    },
+    "group": "edges",
+    "classes": "milestone"
+  },
+  {
+    "data": {
+      "id": "e8r_e10r_include",
+      "source": "e8r",
+      "target": "e10r"
+    },
+    "group": "edges",
+    "classes": "include"
+  },
+  {
+    "data": {
+      "id": "e8r_e10r_response",
+      "source": "e8r",
+      "target": "e10r"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e8r_e10r_response_back",
+      "source": "e10r",
+      "target": "e8r"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e8r_e11r_include",
+      "source": "e8r",
+      "target": "e11r"
+    },
+    "group": "edges",
+    "classes": "include"
+  },
+  {
+    "data": {
+      "id": "e8r_e11r_response",
+      "source": "e8r",
+      "target": "e11r"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e8r_e11r_response_back",
+      "source": "e11r",
+      "target": "e8r"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "PrepareCommand_CallShipper_condition",
+      "source": "PrepareCommand",
+      "target": "CallShipper"
+    },
+    "group": "edges",
+    "classes": "condition"
+  },
+  {
+    "data": {
+      "id": "PrepareCommand_CallShipper_response",
+      "source": "PrepareCommand",
+      "target": "CallShipper"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "PrepareCommand_CallShipper_response_back",
+      "source": "CallShipper",
+      "target": "PrepareCommand"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "CallShipper_e2r_condition",
+      "source": "CallShipper",
+      "target": "e2r"
+    },
+    "group": "edges",
+    "classes": "condition"
+  },
+  {
+    "data": {
+      "id": "CallShipper_e2r_response",
+      "source": "CallShipper",
+      "target": "e2r"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "CallShipper_e2r_response_back",
+      "source": "e2r",
+      "target": "CallShipper"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e14s_SettleCommand_condition",
+      "source": "e14s",
+      "target": "SettleCommand"
+    },
+    "group": "edges",
+    "classes": "condition"
+  },
+  {
+    "data": {
+      "id": "e14s_SettleCommand_response",
+      "source": "e14s",
+      "target": "SettleCommand"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e14s_SettleCommand_response_back",
+      "source": "SettleCommand",
+      "target": "e14s"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e8r_e8r_exclude",
+      "source": "e8r",
+      "target": "e8r"
+    },
+    "group": "edges",
+    "classes": "exclude"
+  },
+  {
+    "data": {
+      "id": "e8r_e9r_exclude",
+      "source": "e8r",
+      "target": "e9r"
+    },
+    "group": "edges",
+    "classes": "exclude"
+  },
+  {
+    "data": {
+      "id": "e9r_e8r_exclude",
+      "source": "e9r",
+      "target": "e8r"
+    },
+    "group": "edges",
+    "classes": "exclude"
+  },
+  {
+    "data": {
+      "id": "e9r_e9r_exclude",
+      "source": "e9r",
+      "target": "e9r"
+    },
+    "group": "edges",
+    "classes": "exclude"
+  },
+  {
+    "data": {
+      "id": "e9r_e10r_exclude",
+      "source": "e9r",
+      "target": "e10r"
+    },
+    "group": "edges",
+    "classes": "exclude"
+  },
+  {
+    "data": {
+      "id": "e9r_e11r_exclude",
+      "source": "e9r",
+      "target": "e11r"
+    },
+    "group": "edges",
+    "classes": "exclude"
+  },
+  {
+    "data": {
+      "id": "e10r_e10r_exclude",
+      "source": "e10r",
+      "target": "e10r"
+    },
+    "group": "edges",
+    "classes": "exclude"
+  },
+  {
+    "data": {
+      "id": "e11r_e11r_exclude",
+      "source": "e11r",
+      "target": "e11r"
+    },
+    "group": "edges",
+    "classes": "exclude"
+  },
+  {
+    "data": {
+      "id": "e14s_e14s_exclude",
+      "source": "e14s",
+      "target": "e14s"
+    },
+    "group": "edges",
+    "classes": "exclude"
+  },
+  {
+    "data": {
+      "id": "SettleCommand_SettleCommand_exclude",
+      "source": "SettleCommand",
+      "target": "SettleCommand"
+    },
+    "group": "edges",
+    "classes": "exclude"
+  },
+  {
+    "data": {
+      "id": "e9r_e14s_response",
+      "source": "e9r",
+      "target": "e14s"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e9r_e14s_response_back",
+      "source": "e14s",
+      "target": "e9r"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e9r_SettleCommand_response",
+      "source": "e9r",
+      "target": "SettleCommand"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e9r_SettleCommand_response_back",
+      "source": "SettleCommand",
+      "target": "e9r"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e10r_e14s_response",
+      "source": "e10r",
+      "target": "e14s"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e10r_e14s_response_back",
+      "source": "e14s",
+      "target": "e10r"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e10r_SettleCommand_response",
+      "source": "e10r",
+      "target": "SettleCommand"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e10r_SettleCommand_response_back",
+      "source": "SettleCommand",
+      "target": "e10r"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e11r_e14s_response",
+      "source": "e11r",
+      "target": "e14s"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e11r_e14s_response_back",
+      "source": "e14s",
+      "target": "e11r"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e11r_SettleCommand_response",
+      "source": "e11r",
+      "target": "SettleCommand"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e11r_SettleCommand_response_back",
+      "source": "SettleCommand",
+      "target": "e11r"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e3_e5r_milestone",
+      "source": "e3",
+      "target": "e5r"
+    },
+    "group": "edges",
+    "classes": "milestone"
+  },
+  {
+    "data": {
+      "id": "e4_e5r_milestone",
+      "source": "e4",
+      "target": "e5r"
+    },
+    "group": "edges",
+    "classes": "milestone"
+  },
+  {
+    "data": {
+      "id": "e3_e5r_response",
+      "source": "e3",
+      "target": "e5r"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e3_e5r_response_back",
+      "source": "e5r",
+      "target": "e3"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e4_e5r_response",
+      "source": "e4",
+      "target": "e5r"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e4_e5r_response_back",
+      "source": "e5r",
+      "target": "e4"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e2r_e3_response",
+      "source": "e2r",
+      "target": "e3"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e2r_e3_response_back",
+      "source": "e3",
+      "target": "e2r"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e2r_e3_include",
+      "source": "e2r",
+      "target": "e3"
+    },
+    "group": "edges",
+    "classes": "include"
+  },
+  {
+    "data": {
+      "id": "e2r_e4_include",
+      "source": "e2r",
+      "target": "e4"
+    },
+    "group": "edges",
+    "classes": "include"
+  },
+  {
+    "data": {
+      "id": "e2r_e4_response",
+      "source": "e2r",
+      "target": "e4"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e2r_e4_response_back",
+      "source": "e4",
+      "target": "e2r"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "ReturnTruck_e14s_condition",
+      "source": "ReturnTruck",
+      "target": "e14s"
+    },
+    "group": "edges",
+    "classes": "condition"
+  },
+  {
+    "data": {
+      "id": "ReturnTruck_e14s_response",
+      "source": "ReturnTruck",
+      "target": "e14s"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "ReturnTruck_e14s_response_back",
+      "source": "e14s",
+      "target": "ReturnTruck"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e9r_ReturnTruck_response",
+      "source": "e9r",
+      "target": "ReturnTruck"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e9r_ReturnTruck_response_back",
+      "source": "ReturnTruck",
+      "target": "e9r"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e10r_ReturnTruck_response",
+      "source": "e10r",
+      "target": "ReturnTruck"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e10r_ReturnTruck_response_back",
+      "source": "ReturnTruck",
+      "target": "e10r"
+    },
+    "group": "edges",
+    "classes": "response back"
+  },
+  {
+    "data": {
+      "id": "e11r_ReturnTruck_response",
+      "source": "e11r",
+      "target": "ReturnTruck"
+    },
+    "group": "edges",
+    "classes": "response"
+  },
+  {
+    "data": {
+      "id": "e11r_ReturnTruck_response_back",
+      "source": "ReturnTruck",
+      "target": "e11r"
+    },
+    "group": "edges",
+    "classes": "response back"
+  }
+]
