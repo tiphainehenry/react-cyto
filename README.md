@@ -34,4 +34,4 @@ Make sure you have (i) ganache-cli installed (npm install -g ganache-cli) on you
 4) Launch the front-end by opening a first bash terminal and running 
 <code>cd ./client/ && npm start</code>
     
-The script runs on http://localhost:3000
+The app runs on http://localhost:3000
