@@ -2,6 +2,7 @@ import os
 import pathlib
 import argparse
 import sys
+import json 
 
 from src.utils.formatting import cleanName, getFileName, groupItems
 from src.utils.chunking import extractChunks
@@ -72,6 +73,7 @@ def generateChoreographyProjection(chunks):
 
     return projection, externalIds
 
+
 def projectChoreo(data, target):
     chunks, roles = extractChunks(data)
 
@@ -79,6 +81,8 @@ def projectChoreo(data, target):
     projection, externalIds = generateChoreographyProjection(chunks.copy()) 
     generateGraph(projection, externalIds, target, "Choreo")
     vectorize(projection, os.path.join(target,"vectChoreo"))
+
+    # addFullMarkings(os.path.join(target,"vectChoreo"))
 
     print('[INFO] Choreography Projection generated')
  

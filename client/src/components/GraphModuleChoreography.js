@@ -15,10 +15,12 @@ var node_style = require('../style/nodeStyle.json')
 var edge_style = require('../style/edgeStyle.json')
 var cyto_style = require('../style/cytoStyle.json')
 var dataChoreo = require('../projections/dataChoreo.json')
+var vectChoreo = require('../projections/vectChoreo.json')
 var execLogs = require('../projections/execChoreo.json')
 
 import DCReum from "../contracts/DCReum.json";
 import getWeb3 from "../getWeb3";
+
 
 class GraphModuleChoreography extends React.Component {
 
@@ -35,7 +37,16 @@ class GraphModuleChoreography extends React.Component {
                   execLogs: execLogs, 
                   web3: null,
                   accounts: null,
-                  contract: null
+                  contract: null,
+                  activityNames:vectChoreo['activityNames'],
+                  included: vectChoreo['fullMarkings']['included'], 
+                  executed: vectChoreo['fullMarkings']['executed'], 
+                  pending:  vectChoreo['fullMarkings']['pending'],
+                  includesto: vectChoreo['fullRelations']['include'],
+                  excludesto: vectChoreo['fullRelations']['exclude'],
+                  responsesto: vectChoreo['fullRelations']['response'],
+                  conditionsFrom: vectChoreo['fullRelations']['condition'],
+                  milestonesFrom: vectChoreo['fullRelations']['milestone']
                 };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -62,6 +73,9 @@ class GraphModuleChoreography extends React.Component {
       // Get the contract instance.
       const networkId = await web3.eth.net.getId();
       const deployedNetwork = DCReum.networks[networkId];
+      console.log('haight')
+      console.log(deployedNetwork.address)
+
       const instance = new web3.eth.Contract(
         DCReum.abi,
         deployedNetwork && deployedNetwork.address,
@@ -69,6 +83,7 @@ class GraphModuleChoreography extends React.Component {
 
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.
+
       this.setState({ web3, accounts, contract: instance }, this.runExample);
       console.log(accounts)
       console.log(instance)
@@ -86,9 +101,35 @@ class GraphModuleChoreography extends React.Component {
   };
 
   runExample = async () => {
-    const { accounts, contract } = this.state;
+    const { accounts, 
+      contract,
+      included, 
+      executed, 
+      pending,
+      includesto,
+      excludesto,
+      responsesto,
+      conditionsFrom,
+      milestonesFrom } = this.state;
 
-    // Stores a given value, 5 by default.
+    // Update list type 
+    const actnames = this.state.activityNames.map(item =>this.state.web3.utils.fromAscii(item));
+    
+    await contract.methods.createWorkflow(
+      this.state.web3.utils.fromAscii("test"),
+      actnames,
+      included, 
+      executed, 
+      pending,
+      includesto,
+      excludesto,
+      responsesto,
+      conditionsFrom,
+      milestonesFrom,
+      this.state.web3.utils.fromAscii("000000000000000000000"),
+      [],
+      []    
+    ).send({from: accounts[0]})
     // await contract.methods.set(5).send({ from: accounts[0] });
 
     // Get the value from the contract to prove it worked.0
@@ -97,8 +138,6 @@ class GraphModuleChoreography extends React.Component {
     // Update state with the result.
     // this.setState({ storageValue: response });
   };
-
-
 
    setUpListeners = () => {
     this.cy.on('click', 'node', (event) => {

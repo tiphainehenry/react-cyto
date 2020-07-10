@@ -6,7 +6,6 @@ import json
 import numpy as np
 import json
 
-
 from src.utils.formatting import getFileName, NumpyEncoder
 from src.utils.chunking import extractChunks, extractRoleChunks
 from src.utils.graphManager import initializeGraph
@@ -54,7 +53,16 @@ def generateRelationMatrix(relationType, eventsList, chunkEvents, relations):
     for relation in relationList:
         relationMatrix[eventsList.index(relation['r_from'])][eventsList.index(relation['r_to'])] = 1
 
-    return relationMatrix
+    fullMatrix = []
+    listRelation = relationMatrix.tolist()
+
+    for elem in listRelation:
+        newLine = []
+        for item in elem:
+            newLine.append(str(item).replace('.0',''))
+        fullMatrix.append(''.join(newLine))
+
+    return relationMatrix, fullMatrix
 
 
 def generateRelationMatrices(chunks):
@@ -70,18 +78,25 @@ def generateRelationMatrices(chunks):
     eventsList = []
     for event in events:
         eventsList.append(getEventId(event))
+    
+    rc, rfc = generateRelationMatrix('condition', eventsList, events, relations)
+    rm, rfm = generateRelationMatrix('milestone', eventsList, events, relations)
+    rr, rfr = generateRelationMatrix('response', eventsList, events, relations)
+    ri, rfi = generateRelationMatrix('include', eventsList, events, relations)
+    re, rfe = generateRelationMatrix('exclude', eventsList, events, relations)
 
     relationMatrices= [
                     {
-                        'condition':generateRelationMatrix('condition', eventsList, events, relations),
-                        'milestone':generateRelationMatrix('milestone', eventsList, events, relations),
-                        'response':generateRelationMatrix('response', eventsList, events, relations),
-                        'include':generateRelationMatrix('include', eventsList, events, relations),
-                        'exclude':generateRelationMatrix('exclude', eventsList, events, relations),
+                        'condition':rc,
+                        'milestone':rm,
+                        'response': rr,
+                        'include':  ri,
+                        'exclude':  re,
                     }
         ]
 
-    return relationMatrices
+    fullRelations= [rfi,rfe,rfr,rfc,rfm]
+    return relationMatrices, fullRelations
 
 def generateInitialMarking(eventsList, events, relations):
     #m_Matrix = np.zeros(len(eventsList))
@@ -122,21 +137,49 @@ def generateInitialMarkings(chunks):
 
     return markingMatrices
  
-#def executeStep():
-    # 1. is it executable?
-    # 2. get type: 
-    #       if internal / private task, execute normally (executer == role)
-    #       if choreography task, whether send transaction or listen to it
-    #       if BC==main_role task, generate smart contract and activate it
-    # 3. update markings
-    # 4. wait for next step to be executed
+
+def addFullMarkings(markings):
+
+    ## add activitynames
+    activitynames = []
+    included = []
+    executed = []
+    pending = []
+    for elem in markings:
+        activitynames.append(elem['id'])
+        included.append(str(elem['include']))
+        executed.append(str(elem['executed']))
+        pending.append(str(elem['pending']))
+    
+    fullMarkings = [''.join(included),''.join(executed),''.join(pending)]
+
+    return activitynames, fullMarkings
 
 def vectorize(data, filename):
-    chunks, roles = extractChunks(data)
-    bitvectors = {
-        'relations':generateRelationMatrices(chunks),
-        'markings': generateInitialMarkings(chunks)
 
+    chunks, roles = extractChunks(data)
+
+    relations, fullRelations = generateRelationMatrices(chunks)
+
+    markings = generateInitialMarkings(chunks)
+    activitynames,fullMarkings = addFullMarkings(markings)
+ 
+    bitvectors = {
+        'relations':relations,
+        'markings': markings,
+        'activityNames':activitynames,
+        'fullMarkings': {
+            'included': fullMarkings[0],
+            'executed': fullMarkings[1],
+            'pending':  fullMarkings[2]
+            },
+        'fullRelations': {
+            'include':   fullRelations[0],
+            'exclude':   fullRelations[1],
+            'response':  fullRelations[2],
+            'condition': fullRelations[3],
+            'milestone': fullRelations[4]
+            }            
     }
 
     path = filename+'.json'
@@ -150,8 +193,9 @@ def vectorizeRole(data, filename):
 
     chunks = extractRoleChunks(data)
 
+    rel, fullrel = generateRelationMatrices(chunks)
     bitvectors = {
-        'relations':generateRelationMatrices(chunks),
+        'relations':rel,
         'markings': generateInitialMarkings(chunks)
 
     }
