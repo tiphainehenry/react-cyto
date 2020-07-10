@@ -161,8 +161,11 @@ def executeNode(data):
     projId = data['projId']
     activity_name = data['idClicked']
 
-    status = 'waiting'
+    # check if not a receive choreography event:
+    if (activity_name[0] == 'e') and (activity_name[1].isdigit()) and (activity_name[-1]=='r'):
+        return 'rejected - receive choreography event'
 
+    status = 'waiting'
     # retrieve activity data
     pData = glob.glob('./src/projections/data'+projId+'*')[0]
     pVect = glob.glob('./src/projections/vect'+projId+'*')[0]
@@ -171,16 +174,19 @@ def executeNode(data):
     with open(pVect) as json_data:
         dataVect = json.load(json_data)
 
-    # retrieve markings activity_name and check inclusion:
-    markings= dataVect['markings']
+    # check if not external event
     activity_id = 0
     while(dataProj[activity_id]['data']['id'] != activity_name):
         activity_id = activity_id+1
+    if 'external' in dataProj[activity_id]['classes']:
+        return 'rejected - external event'
 
+    # retrieve markings activity_name and check inclusion:
+    markings= dataVect['markings']
     activity_marking = retrieveMarkingOnName(markings, activity_name)
     if activity_marking['include'] != 1:
         print('[INFO] error - elem not included')
-        return 'throw error - not included'
+        return 'rejected - not included'
 
     # if ('classes' not in dataProj[activity_id]) or ('included' not in dataProj[activity_id]['classes']):
         # print('[INFO] error - elem not included')
@@ -188,8 +194,6 @@ def executeNode(data):
 
     else:
         print('[INFO] success - elem included')
-        status = 'executed'
-
         # retrieve activity relations (conditions, milestones, included, excluded, response)
         relations = dataVect['relations'][0]
         fromCondition, fromMilestone, toInclude, toExclude, toRespond = retrieveActivityRelations(relations, 
@@ -197,25 +201,40 @@ def executeNode(data):
 
         # pre_execution evaluation
         status = preExecCheck(fromCondition, fromMilestone, markings)
-
         if not status : 
             return 'throw error - prexec conditions not executed'
 
-        # Update markings:
-        activity_marking['executed'] = 1
-        activity_marking['pending'] = 0
+        # retrieve semiinternal events
+        with open('./src/resources/externalEvents.json') as json_data:
+            externalEvents = json.load(json_data)
 
-        # post_execution evaluation  --> upd markings included, excluded, response
-        markings = postExecManager(toInclude, toExclude, toRespond, markings)
+        # execution
+        semiInterEvents = [elem['name'] for elem in externalEvents]
 
-        ## rewrite vectData
-        with open(pVect, 'w') as outfile:
-            json.dump(dataVect, outfile, indent=2)
+        if (activity_name[0] == 'e') and (activity_name[1].isdigit()) and (activity_name[-1]=='s'):
+            ### execute choreography onChain
+            return 'BC choreography - not implemented yet'
 
-        ## update projData classes and rewrite
-        updProj = updCytoData(dataProj, markings)
-        with open(pData, 'w') as outfile:
-            json.dump(updProj, outfile, indent=2)
+        elif activity_name in semiInterEvents:
+            ### execute event onChain
+            return 'BC semi internal - not implemented yet'
 
-        return 'executed' ## append status to execlog (?)
+        else: ### local update
+            # Update markings:
+            activity_marking['executed'] = 1
+            activity_marking['pending'] = 0
+
+            # post_execution evaluation  --> upd markings included, excluded, response
+            markings = postExecManager(toInclude, toExclude, toRespond, markings)
+
+            ## rewrite vectData
+            with open(pVect, 'w') as outfile:
+                json.dump(dataVect, outfile, indent=2)
+
+            ## update projData classes and rewrite
+            updProj = updCytoData(dataProj, markings)
+            with open(pData, 'w') as outfile:
+                json.dump(updProj, outfile, indent=2)
+
+            return 'executed' ## append status to execlog (?)
 

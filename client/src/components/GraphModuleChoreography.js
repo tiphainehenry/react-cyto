@@ -22,8 +22,6 @@ import getWeb3 from "../getWeb3";
 
 class GraphModuleChoreography extends React.Component {
 
-  state = { storageValue: 0, web3: null, accounts: null, contract: null };
-
   constructor(props){
     super(props);
     this.state = {text:null,
@@ -34,7 +32,10 @@ class GraphModuleChoreography extends React.Component {
                   r2:'Driver Projection',
                   r3:'Customer Projection',
                   nameClicked:'',
-                  execLogs: execLogs
+                  execLogs: execLogs, 
+                  web3: null,
+                  accounts: null,
+                  contract: null
                 };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -69,6 +70,8 @@ class GraphModuleChoreography extends React.Component {
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.
       this.setState({ web3, accounts, contract: instance }, this.runExample);
+      console.log(accounts)
+      console.log(instance)
     } catch (error) {
       // Catch any errors for any of the above operations.
       alert(

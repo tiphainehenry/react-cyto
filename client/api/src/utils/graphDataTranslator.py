@@ -254,6 +254,7 @@ def bodyChoreo(event, num_task, externalIds):
                     'group': "nodes",
                     'classes': "external"
         }
+
     else:
         body = {
                     'data': { 
@@ -267,8 +268,6 @@ def bodyChoreo(event, num_task, externalIds):
         }
 
     return body
-
-
 
 def getEventElems(event, numTask, externalIds):
     if 'src' in event:  

@@ -13,7 +13,7 @@ class ExecLogger extends React.Component {
               <Card.Header as="p" style= {{color:'white', 'background-color': '#00881d', 'font-size': '10pt', 'font-weight': 200, padding: '2ex 1ex'}}>
                   Execution logs</Card.Header>
                 <Card.Body style={{height:'20%'}}>
-                  <div class="scrollable">
+                  <div>
                   <p class="card-text">
                     {this.props.execLogs.execLogs.map(item=> 
                       <Row  style= {{'font-size': '10pt', 'font-weight': 200}} xs={1} md={4} >
