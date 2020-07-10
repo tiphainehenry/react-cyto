@@ -21,6 +21,7 @@ class Header extends React.Component {
   handleClick(event) {
     event.preventDefault();
     axios.post(`http://localhost:5000/reinit`, 'reinit')
+    window.location.reload(false);
   }
 
   render(){

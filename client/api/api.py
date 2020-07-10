@@ -64,6 +64,8 @@ def reinitFromScratch():
 def reinit(filename):
     file = open(os.path.join(filename), 'r')
     data = file.readlines()
+
+    print(data)
     file.close()
 
     target='src/projections/'
@@ -117,7 +119,7 @@ def processData():
 
 @app.route('/reinit', methods=['POST', 'GET'])
 def reinitialise():
-    filename = '../globalDCRs/shipvX.txt'
+    filename = 'inputExample.txt'
     reinit(filename)
     return 'ok', 200, {'Access-Control-Allow-Origin': '*'}
 
