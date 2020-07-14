@@ -16,7 +16,7 @@ The generated data is stored under ./src/projections/
 
 
 ### Installation
-Go to the client folder and run <code>npm start</code>.
+Go to the client folder and run <code>npm install</code>.
 
 ### Running the code
 To run the code in a development environment,
