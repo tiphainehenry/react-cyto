@@ -73,9 +73,7 @@ class GraphModuleChoreography extends React.Component {
       // Get the contract instance.
       const networkId = await web3.eth.net.getId();
       const deployedNetwork = DCReum.networks[networkId];
-      console.log('haight')
-      console.log(deployedNetwork.address)
-
+ 
       const instance = new web3.eth.Contract(
         DCReum.abi,
         deployedNetwork && deployedNetwork.address,
@@ -85,15 +83,15 @@ class GraphModuleChoreography extends React.Component {
       // example of interacting with the contract's methods.
 
       this.setState({ web3, accounts, contract: instance }, this.runExample);
-      console.log(accounts)
-      console.log(instance)
+      console.log(accounts);
+      console.log(instance);
     } catch (error) {
       // Catch any errors for any of the above operations.
       alert(
         `Failed to load web3, accounts, or contract. Check console for details.`,
       );
       console.error(error);
-    }
+    };
 
     this.cy.fit();
     this.setUpListeners();

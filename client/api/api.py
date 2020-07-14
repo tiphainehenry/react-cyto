@@ -1,8 +1,7 @@
 import os
-from flask import Flask, flash, request, redirect, url_for, session
+from flask import Flask, flash, request, redirect, url_for, session, jsonify
 from werkzeug.utils import secure_filename
 from flask_cors import CORS, cross_origin
-from flask import jsonify
 import logging
 # from web3 import Web3
 # w3= Web3(Web3.HTTPProvider("http://127.0.0.1:8545"))
@@ -28,11 +27,13 @@ logging.basicConfig(level=logging.INFO)
 
 logger = logging.getLogger('HELLO WORLD')
 
+logging.getLogger('flask_cors').level = logging.DEBUG
 
 app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
-CORS(app, resources={r"/*": {"origins": "*"}})
-CORS(app, expose_headers='Authorization')
+CORS(app, resources={r"*": {"origins": "*"}})
+# CORS(app, expose_headers='Authorization')
+CORS(app, support_credentials=True)
 
 
 def getRoles():
@@ -86,6 +87,7 @@ def reinit(filename):
 
 # Nassim
 @app.route('/process', methods=['POST', 'GET'])
+@cross_origin(origin='*')
 def processData():
     data = request.get_json(silent=True)
     status = executeNode(data)
@@ -95,7 +97,6 @@ def processData():
     activity_name = data['idClicked']
 
     pExec = glob.glob('./src/projections/exec'+projId+'*')[0]
-    print(pExec)
     with open(pExec) as json_file:
         try:
             execData = json.load(json_file)

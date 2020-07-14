@@ -60,8 +60,14 @@ class DCRgraph extends React.Component {
     //updateGraphMarkings
     event.preventDefault()
     const idClicked = this.state.idClicked;
+    var headers = {
+      "Access-Control-Allow-Origin": "*",
+    };
+    console.log(this.props.id);
+
     axios.post(`http://localhost:5000/process`, 
-      {idClicked, projId:this.props.id}
+      {idClicked, projId:this.props.id},
+      {"headers" : headers}
     )
     .then(res => {
         console.log(res);

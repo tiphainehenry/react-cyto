@@ -167,6 +167,7 @@ def executeNode(data):
 
     status = 'waiting'
     # retrieve activity data
+    
     pData = glob.glob('./src/projections/data'+projId+'*')[0]
     pVect = glob.glob('./src/projections/vect'+projId+'*')[0]
     with open(pData) as json_data:
