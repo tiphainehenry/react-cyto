@@ -1,3 +1,16 @@
 {
-  "execLogs": []
+  "execLogs": [
+    {
+      "id": 0,
+      "task": "PrepareCommand",
+      "status": "executed",
+      "timestamp": "07/16/2020, 16:21:07"
+    },
+    {
+      "id": 1,
+      "task": "PrepareCommand",
+      "status": "executed",
+      "timestamp": "07/16/2020, 16:21:49"
+    }
+  ]
 }

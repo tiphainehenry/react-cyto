@@ -109,7 +109,9 @@ def processData():
     now = datetime.now()
     date_time = now.strftime("%m/%d/%Y, %H:%M:%S")    
 
+    id = len(execData['execLogs'])
     execData['execLogs'].append({
+        'id':id,
         'task':activity_name,
         'status':status,
         'timestamp':date_time

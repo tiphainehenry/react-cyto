@@ -80,11 +80,12 @@ class DCRgraph extends React.Component {
     };
   
     runBCCheck = async () => {
-      const { accounts, contract} = this.state;
+      const {accounts, contract} = this.state;
         
       await contract.methods.execute(
-        this.state.web3.utils.fromAscii("test"),
-        this.state.idClicked
+        this.state.web3.utils.fromAscii("test"),  //workflowID
+        //this.state.idClicked //activityID
+        2
       ).send({from: accounts[0]})
 
       // await contract.methods.set(5).send({ from: accounts[0] });
@@ -123,7 +124,7 @@ class DCRgraph extends React.Component {
     if(exec.length>0){
       var last_element = exec[exec.length - 1];
       if(last_element.status.includes('BC')){
-          window.alert(last_element.status)
+          window.alert('Public task to be executed in the blockchain')
           this.runBCCheck();
         }
     }  

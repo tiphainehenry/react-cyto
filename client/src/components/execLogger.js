@@ -15,7 +15,7 @@ class ExecLogger extends React.Component {
                 <Card.Body style={{height:'20%'}}>
                   <div className="card-text" >
                     {this.props.execLogs.execLogs.map(item=> 
-                      <Row  key={item.timestamp+item.task} style= {{'fontSize': '10pt', 'fontWeight': 200}} xs={1} md={4} >
+                      <Row  key={item.id} style= {{'fontSize': '10pt', 'fontWeight': 200}} xs={1} md={4} >
                         <Col sm>{item.timestamp}</Col>
                         <Col sm>Task: {item.task}</Col>
                         <Col sm>Status: {item.status}</Col>

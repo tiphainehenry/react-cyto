@@ -1046,14 +1046,14 @@
     {
       "id": "PrepareCommand",
       "include": 1,
-      "executed": 0,
+      "executed": 1,
       "pending": 0
     },
     {
       "id": "CallShipper",
-      "include": 0,
+      "include": 1,
       "executed": 0,
-      "pending": 0
+      "pending": 1
     },
     {
       "id": "SettleCommand",
