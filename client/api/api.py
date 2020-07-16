@@ -2,6 +2,7 @@ import os
 from flask import Flask, flash, request, redirect, url_for, session, jsonify
 from werkzeug.utils import secure_filename
 from flask_cors import CORS, cross_origin
+from flask_restful import reqparse, abort, Api, Resource
 import logging
 # from web3 import Web3
 # w3= Web3(Web3.HTTPProvider("http://127.0.0.1:8545"))
@@ -23,17 +24,20 @@ from src.projalgoChoreo import projectChoreo
 from src.projalgoRoles import projRoles
 from src.utils.formatting import removeGroups
 
+
 logging.basicConfig(level=logging.INFO)
 
 logger = logging.getLogger('HELLO WORLD')
 
-logging.getLogger('flask_cors').level = logging.DEBUG
+#logging.getLogger('flask_cors').level = logging.DEBUG
 
 app = Flask(__name__)
-app.config['CORS_HEADERS'] = 'Content-Type'
-CORS(app, resources={r"*": {"origins": "*"}})
+cors = CORS(app, resources={r"*": {"origins": "*"}})
+api = Api(app)
+#app.config['CORS_HEADERS'] = 'Content-Type'
+#CORS(app, resources={r"*": {"origins": "*"}})
 # CORS(app, expose_headers='Authorization')
-CORS(app, support_credentials=True)
+#CORS(app, support_credentials=True)
 
 
 def getRoles():
@@ -69,7 +73,7 @@ def reinit(filename):
     print(data)
     file.close()
 
-    target='src/projections/'
+    target='./client/src/projections/'
 
     _data = removeGroups(data)
 
@@ -87,7 +91,6 @@ def reinit(filename):
 
 # Nassim
 @app.route('/process', methods=['POST', 'GET'])
-@cross_origin(origin='*')
 def processData():
     data = request.get_json(silent=True)
     status = executeNode(data)
@@ -96,7 +99,7 @@ def processData():
     projId = data['projId']
     activity_name = data['idClicked']
 
-    pExec = glob.glob('./src/projections/exec'+projId+'*')[0]
+    pExec = glob.glob('./client/src/projections/exec'+projId+'*')[0]
     with open(pExec) as json_file:
         try:
             execData = json.load(json_file)
@@ -115,12 +118,11 @@ def processData():
     with open(pExec, 'w') as outfile:
         json.dump(execData, outfile, indent=2)
    
-
     return status, 200, {'Access-Control-Allow-Origin': '*'}
 
 @app.route('/reinit', methods=['POST', 'GET'])
 def reinitialise():
-    filename = 'inputExample.txt'
+    filename = './client/inputExample.txt'
     reinit(filename)
     return 'ok', 200, {'Access-Control-Allow-Origin': '*'}
 

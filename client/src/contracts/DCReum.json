@@ -24087,10 +24087,67 @@
       "links": {},
       "address": "0x4AE132821EA580d7CA11918cD98e7F3c94737D39",
       "transactionHash": "0x14f0a24fd9699ca94a9c2e54af54ef4d9cfcc3cea844b68c0016664463f31c95"
+    },
+    "1594890249446": {
+      "events": {
+        "0xd853302052b9b346cf4b175b34d36663cb511da3c0c7f221f21ec256fc7f6251": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "workflowId",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "activityId",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "executor",
+              "type": "address"
+            }
+          ],
+          "name": "LogExecution",
+          "type": "event"
+        },
+        "0x154ac87c8b44ca5014997d52404eaa6e8d74bb054aebb18413af020554fa74f1": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "workflowId",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "workflowName",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "creator",
+              "type": "address"
+            }
+          ],
+          "name": "LogWorkflowCreation",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xD2Ca9c5aF552673fc8dbCe2E2fFd1208490f1AD8",
+      "transactionHash": "0xc15c7aeda66bca1d97dd44837e422c80ed4278f29c46a56ed254fec215ce2849"
     }
   },
   "schemaVersion": "3.2.1",
-  "updatedAt": "2020-07-13T08:00:15.723Z",
+  "updatedAt": "2020-07-16T09:05:26.877Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

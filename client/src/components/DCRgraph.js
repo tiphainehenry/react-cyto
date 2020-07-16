@@ -5,11 +5,15 @@ import CytoscapeComponent from 'react-cytoscapejs';
 import axios from 'axios';
 import ExecLogger from './execLogger';
 import COSEBilkent from "cytoscape-cose-bilkent";
-Cytoscape.use(COSEBilkent);
+import DCReum from "../contracts/DCReum.json";
+import getWeb3 from "../getWeb3";
 
+Cytoscape.use(COSEBilkent);
 var node_style = require('../style/nodeStyle.json')
 var edge_style = require('../style/edgeStyle.json')
 var cyto_style = require('../style/cytoStyle.json')
+
+
 
 class DCRgraph extends React.Component {
   constructor(props){
@@ -22,7 +26,10 @@ class DCRgraph extends React.Component {
                   r2:'Driver Projection',
                   r3:'Customer Projection',
                   idClicked:'',
-                  nameClicked:''
+                  nameClicked:'',
+                  web3: null,
+                  accounts: null,
+                  contract: null
                 };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -37,9 +44,84 @@ class DCRgraph extends React.Component {
     event.preventDefault();
   }
   
-  componentDidMount() {
-    this.cy.fit();
-    this.setUpListeners();
+  componentDidMount = async () => {
+      this.cy.fit();
+
+      try {  
+
+        // Get network provider and web3 instance.
+        const web3 = await getWeb3();
+  
+        // Use web3 to get the user's accounts.
+        const accounts = await web3.eth.getAccounts();
+  
+        // Get the contract instance.
+        const networkId = await web3.eth.net.getId();
+        const deployedNetwork = DCReum.networks[networkId];
+   
+        const instance = new web3.eth.Contract(
+          DCReum.abi,
+          deployedNetwork && deployedNetwork.address,
+        );
+  
+        // Set web3, accounts, and contract to the state, and then proceed with an
+        // example of interacting with the contract's methods.
+  
+        this.setState({ web3, accounts, contract: instance }, this.runExample);
+        console.log(accounts);
+        console.log(instance);
+      } catch (error) {
+        // Catch any errors for any of the above operations.
+        alert(
+          `Failed to load web3, accounts, or contract. Check console for details.`,
+        );
+        console.error(error);
+      };
+  
+      this.setUpListeners();
+  
+    };
+  
+    runExample = async () => {
+      const { accounts, 
+        contract,
+//        included, 
+//        executed, 
+//        pending,
+//        includesto,
+//        excludesto,
+//        responsesto,
+//        conditionsFrom,
+//        milestonesFrom 
+      } = this.state;
+  
+      // Update list type 
+//      const actnames = this.state.activityNames.map(item =>this.state.web3.utils.fromAscii(item));
+      
+//      await contract.methods.createWorkflow(
+//        this.state.web3.utils.fromAscii("test"),
+//        actnames,
+//        included, 
+//        executed, 
+//        pending,
+//        includesto,
+//        excludesto,
+//        responsesto,
+//        conditionsFrom,
+//        milestonesFrom,
+//        this.state.web3.utils.fromAscii("000000000000000000000"),
+//        [],
+//        []    
+//      ).send({from: accounts[0]})
+      // await contract.methods.set(5).send({ from: accounts[0] });
+  
+      // Get the value from the contract to prove it worked.0
+      // const response = await contract.methods.get().call();
+  
+      // Update state with the result.
+      // this.setState({ storageValue: response });
+//    };
+
   }
 
    setUpListeners = () => {
@@ -63,16 +145,10 @@ class DCRgraph extends React.Component {
     var headers = {
       "Access-Control-Allow-Origin": "*",
     };
-    console.log(this.props.id);
-
     axios.post(`http://localhost:5000/process`, 
       {idClicked, projId:this.props.id},
       {"headers" : headers}
     )
-    .then(res => {
-        console.log(res);
-        console.log(res.data);
-    })
     
     });
   }

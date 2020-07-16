@@ -167,9 +167,14 @@ def executeNode(data):
 
     status = 'waiting'
     # retrieve activity data
+
     
-    pData = glob.glob('./src/projections/data'+projId+'*')[0]
-    pVect = glob.glob('./src/projections/vect'+projId+'*')[0]
+    pData = glob.glob('./client/src/projections/data'+projId+'*')[0]
+    #pData = glob.glob('./src/projections/data'+projId+'*')[0]
+
+    pVect = glob.glob('./client/src/projections/vect'+projId+'*')[0]
+    #pVect = glob.glob('./src/projections/vect'+projId+'*')[0]
+
     with open(pData) as json_data:
         dataProj = json.load(json_data)
     with open(pVect) as json_data:
@@ -206,7 +211,7 @@ def executeNode(data):
             return 'throw error - prexec conditions not executed'
 
         # retrieve semiinternal events
-        with open('./src/resources/externalEvents.json') as json_data:
+        with open('./client/src/resources/externalEvents.json') as json_data:
             externalEvents = json.load(json_data)
 
         # execution
