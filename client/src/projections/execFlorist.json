@@ -3,20 +3,44 @@
     {
       "id": 0,
       "task": "PrepareCommand",
-      "status": "executed",
-      "timestamp": "07/16/2020, 16:21:07"
+      "status": "test rejected",
+      "timestamp": "07/16/2020, 18:33:58"
     },
     {
       "id": 1,
-      "task": "PrepareCommand",
-      "status": "executed",
-      "timestamp": "07/16/2020, 16:21:49"
+      "task": "CallShipper",
+      "status": "test rejected",
+      "timestamp": "07/16/2020, 18:34:09"
     },
     {
       "id": 2,
+      "task": "PrepareCommand",
+      "status": "executed",
+      "timestamp": "07/16/2020, 18:34:16"
+    },
+    {
+      "id": 3,
+      "task": "PrepareCommand",
+      "status": "test rejected",
+      "timestamp": "07/16/2020, 18:34:16"
+    },
+    {
+      "id": 4,
+      "task": "PrepareCommand",
+      "status": "executed",
+      "timestamp": "07/16/2020, 18:35:31"
+    },
+    {
+      "id": 5,
       "task": "CallShipper",
-      "status": "BC semi internal - not implemented yet",
-      "timestamp": "07/16/2020, 16:24:00"
+      "status": "test rejected",
+      "timestamp": "07/16/2020, 18:35:40"
+    },
+    {
+      "id": 6,
+      "task": "CallShipper",
+      "status": "test rejected",
+      "timestamp": "07/16/2020, 18:37:45"
     }
   ]
 }

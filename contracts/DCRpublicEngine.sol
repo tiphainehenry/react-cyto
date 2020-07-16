@@ -1,5 +1,7 @@
 pragma solidity 0.5.16;
 
+// inspired from https://github.com/DCReum/dcreum.github.io/blob/dev/contracts/workflow.sol
+
 contract DCRpublicEngine {
   event LogWorkflowCreation (uint256 indexed workflowId, bytes32 indexed workflowName, address indexed creator);
   event LogExecution (uint256 indexed workflowId, uint256 indexed activityId, address indexed executor);

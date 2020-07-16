@@ -1,36 +1,25 @@
 import os
-from flask import Flask, flash, request, redirect, url_for, session, jsonify
-from werkzeug.utils import secure_filename
-from flask_cors import CORS, cross_origin
-from flask_restful import reqparse, abort, Api, Resource
-import logging
-# from web3 import Web3
-# w3= Web3(Web3.HTTPProvider("http://127.0.0.1:8545"))
-# from solc import compile_files, link_code, compile_source, compile_standard
-
-from src.utils.graphManager import executeNode
-
-import os
 import pathlib
 import argparse
 import sys
 import json
 import glob
+import logging
+
 from datetime import datetime
 from json.decoder import JSONDecodeError
-
+from flask import Flask, flash, request, redirect, url_for, session, jsonify
+from flask_cors import CORS, cross_origin
+from flask_restful import reqparse, abort, Api, Resource
+from werkzeug.utils import secure_filename
 from src.projalgoGlobal import projectGlobal
 from src.projalgoChoreo import projectChoreo
 from src.projalgoRoles import projRoles
 from src.utils.formatting import removeGroups
-
+from src.utils.graphManager import executeNode
 
 logging.basicConfig(level=logging.INFO)
-
 logger = logging.getLogger('HELLO WORLD')
-
-#logging.getLogger('flask_cors').level = logging.DEBUG
-
 app = Flask(__name__)
 cors = CORS(app, resources={r"*": {"origins": "*"}})
 api = Api(app)
@@ -39,31 +28,13 @@ api = Api(app)
 # CORS(app, expose_headers='Authorization')
 #CORS(app, support_credentials=True)
 
+# from web3 import Web3
+# w3= Web3(Web3.HTTPProvider("http://127.0.0.1:8545"))
+# from solc import compile_files, link_code, compile_source, compile_standard
+#logging.getLogger('flask_cors').level = logging.DEBUG
 
 def getRoles():
     return ['Florist', 'Driver', 'Customer']
-
-def reinitFromScratch():
-    srcFolder = 'src/resources/'
-    target='src/projections/'
-
-    # reinit choreo
-    choreoFile = open(os.path.join(srcFolder,'dataChoreo_init.json'), 'r')
-    dataChoreo = choreoFile.readlines()
-    choreoFile.close()
-
-    with open(os.path.join(target, 'dataChoreo.json'), 'w') as outfile:
-        json.dump(dataChoreo, outfile, indent=2)
-
-    # reinit roles
-    for role in getRoles():
-        # reinit choreo
-        file = open(os.path.join(srcFolder,'data'+role+'_init.json'), 'r')
-        dataRole = file.readlines()
-        file.close()
-        with open(os.path.join(target, 'data'+role+'.json'), 'w') as outfile:
-            json.dump(dataRole, outfile, indent=2)
-
 
 
 def reinit(filename):
@@ -96,31 +67,76 @@ def processData():
     status = executeNode(data)
 
     # update execLog
-    projId = data['projId']
-    activity_name = data['idClicked']
+    if 'BC' not in status:
+        projId = data['projId']
+        activity_name = data['idClicked']
 
-    pExec = glob.glob('./client/src/projections/exec'+projId+'*')[0]
-    with open(pExec) as json_file:
-        try:
-            execData = json.load(json_file)
-        except JSONDecodeError:
-            execData = {'execLogs':[]}
+        pExec = glob.glob('./client/src/projections/exec'+projId+'*')[0]
+        with open(pExec) as json_file:
+            try:
+                execData = json.load(json_file)
+            except JSONDecodeError:
+                execData = {'execLogs':[]}
 
-    now = datetime.now()
-    date_time = now.strftime("%m/%d/%Y, %H:%M:%S")    
+        now = datetime.now()
+        date_time = now.strftime("%m/%d/%Y, %H:%M:%S")    
 
-    id = len(execData['execLogs'])
-    execData['execLogs'].append({
-        'id':id,
-        'task':activity_name,
-        'status':status,
-        'timestamp':date_time
-    })
+        id = len(execData['execLogs'])
+        execData['execLogs'].append({
+            'id':id,
+            'task':activity_name,
+            'status':status,
+            'timestamp':date_time
+        })
 
-    with open(pExec, 'w') as outfile:
-        json.dump(execData, outfile, indent=2)
-   
+        with open(pExec, 'w') as outfile:
+            json.dump(execData, outfile, indent=2)
+    
     return status, 200, {'Access-Control-Allow-Origin': '*'}
+
+
+@app.route('/BCupdate', methods=['POST', 'GET'])
+def processBCData():
+    data = request.get_json(silent=True)
+    status = data['bcRes'] 
+    
+    if ('rejected' in status):
+        # update execLog
+        projId = data['projId']
+        activity_name = data['idClicked']
+
+        pExec = glob.glob('./client/src/projections/exec'+projId+'*')[0]
+        with open(pExec) as json_file:
+            try:
+                execData = json.load(json_file)
+            except JSONDecodeError:
+                execData = {'execLogs':[]}
+
+        now = datetime.now()
+        date_time = now.strftime("%m/%d/%Y, %H:%M:%S")    
+
+        id = len(execData['execLogs'])
+        execData['execLogs'].append({
+            'id':id,
+            'task':activity_name,
+            'status':status,
+            'timestamp':date_time
+        })
+
+        with open(pExec, 'w') as outfile:
+            json.dump(execData, outfile, indent=2)
+   
+    else:
+        status='banana pancake'
+    ### for each role projection:
+    ### 1. update marking to true
+    ### 2. apply post exec function
+    ### 3. update exec log
+    ### update public projection
+
+    return status, 200, {'Access-Control-Allow-Origin': '*'}
+
+
 
 @app.route('/reinit', methods=['POST', 'GET'])
 def reinitialise():

@@ -47,7 +47,6 @@ class DCRgraph extends React.Component {
       this.cy.fit();
 
       try {  
-
         // Get network provider and web3 instance.
         const web3 = await getWeb3();
   
@@ -61,11 +60,7 @@ class DCRgraph extends React.Component {
         const instance = new web3.eth.Contract(
           DCRpublicEngine.abi,
           deployedNetwork && deployedNetwork.address,
-        );
-  
-        // Set web3, accounts, and contract to the state, and then proceed with an
-        // example of interacting with the contract's methods.
-  
+        );  
         this.setState({ web3, accounts, contract: instance });
       } catch (error) {
         // Catch any errors for any of the above operations.
@@ -115,19 +110,31 @@ class DCRgraph extends React.Component {
       axios.post(`http://localhost:5000/process`, 
         {idClicked, projId:this.props.id},
         {"headers" : headers}
-      );
+      ).then( 
+        (response) => { 
+            var result = response.data; 
+
+            if (result.includes('BC')){
+              window.alert('Public task to be checked on the blockchain');  
+              //this.runBCCheck();
+              //updateGraphMarkings
+              // const bcRes = await contract.methods.get().call();
+
+              const bcRes = 'test rejected'
+              axios.post(`http://localhost:5000/BCupdate`, 
+                {idClicked, projId:this.props.id, bcRes},
+                {"headers" : headers}
+              );      
+            }
+        }, 
+        (error) => { 
+            console.log(error); 
+        } 
+    ); 
 
     })
 
-    // if BC: connect to ethereum to execute contract 
-    var exec = this.props.execLogs.execLogs;
-    if(exec.length>0){
-      var last_element = exec[exec.length - 1];
-      if(last_element.status.includes('BC')){
-          window.alert('Public task to be executed in the blockchain')
-          this.runBCCheck();
-        }
-    }  
+  
     }
 
   render(){
