@@ -119,8 +119,8 @@ class DCRgraph extends React.Component {
               //this.runBCCheck();
               //updateGraphMarkings
               // const bcRes = await contract.methods.get().call();
-
-              const bcRes = 'test rejected'
+              // const bcRes = 'test rejected'
+              const bcRes = 'test executable'
               axios.post(`http://localhost:5000/BCupdate`, 
                 {idClicked, projId:this.props.id, bcRes},
                 {"headers" : headers}

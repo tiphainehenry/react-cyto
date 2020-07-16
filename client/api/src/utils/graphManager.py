@@ -244,3 +244,49 @@ def executeNode(data):
 
             return 'executed' ## append status to execlog (?)
 
+def executeApprovedNode(projId, activity_name):
+    ### 1.1 update marking to true
+    ### 1.2 apply post exec function
+
+    # retrieve activity data
+    pData = glob.glob('./client/src/projections/data'+projId+'*')[0]
+    #pData = glob.glob('./src/projections/data'+projId+'*')[0]
+
+    pVect = glob.glob('./client/src/projections/vect'+projId+'*')[0]
+    #pVect = glob.glob('./src/projections/vect'+projId+'*')[0]
+
+    with open(pData) as json_data:
+        dataProj = json.load(json_data)
+    with open(pVect) as json_data:
+        dataVect = json.load(json_data)
+
+    # retrieve markings activity_name:
+    markings= dataVect['markings']
+    activity_marking = retrieveMarkingOnName(markings, activity_name)
+
+    print('[INFO] success - elem included')
+    # retrieve activity relations (conditions, milestones, included, excluded, response)
+    relations = dataVect['relations'][0]
+    fromCondition, fromMilestone, toInclude, toExclude, toRespond = retrieveActivityRelations(relations, 
+        activity_id, dataProj)
+
+    # execution
+    # Update markings:
+    activity_marking['executed'] = 1
+    activity_marking['pending'] = 0
+
+    # post_execution evaluation  --> upd markings included, excluded, response
+    markings = postExecManager(toInclude, toExclude, toRespond, markings)
+
+    ## rewrite vectData
+    with open(pVect, 'w') as outfile:
+        json.dump(dataVect, outfile, indent=2)
+
+    ## update projData classes and rewrite
+    updProj = updCytoData(dataProj, markings)
+    with open(pData, 'w') as outfile:
+        json.dump(updProj, outfile, indent=2)
+
+    return 'executed' ## append status to execlog (?)
+
+

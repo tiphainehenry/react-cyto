@@ -41,6 +41,18 @@
       "task": "CallShipper",
       "status": "test rejected",
       "timestamp": "07/16/2020, 18:37:45"
+    },
+    {
+      "id": 7,
+      "task": "PrepareCommand",
+      "status": "executed",
+      "timestamp": "07/16/2020, 18:53:01"
+    },
+    {
+      "id": 8,
+      "task": "PrepareCommand",
+      "status": "executed",
+      "timestamp": "07/16/2020, 18:58:01"
     }
   ]
 }

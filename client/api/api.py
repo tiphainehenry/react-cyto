@@ -16,7 +16,7 @@ from src.projalgoGlobal import projectGlobal
 from src.projalgoChoreo import projectChoreo
 from src.projalgoRoles import projRoles
 from src.utils.formatting import removeGroups
-from src.utils.graphManager import executeNode
+from src.utils.graphManager import executeNode, executeApprovedNode
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('HELLO WORLD')
@@ -99,11 +99,11 @@ def processData():
 def processBCData():
     data = request.get_json(silent=True)
     status = data['bcRes'] 
+    activity_name = data['idClicked']
     
     if ('rejected' in status):
         # update execLog
         projId = data['projId']
-        activity_name = data['idClicked']
 
         pExec = glob.glob('./client/src/projections/exec'+projId+'*')[0]
         with open(pExec) as json_file:
@@ -127,15 +127,39 @@ def processBCData():
             json.dump(execData, outfile, indent=2)
    
     else:
-        status='banana pancake'
-    ### for each role projection:
-    ### 1. update marking to true
-    ### 2. apply post exec function
-    ### 3. update exec log
-    ### update public projection
+        roleProjections=glob.glob('./client/src/projections/data*')
+        roles = [pathName.replace('./client/src/projections/data','').replace('.json','') for pathName in roleProjections]
+
+        for role in roles:
+            if activity_name in projection:
+                ### update markings
+                executeApprovedNode(role, activity_name)
+        
+                ### update exec log
+                pExec = glob.glob('./client/src/projections/exec'+role+'*')[0]
+                with open(pExec) as json_file:
+                    try:
+                        execData = json.load(json_file)
+                    except JSONDecodeError:
+                        execData = {'execLogs':[]}
+
+                now = datetime.now()
+                date_time = now.strftime("%m/%d/%Y, %H:%M:%S")    
+
+                id = len(execData['execLogs'])
+                execData['execLogs'].append({
+                    'id':id,
+                    'task':activity_name,
+                    'status': 'public node - '+status,
+                    'timestamp':date_time
+                })
+
+                with open(pExec, 'w') as outfile:
+                    json.dump(execData, outfile, indent=2)
+
+        ### update public projection (?)
 
     return status, 200, {'Access-Control-Allow-Origin': '*'}
-
 
 
 @app.route('/reinit', methods=['POST', 'GET'])
