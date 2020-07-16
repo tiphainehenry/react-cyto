@@ -1,34 +1,3 @@
 {
-  "execLogs": [
-    {
-      "task": "PrepareCommand",
-      "status": "executed",
-      "timestamp": "07/16/2020, 11:16:01"
-    },
-    {
-      "task": "PrepareCommand",
-      "status": "executed",
-      "timestamp": "07/16/2020, 11:16:01"
-    },
-    {
-      "task": "CallShipper",
-      "status": "BC semi internal - not implemented yet",
-      "timestamp": "07/16/2020, 11:16:11"
-    },
-    {
-      "task": "CallShipper",
-      "status": "BC semi internal - not implemented yet",
-      "timestamp": "07/16/2020, 11:16:11"
-    },
-    {
-      "task": "CallShipper",
-      "status": "BC semi internal - not implemented yet",
-      "timestamp": "07/16/2020, 11:17:12"
-    },
-    {
-      "task": "PrepareCommand",
-      "status": "executed",
-      "timestamp": "07/16/2020, 11:17:18"
-    }
-  ]
+  "execLogs": []
 }

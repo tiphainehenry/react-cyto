@@ -33,7 +33,7 @@ class Reinit extends React.Component {
     return<div style={{ display: "flex",justifyContent: "center",
     alignItems: "center",}}>
               <Button onClick={this.handleClick}
-              style= {{color:'white', 'background-color': '#7c9d84', 'border-color':'#7c9d84', 'font-size': '10pt', 'font-weight': 200}}
+              style= {{color:'white', 'backgroundColor': '#7c9d84', 'border-color':'#7c9d84', 'fontSize': '10pt', 'fontWeight': 200}}
               >Reinitialise Process</Button> 
           </div>; 
   }

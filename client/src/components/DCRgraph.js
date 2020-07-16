@@ -13,8 +13,6 @@ var node_style = require('../style/nodeStyle.json')
 var edge_style = require('../style/edgeStyle.json')
 var cyto_style = require('../style/cytoStyle.json')
 
-
-
 class DCRgraph extends React.Component {
   constructor(props){
     super(props);
@@ -29,7 +27,8 @@ class DCRgraph extends React.Component {
                   nameClicked:'',
                   web3: null,
                   accounts: null,
-                  contract: null
+                  contract: null, 
+                  execStatus:''
                 };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -67,9 +66,7 @@ class DCRgraph extends React.Component {
         // Set web3, accounts, and contract to the state, and then proceed with an
         // example of interacting with the contract's methods.
   
-        this.setState({ web3, accounts, contract: instance }, this.runExample);
-        console.log(accounts);
-        console.log(instance);
+        this.setState({ web3, accounts, contract: instance });
       } catch (error) {
         // Catch any errors for any of the above operations.
         alert(
@@ -82,37 +79,14 @@ class DCRgraph extends React.Component {
   
     };
   
-    runExample = async () => {
-      const { accounts, 
-        contract,
-//        included, 
-//        executed, 
-//        pending,
-//        includesto,
-//        excludesto,
-//        responsesto,
-//        conditionsFrom,
-//        milestonesFrom 
-      } = this.state;
-  
-      // Update list type 
-//      const actnames = this.state.activityNames.map(item =>this.state.web3.utils.fromAscii(item));
-      
-//      await contract.methods.createWorkflow(
-//        this.state.web3.utils.fromAscii("test"),
-//        actnames,
-//        included, 
-//        executed, 
-//        pending,
-//        includesto,
-//        excludesto,
-//        responsesto,
-//        conditionsFrom,
-//        milestonesFrom,
-//        this.state.web3.utils.fromAscii("000000000000000000000"),
-//        [],
-//        []    
-//      ).send({from: accounts[0]})
+    runBCCheck = async () => {
+      const { accounts, contract} = this.state;
+        
+      await contract.methods.execute(
+        this.state.web3.utils.fromAscii("test"),
+        this.state.idClicked
+      ).send({from: accounts[0]})
+
       // await contract.methods.set(5).send({ from: accounts[0] });
   
       // Get the value from the contract to prove it worked.0
@@ -121,7 +95,6 @@ class DCRgraph extends React.Component {
       // Update state with the result.
       // this.setState({ storageValue: response });
 //    };
-
   }
 
    setUpListeners = () => {
@@ -129,29 +102,32 @@ class DCRgraph extends React.Component {
  
       //getClikedNode
       console.log(event.target['_private']['data']);
-
       this.setState({nameClicked:event.target['_private']['data']['name']});
       this.setState({idClicked:event.target['_private']['data']['id']});
+    
+      //updateGraphMarkings
+      event.preventDefault()
+      const idClicked = this.state.idClicked;
+      var headers = {
+        "Access-Control-Allow-Origin": "*",
+      };
+      axios.post(`http://localhost:5000/process`, 
+        {idClicked, projId:this.props.id},
+        {"headers" : headers}
+      );
 
-      // this.setState({execlogs:this.state.execlogs.concat({
-        // 'id':this.state.idClicked, 
-        // 'name':this.state.nameClicked,
-        // 'timestamp': new Date().toISOString().substr(0, 19).replace('T', ' ')
-      // })});
-    
-    //updateGraphMarkings
-    event.preventDefault()
-    const idClicked = this.state.idClicked;
-    var headers = {
-      "Access-Control-Allow-Origin": "*",
-    };
-    axios.post(`http://localhost:5000/process`, 
-      {idClicked, projId:this.props.id},
-      {"headers" : headers}
-    )
-    
-    });
-  }
+    })
+
+    // if BC: connect to ethereum to execute contract 
+    var exec = this.props.execLogs.execLogs;
+    if(exec.length>0){
+      var last_element = exec[exec.length - 1];
+      if(last_element.status.includes('BC')){
+          window.alert(last_element.status)
+          this.runBCCheck();
+        }
+    }  
+    }
 
   render(){
     // const layout = cyto_style['layoutCose'];
@@ -159,8 +135,8 @@ class DCRgraph extends React.Component {
     const stylesheet = node_style.concat(edge_style)
 
     return  <div>
-              <Card style={{width: '95%', height:'90%','margin-top':'3vh'}}>
-              <Card.Header as="p" style= {{color:'white', 'background-color': '#006588', 'font-size': '10pt', 'font-weight': 200, padding: '2ex 1ex'}}>
+              <Card style={{width: '95%', height:'90%','marginTop':'3vh'}}>
+              <Card.Header as="p" style= {{color:'white', 'backgroundColor': '#006588', 'fontSize': '10pt', 'fontWeight': 200, padding: '2ex 1ex'}}>
                   {this.props.id}</Card.Header>
                 <Card.Body >
                   <CytoscapeComponent elements={this.props.data} 

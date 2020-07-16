@@ -5,12 +5,12 @@
         "shape": "rectangle",
         "height": "120",
         "width": "240",
-        "background-color": "#ccc",
+        "backgroundColor": "#ccc",
         "border-style": "dashed",
         "border-width": 3,
         "border-color": "#343a40",
         "color": "#343a40",
-        "font-size": "20",
+        "fontSize": "20",
         "text-halign": "center",
         "text-valign": "center",
         "text-wrap": "wrap",
@@ -30,7 +30,7 @@
         "style": {
           "border-color": "#454545",
           "color": "#454545",
-          "background-color": "#fafafa"
+          "backgroundColor": "#fafafa"
         }
       },
       {
@@ -43,7 +43,7 @@
        "selector": "node.executed",
         "style": {
           "color": "#29A81A",
-          "background-color":"white"
+          "backgroundColor":"white"
         }
       },
       {
@@ -61,7 +61,7 @@
         {
           "selector": "node.external",
           "style": {
-            "background-color": "#343a40",
+            "backgroundColor": "#343a40",
             "color":"white"
             }
           }

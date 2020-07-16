@@ -6,7 +6,7 @@
   padding-top: 2vh;
   padding-bottom: 2vh;
   padding-left: 2vh;
-  font-size: calc(5px + 2vmin);
+  fontSize: calc(5px + 2vmin);
   display: flex;
   flex-direction: column;
   box-shadow: 0 2px 3px hsla(0,0%,4%,.1);
@@ -64,13 +64,13 @@
 
 .input-header{
   margin-left: 8%;
-  margin-top: 2%;
+  marginTop: 2%;
   width: 30%;
-  background-color: #61dafb;
+  backgroundColor: #61dafb;
 }
 
 .textDisp{
-  margin-top: 5vh;
+  marginTop: 5vh;
   display: flex;
   justify-content: center;
   align-items: center;

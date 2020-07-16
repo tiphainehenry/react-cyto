@@ -40,19 +40,19 @@ class Header extends React.Component {
                     </NavDropdown>
                   </Nav>
 
-                  <Nav pullRight>
+                  <Nav >
                   <NavDropdown title="Constraints Legend" id="collasible-nav-dropdown">
-                      <NavDropdown.Item style={{"font-size":'16px'}}>Post-execution</NavDropdown.Item>
-                      <NavDropdown.Item style={{color:"#29A81A", "font-size":'12px'}}> -- Include</NavDropdown.Item>
-                      <NavDropdown.Item style={{color:"#FF0000", "font-size":'12px'}}> -- Exclude</NavDropdown.Item>
-                      <NavDropdown.Item style={{color:"#1E90FF", "font-size":'12px'}}> -- Response</NavDropdown.Item>
+                      <NavDropdown.Item style={{"fontSize":'16px'}}>Post-execution</NavDropdown.Item>
+                      <NavDropdown.Item style={{color:"#29A81A", "fontSize":'12px'}}> -- Include</NavDropdown.Item>
+                      <NavDropdown.Item style={{color:"#FF0000", "fontSize":'12px'}}> -- Exclude</NavDropdown.Item>
+                      <NavDropdown.Item style={{color:"#1E90FF", "fontSize":'12px'}}> -- Response</NavDropdown.Item>
                       <NavDropdown.Divider />
-                      <NavDropdown.Item style={{"font-size":'16px'}}>Pre-execution</NavDropdown.Item>
-                      <NavDropdown.Item style={{color:"#FFA500", "font-size":'12px'}}> -- Condition</NavDropdown.Item>
-                      <NavDropdown.Item style={{color:"#BC1AF2", "font-size":'12px'}}> -- Milestone</NavDropdown.Item>
+                      <NavDropdown.Item style={{"fontSize":'16px'}}>Pre-execution</NavDropdown.Item>
+                      <NavDropdown.Item style={{color:"#FFA500", "fontSize":'12px'}}> -- Condition</NavDropdown.Item>
+                      <NavDropdown.Item style={{color:"#BC1AF2", "fontSize":'12px'}}> -- Milestone</NavDropdown.Item>
                     </NavDropdown>
 
-                    <Nav.Link style={{color: 'white','background-color':'red'}} onClick={this.handleClick}>Reinitialise Process</Nav.Link> 
+                    <Nav.Link style={{color: 'white','backgroundColor':'red'}} onClick={this.handleClick}>Reinitialise Process</Nav.Link> 
                   </Nav>
                 </Navbar.Collapse>
               </Navbar>

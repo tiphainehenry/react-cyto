@@ -59,8 +59,8 @@ class GraphModuleGlobal extends React.Component {
 
     return  <div>
              <Header/>
-              <Card id="global" style={{width: '95%', height:'70%','margin-top':'3vh'}}>
-                <Card.Header as="p" style= {{color:'white', 'background-color': 'red', 'font-size': '10pt', 'font-weight': 200, padding: '2ex 1ex'}}>
+              <Card id="global" style={{width: '95%', height:'70%','marginTop':'3vh'}}>
+                <Card.Header as="p" style= {{color:'white', 'backgroundColor': 'red', 'fontSize': '10pt', 'fontWeight': 200, padding: '2ex 1ex'}}>
                   {this.state.global}</Card.Header>
                 <Card.Body>
                   <CytoscapeComponent elements={dataGlobal} 
