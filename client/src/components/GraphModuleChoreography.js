@@ -18,7 +18,7 @@ var dataChoreo = require('../projections/dataChoreo.json')
 var vectChoreo = require('../projections/vectChoreo.json')
 var execLogs = require('../projections/execChoreo.json')
 
-import DCReum from "../contracts/DCReum.json";
+import DCRpublicEngine from "../contracts/DCRpublicEngine.json";
 import getWeb3 from "../getWeb3";
 
 
@@ -72,10 +72,10 @@ class GraphModuleChoreography extends React.Component {
 
       // Get the contract instance.
       const networkId = await web3.eth.net.getId();
-      const deployedNetwork = DCReum.networks[networkId];
+      const deployedNetwork = DCRpublicEngine.networks[networkId];
  
       const instance = new web3.eth.Contract(
-        DCReum.abi,
+        DCRpublicEngine.abi,
         deployedNetwork && deployedNetwork.address,
       );
 

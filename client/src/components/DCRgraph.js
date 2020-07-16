@@ -5,7 +5,7 @@ import CytoscapeComponent from 'react-cytoscapejs';
 import axios from 'axios';
 import ExecLogger from './execLogger';
 import COSEBilkent from "cytoscape-cose-bilkent";
-import DCReum from "../contracts/DCReum.json";
+import DCRpublicEngine from "../contracts/DCRpublicEngine.json";
 import getWeb3 from "../getWeb3";
 
 Cytoscape.use(COSEBilkent);
@@ -56,10 +56,10 @@ class DCRgraph extends React.Component {
   
         // Get the contract instance.
         const networkId = await web3.eth.net.getId();
-        const deployedNetwork = DCReum.networks[networkId];
+        const deployedNetwork = DCRpublicEngine.networks[networkId];
    
         const instance = new web3.eth.Contract(
-          DCReum.abi,
+          DCRpublicEngine.abi,
           deployedNetwork && deployedNetwork.address,
         );
   

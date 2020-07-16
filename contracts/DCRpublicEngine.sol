@@ -1,6 +1,6 @@
 pragma solidity 0.5.16;
 
-contract DCReum {
+contract DCRpublicEngine {
   event LogWorkflowCreation (uint256 indexed workflowId, bytes32 indexed workflowName, address indexed creator);
   event LogExecution (uint256 indexed workflowId, uint256 indexed activityId, address indexed executor);
 
@@ -56,7 +56,7 @@ contract DCReum {
     return ((workflows[workflowId].pending & (1<<activityId)) != 0);
   }
   
-  function getRelations(uint256 relations) private view returns (uint8[] memory) {
+  function getRelations(uint256 relations) private pure returns (uint8[] memory) {
     uint i;
     uint count = 0;
     for (i = 0; i < 256; i++) {
@@ -146,8 +146,7 @@ contract DCReum {
 
   function execute(uint256 workflowId, uint256 activityId) public {
     Workflow storage workflow = workflows[workflowId];
-    uint32 i;
-
+    
     if (!canExecute(workflowId, activityId)) revert();
 
     // executed activity
