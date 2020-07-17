@@ -1,6 +1,7 @@
 import os
 import json
 import glob
+from datetime import datetime
 
 
 def retrieveMarkingOnId(markings, elem):
@@ -243,4 +244,76 @@ def executeNode(data):
                 json.dump(updProj, outfile, indent=2)
 
             return 'executed' ## append status to execlog (?)
+
+def executeApprovedNode(pathname, activity_name):
+    ### 1.1 update marking to true
+    ### 1.2 apply post exec function
+
+    # retrieve activity data
+    pData = pathname
+    pVect = pathname.replace('data','vect')
+
+    with open(pData) as json_data:
+        dataProj = json.load(json_data)
+    with open(pVect) as json_data:
+        dataVect = json.load(json_data)
+
+    # retrieve markings activity_name:
+    markings= dataVect['markings']
+    activity_marking = retrieveMarkingOnName(markings, activity_name)
+
+    # retrieve activity relations (conditions, milestones, included, excluded, response)
+    activity_id = 0
+    while((dataProj[activity_id]['data']['id'] != activity_name) and (activity_id<len(dataProj))):
+        activity_id = activity_id+1
+        if activity_id == len(dataProj):
+            return 'activity not found' ## append status to execlog (?)
+
+
+    relations = dataVect['relations'][0]
+    fromCondition, fromMilestone, toInclude, toExclude, toRespond = retrieveActivityRelations(relations, 
+        activity_id, dataProj)
+
+    # execution
+    # Update markings:
+    activity_marking['executed'] = 1
+    activity_marking['pending'] = 0
+
+    # post_execution evaluation  --> upd markings included, excluded, response
+    markings = postExecManager(toInclude, toExclude, toRespond, markings)
+
+    ## rewrite vectData
+    with open(pVect, 'w') as outfile:
+        json.dump(dataVect, outfile, indent=2)
+
+    ## update projData classes and rewrite
+    updProj = updCytoData(dataProj, markings)
+    with open(pData, 'w') as outfile:
+        json.dump(updProj, outfile, indent=2)
+
+    return 'executed' ## append status to execlog (?)
+
+
+def execLogg(pExec, activity_name, status):
+    with open(pExec) as json_file:
+        try:
+            execData = json.load(json_file)
+        except JSONDecodeError:
+            execData = {'execLogs':[]}
+
+    now = datetime.now()
+    date_time = now.strftime("%m/%d/%Y, %H:%M:%S")    
+
+    id = len(execData['execLogs'])
+    execData['execLogs'].append({
+            'id':id,
+            'task':activity_name,
+            'status':status,
+            'timestamp':date_time
+        })
+
+    with open(pExec, 'w') as outfile:
+        json.dump(execData, outfile, indent=2)
+
+
 
