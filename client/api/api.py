@@ -6,7 +6,6 @@ import json
 import glob
 import logging
 
-from datetime import datetime
 from json.decoder import JSONDecodeError
 from flask import Flask, flash, request, redirect, url_for, session, jsonify
 from flask_cors import CORS, cross_origin
@@ -16,7 +15,7 @@ from src.projalgoGlobal import projectGlobal
 from src.projalgoChoreo import projectChoreo
 from src.projalgoRoles import projRoles
 from src.utils.formatting import removeGroups
-from src.utils.graphManager import executeNode, executeApprovedNode
+from src.utils.graphManager import executeNode, executeApprovedNode, execLogg
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('HELLO WORLD')
@@ -36,12 +35,78 @@ api = Api(app)
 def getRoles():
     return ['Florist', 'Driver', 'Customer']
 
+# Nassim
+@app.route('/process', methods=['POST', 'GET'])
+def processData():
+    data = request.get_json(silent=True)
+    status = executeNode(data)
 
-def reinit(filename):
+    # update execLog
+    if 'BC' not in status:
+        projId = data['projId']
+        activity_name = data['idClicked']
+
+        pExec = glob.glob('./client/src/projections/exec'+projId+'*')[0]
+        execLogg(pExec, activity_name, status)
+    
+    return status, 200, {'Access-Control-Allow-Origin': '*'}
+
+
+@app.route('/BCupdate', methods=['POST', 'GET'])
+def processBCData():
+    data = request.get_json(silent=True)
+    status = data['bcRes'] 
+    activity_name = data['idClicked']
+    
+    if ('rejected' in status):
+        # update execLog
+        projId = data['projId']
+        pExec = glob.glob('./client/src/projections/exec'+projId+'*')[0]
+        execLogg(pExec, activity_name, status)
+   
+    else:
+        roleProjs=glob.glob('./client/src/projections/data*')
+        roleProjections=[]
+        for elem in roleProjs:
+            for projR in ['Florist', 'Driver', 'Customer','Choreography']:
+                if projR in elem: 
+                    roleProjections.append(elem)
+
+        for rolepath in roleProjections:
+            with open(rolepath) as json_file:
+                nodes = json.load(json_file)
+            isPresent=False
+
+            namesToTest = [activity_name]
+            eventName = activity_name
+            if (activity_name[0]=='e') and (activity_name[-1]=='s'):
+                eventName = activity_name[:-1]
+                namesToTest.append(eventName+'r') # receive choreography subevent
+                namesToTest.append(eventName) # choreography event
+                
+
+            for nameToTest in namesToTest:
+                for elem in nodes:
+                    if ((elem['group']=='nodes') and (nameToTest == elem['data']['id'])):
+                        isPresent=True
+                        ### update markings
+                
+                if isPresent:
+                    executeApprovedNode(rolepath, nameToTest)
+
+            ### update exec log
+            pExec = rolepath.replace('data','exec')        
+            execLogg(pExec, eventName, 'public node - ' + status)
+
+
+    return status, 200, {'Access-Control-Allow-Origin': '*'}
+
+
+@app.route('/reinit', methods=['POST', 'GET'])
+def reinitialise():
+    filename = './client/inputExample.txt'
     file = open(os.path.join(filename), 'r')
     data = file.readlines()
-
-    print(data)
     file.close()
 
     target='./client/src/projections/'
@@ -59,113 +124,6 @@ def reinit(filename):
         with open(elem, 'w') as outfile:
             json.dump({"execLogs":[]}, outfile, indent=2)
 
-
-# Nassim
-@app.route('/process', methods=['POST', 'GET'])
-def processData():
-    data = request.get_json(silent=True)
-    status = executeNode(data)
-
-    # update execLog
-    if 'BC' not in status:
-        projId = data['projId']
-        activity_name = data['idClicked']
-
-        pExec = glob.glob('./client/src/projections/exec'+projId+'*')[0]
-        with open(pExec) as json_file:
-            try:
-                execData = json.load(json_file)
-            except JSONDecodeError:
-                execData = {'execLogs':[]}
-
-        now = datetime.now()
-        date_time = now.strftime("%m/%d/%Y, %H:%M:%S")    
-
-        id = len(execData['execLogs'])
-        execData['execLogs'].append({
-            'id':id,
-            'task':activity_name,
-            'status':status,
-            'timestamp':date_time
-        })
-
-        with open(pExec, 'w') as outfile:
-            json.dump(execData, outfile, indent=2)
-    
-    return status, 200, {'Access-Control-Allow-Origin': '*'}
-
-
-@app.route('/BCupdate', methods=['POST', 'GET'])
-def processBCData():
-    data = request.get_json(silent=True)
-    status = data['bcRes'] 
-    activity_name = data['idClicked']
-    
-    if ('rejected' in status):
-        # update execLog
-        projId = data['projId']
-
-        pExec = glob.glob('./client/src/projections/exec'+projId+'*')[0]
-        with open(pExec) as json_file:
-            try:
-                execData = json.load(json_file)
-            except JSONDecodeError:
-                execData = {'execLogs':[]}
-
-        now = datetime.now()
-        date_time = now.strftime("%m/%d/%Y, %H:%M:%S")    
-
-        id = len(execData['execLogs'])
-        execData['execLogs'].append({
-            'id':id,
-            'task':activity_name,
-            'status':status,
-            'timestamp':date_time
-        })
-
-        with open(pExec, 'w') as outfile:
-            json.dump(execData, outfile, indent=2)
-   
-    else:
-        roleProjections=glob.glob('./client/src/projections/data*')
-        roles = [pathName.replace('./client/src/projections/data','').replace('.json','') for pathName in roleProjections]
-
-        for role in roles:
-            if activity_name in projection:
-                ### update markings
-                executeApprovedNode(role, activity_name)
-        
-                ### update exec log
-                pExec = glob.glob('./client/src/projections/exec'+role+'*')[0]
-                with open(pExec) as json_file:
-                    try:
-                        execData = json.load(json_file)
-                    except JSONDecodeError:
-                        execData = {'execLogs':[]}
-
-                now = datetime.now()
-                date_time = now.strftime("%m/%d/%Y, %H:%M:%S")    
-
-                id = len(execData['execLogs'])
-                execData['execLogs'].append({
-                    'id':id,
-                    'task':activity_name,
-                    'status': 'public node - '+status,
-                    'timestamp':date_time
-                })
-
-                with open(pExec, 'w') as outfile:
-                    json.dump(execData, outfile, indent=2)
-
-        ### update public projection (?)
-
-    return status, 200, {'Access-Control-Allow-Origin': '*'}
-
-
-@app.route('/reinit', methods=['POST', 'GET'])
-def reinitialise():
-    filename = './client/inputExample.txt'
-    reinit(filename)
     return 'ok', 200, {'Access-Control-Allow-Origin': '*'}
 
 if __name__ == "__main__":

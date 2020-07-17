@@ -1,6 +1,7 @@
 import os
 import json
 import glob
+from datetime import datetime
 
 
 def retrieveMarkingOnId(markings, elem):
@@ -244,16 +245,13 @@ def executeNode(data):
 
             return 'executed' ## append status to execlog (?)
 
-def executeApprovedNode(projId, activity_name):
+def executeApprovedNode(pathname, activity_name):
     ### 1.1 update marking to true
     ### 1.2 apply post exec function
 
     # retrieve activity data
-    pData = glob.glob('./client/src/projections/data'+projId+'*')[0]
-    #pData = glob.glob('./src/projections/data'+projId+'*')[0]
-
-    pVect = glob.glob('./client/src/projections/vect'+projId+'*')[0]
-    #pVect = glob.glob('./src/projections/vect'+projId+'*')[0]
+    pData = pathname
+    pVect = pathname.replace('data','vect')
 
     with open(pData) as json_data:
         dataProj = json.load(json_data)
@@ -264,8 +262,14 @@ def executeApprovedNode(projId, activity_name):
     markings= dataVect['markings']
     activity_marking = retrieveMarkingOnName(markings, activity_name)
 
-    print('[INFO] success - elem included')
     # retrieve activity relations (conditions, milestones, included, excluded, response)
+    activity_id = 0
+    while((dataProj[activity_id]['data']['id'] != activity_name) and (activity_id<len(dataProj))):
+        activity_id = activity_id+1
+        if activity_id == len(dataProj):
+            return 'activity not found' ## append status to execlog (?)
+
+
     relations = dataVect['relations'][0]
     fromCondition, fromMilestone, toInclude, toExclude, toRespond = retrieveActivityRelations(relations, 
         activity_id, dataProj)
@@ -288,5 +292,28 @@ def executeApprovedNode(projId, activity_name):
         json.dump(updProj, outfile, indent=2)
 
     return 'executed' ## append status to execlog (?)
+
+
+def execLogg(pExec, activity_name, status):
+    with open(pExec) as json_file:
+        try:
+            execData = json.load(json_file)
+        except JSONDecodeError:
+            execData = {'execLogs':[]}
+
+    now = datetime.now()
+    date_time = now.strftime("%m/%d/%Y, %H:%M:%S")    
+
+    id = len(execData['execLogs'])
+    execData['execLogs'].append({
+            'id':id,
+            'task':activity_name,
+            'status':status,
+            'timestamp':date_time
+        })
+
+    with open(pExec, 'w') as outfile:
+        json.dump(execData, outfile, indent=2)
+
 
 

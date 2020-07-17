@@ -3,56 +3,60 @@
     {
       "id": 0,
       "task": "PrepareCommand",
-      "status": "test rejected",
-      "timestamp": "07/16/2020, 18:33:58"
+      "status": "executed",
+      "timestamp": "07/17/2020, 11:49:00"
     },
     {
       "id": 1,
-      "task": "CallShipper",
-      "status": "test rejected",
-      "timestamp": "07/16/2020, 18:34:09"
+      "task": "PrepareCommand",
+      "status": "executed",
+      "timestamp": "07/17/2020, 11:50:33"
     },
     {
       "id": 2,
-      "task": "PrepareCommand",
-      "status": "executed",
-      "timestamp": "07/16/2020, 18:34:16"
+      "task": [
+        "CallShipper"
+      ],
+      "status": "public node - test executable",
+      "timestamp": "07/17/2020, 11:51:55"
     },
     {
       "id": 3,
-      "task": "PrepareCommand",
-      "status": "test rejected",
-      "timestamp": "07/16/2020, 18:34:16"
+      "task": "e2r",
+      "status": "rejected - receive choreography event",
+      "timestamp": "07/17/2020, 11:52:01"
     },
     {
       "id": 4,
-      "task": "PrepareCommand",
-      "status": "executed",
-      "timestamp": "07/16/2020, 18:35:31"
+      "task": [
+        "e2s",
+        "e2r",
+        "e2"
+      ],
+      "status": "public node - test executable",
+      "timestamp": "07/17/2020, 11:52:14"
     },
     {
       "id": 5,
-      "task": "CallShipper",
-      "status": "test rejected",
-      "timestamp": "07/16/2020, 18:35:40"
+      "task": [
+        "e2s",
+        "e2r",
+        "e2"
+      ],
+      "status": "public node - test executable",
+      "timestamp": "07/17/2020, 11:53:53"
     },
     {
       "id": 6,
-      "task": "CallShipper",
-      "status": "test rejected",
-      "timestamp": "07/16/2020, 18:37:45"
+      "task": "e2",
+      "status": "public node - test executable",
+      "timestamp": "07/17/2020, 11:54:05"
     },
     {
       "id": 7,
-      "task": "PrepareCommand",
-      "status": "executed",
-      "timestamp": "07/16/2020, 18:53:01"
-    },
-    {
-      "id": 8,
-      "task": "PrepareCommand",
-      "status": "executed",
-      "timestamp": "07/16/2020, 18:58:01"
+      "task": "e2",
+      "status": "public node - test executable",
+      "timestamp": "07/17/2020, 11:56:35"
     }
   ]
 }
