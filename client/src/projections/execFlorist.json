@@ -11,6 +11,48 @@
       "task": "CallShipper",
       "status": "public node - test executable",
       "timestamp": "07/17/2020, 14:38:36"
+    },
+    {
+      "id": 2,
+      "task": "PrepareCommand",
+      "status": "executed",
+      "timestamp": "07/17/2020, 17:16:38"
+    },
+    {
+      "id": 3,
+      "task": "CallShipper",
+      "status": "BC exec - rejected",
+      "timestamp": "07/17/2020, 17:26:51"
+    },
+    {
+      "id": 4,
+      "task": "CallShipper",
+      "status": "public node - ",
+      "timestamp": "07/17/2020, 17:48:04"
+    },
+    {
+      "id": 5,
+      "task": "CallShipper",
+      "status": "public node - ",
+      "timestamp": "07/17/2020, 17:48:57"
+    },
+    {
+      "id": 6,
+      "task": "CallShipper",
+      "status": "public node - ",
+      "timestamp": "07/17/2020, 17:50:39"
+    },
+    {
+      "id": 7,
+      "task": "CallShipper",
+      "status": "public node - ",
+      "timestamp": "07/17/2020, 17:56:15"
+    },
+    {
+      "id": 8,
+      "task": "CallShipper",
+      "status": "public node - ",
+      "timestamp": "07/17/2020, 18:01:14"
     }
   ]
 }

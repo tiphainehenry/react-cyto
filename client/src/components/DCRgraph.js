@@ -13,6 +13,8 @@ var node_style = require('../style/nodeStyle.json')
 var edge_style = require('../style/edgeStyle.json')
 var cyto_style = require('../style/cytoStyle.json')
 
+var vectChoreo = require('../projections/vectChoreo.json')
+
 class DCRgraph extends React.Component {
   constructor(props){
     super(props);
@@ -24,11 +26,13 @@ class DCRgraph extends React.Component {
                   r2:'Driver Projection',
                   r3:'Customer Projection',
                   idClicked:'',
+                  DCRPublicId:'',
                   nameClicked:'',
                   web3: null,
                   accounts: null,
                   contract: null, 
-                  execStatus:''
+                  execStatus:'',
+                  bcRes:''
                 };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -76,21 +80,31 @@ class DCRgraph extends React.Component {
   
     runBCCheck = async () => {
       const {accounts, contract} = this.state;
-        
-      await contract.methods.execute(
-        this.state.web3.utils.fromAscii("test"),  //workflowID
-        //this.state.idClicked //activityID
-        2
-      ).send({from: accounts[0]})
 
-      // await contract.methods.set(5).send({ from: accounts[0] });
-  
-      // Get the value from the contract to prove it worked.0
-      // const response = await contract.methods.get().call();
-  
-      // Update state with the result.
-      // this.setState({ storageValue: response });
-//    };
+      const activityNames = vectChoreo['activityNames'];
+      const isElem = (element) => element == this.state.idClicked;
+      this.setState({DCRPublicId:activityNames.findIndex(isElem)});
+
+      try {
+        web3.eth.handleRevert = true;
+        console.log(this.state.DCRPublicId);
+        const bcStatus = await contract.methods.execute(
+          this.state.web3.utils.fromAscii("test"),  //workflowID
+          this.state.DCRPublicId                    //activityID
+          ).send({ from: accounts[0]})
+       .on('error', (err, receipt) => {
+          console.log("err.message =",err.message);
+          console.log("receipt =", receipt);
+        });
+
+        this.setState({bcRes:bcStatus})
+
+        } catch (err) {
+              console.log("web3.eth.handleRevert =", web3.eth.handleRevert)
+              console.error(err);
+              console.log("err.message =",err.message);
+              this.setState({bcRes:'BC exec - rejected'})
+        }
   }
 
    setUpListeners = () => {
@@ -116,13 +130,13 @@ class DCRgraph extends React.Component {
 
             if (result.includes('BC')){
               window.alert('Public task to be checked on the blockchain');  
-              //this.runBCCheck();
-              //updateGraphMarkings
-              // const bcRes = await contract.methods.get().call();
-              // const bcRes = 'test rejected'
-              const bcRes = 'test executable'
+              //check BC execution
+              this.runBCCheck();
+
+              //update graph markings
+              var execStatus = this.state.bcRes;
               axios.post(`http://localhost:5000/BCupdate`, 
-                {idClicked, projId:this.props.id, bcRes},
+                {idClicked, projId:this.props.id, execStatus},
                 {"headers" : headers}
               );      
             }

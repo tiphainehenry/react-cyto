@@ -55,7 +55,7 @@ def processData():
 @app.route('/BCupdate', methods=['POST', 'GET'])
 def processBCData():
     data = request.get_json(silent=True)
-    status = data['bcRes'] 
+    status = data['execStatus'] 
     activity_name = data['idClicked']
     
     if ('rejected' in status):

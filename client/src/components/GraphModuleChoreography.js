@@ -79,7 +79,7 @@ class GraphModuleChoreography extends React.Component {
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.
       if(this.state.contract == null){
-        this.setState({ web3, accounts, contract: instance }, this.runExample);
+        this.setState({ web3, accounts, contract: instance }, this.createWorkflow);
       }
       console.log(accounts);
       console.log(instance);
@@ -97,7 +97,7 @@ class GraphModuleChoreography extends React.Component {
 
   };
 
-  runExample = async () => {
+  createWorkflow = async () => {
     const { accounts, 
       contract,
       included, 
