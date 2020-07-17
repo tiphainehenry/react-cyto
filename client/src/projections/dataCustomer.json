@@ -9,7 +9,7 @@
       "y": 0
     },
     "group": "nodes",
-    "classes": "included executed"
+    "classes": "included pending executable"
   },
   {
     "data": {
@@ -21,7 +21,7 @@
       "y": 0
     },
     "group": "nodes",
-    "classes": "included pending executable"
+    "classes": ""
   },
   {
     "data": {

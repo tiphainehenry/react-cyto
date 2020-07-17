@@ -269,7 +269,6 @@ def executeApprovedNode(pathname, activity_name):
         if activity_id == len(dataProj):
             return 'activity not found' ## append status to execlog (?)
 
-
     relations = dataVect['relations'][0]
     fromCondition, fromMilestone, toInclude, toExclude, toRespond = retrieveActivityRelations(relations, 
         activity_id, dataProj)

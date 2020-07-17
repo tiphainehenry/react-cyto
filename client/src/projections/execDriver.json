@@ -2,43 +2,9 @@
   "execLogs": [
     {
       "id": 0,
-      "task": [
-        "CallShipper"
-      ],
+      "task": "CallShipper",
       "status": "public node - test executable",
-      "timestamp": "07/17/2020, 11:51:55"
-    },
-    {
-      "id": 1,
-      "task": [
-        "e2s",
-        "e2r",
-        "e2"
-      ],
-      "status": "public node - test executable",
-      "timestamp": "07/17/2020, 11:52:14"
-    },
-    {
-      "id": 2,
-      "task": [
-        "e2s",
-        "e2r",
-        "e2"
-      ],
-      "status": "public node - test executable",
-      "timestamp": "07/17/2020, 11:53:53"
-    },
-    {
-      "id": 3,
-      "task": "e2",
-      "status": "public node - test executable",
-      "timestamp": "07/17/2020, 11:54:05"
-    },
-    {
-      "id": 4,
-      "task": "e2",
-      "status": "public node - test executable",
-      "timestamp": "07/17/2020, 11:56:35"
+      "timestamp": "07/17/2020, 14:38:36"
     }
   ]
 }
