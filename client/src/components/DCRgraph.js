@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
 import Cytoscape from "cytoscape";
 import CytoscapeComponent from 'react-cytoscapejs';
 import axios from 'axios';
@@ -47,8 +46,6 @@ class DCRgraph extends React.Component {
                 };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleCreateWkf = this.handleCreateWkf.bind(this);
-
     }
 
   handleChange(event) {this.setState({toBeDisp: event.target.value});}
@@ -60,45 +57,6 @@ class DCRgraph extends React.Component {
     event.preventDefault();
   }
 
-  handleCreateWkf = async () => {
-    alert('Creating Workflow onChain');
-
-    const { accounts, contract } = this.state;
-
-    //alert(vectChoreo['fullRelations']['include'].toString().split(","));
-
-    const includesTo = this.state.includesTo.toString().split(",");
-    const excludesTo = this.state.excludesTo.toString().split(",");
-    const responsesTo = this.state.responsesTo.toString().split(",");
-    const conditionsFrom = this.state.conditionsFrom.toString().split(",");
-    const milestonesFrom = this.state.milestonesFrom.toString().split(",");
-
-    try{
-
-      await contract.methods.createWorkflow(
-            this.state.includedStates,
-            this.state.executedStates,
-            this.state.pendingStates,
-            includesTo,
-            excludesTo,
-            responsesTo,
-            conditionsFrom,
-            milestonesFrom        
-        ).send({ from: accounts[0] });
-
-      // Get the value from the contract.
-      const lgth = await contract.methods.getWkfLength().call();
-      alert('Workflow length' + lgth);
-
-    }
-    catch (err) {
-      window.alert(err);  
-      console.log("web3.eth.handleRevert =", web3.eth.handleRevert);
-      const msg= 'BC exec - rejected - '+err;
-      this.setState({bcRes:msg});
-    }
-
-  }
 
 
   componentDidMount = async () => {
@@ -231,11 +189,6 @@ class DCRgraph extends React.Component {
     const stylesheet = node_style.concat(edge_style)
 
     return  <div>
-              <Card style={{width: '95%', height:'90%','marginTop':'3vh'}}>
-              <Card.Header as="p" style= {{color:'white', 'backgroundColor': '#006588', 'fontSize': '10pt', 'fontWeight': 200, padding: '2ex 1ex'}}>
-                  Instanciate Global Workflow</Card.Header>
-                <Card.Body><Button onClick={this.handleCreateWkf}>Create Global Workflow OnChain</Button></Card.Body>
-              </Card>
 
               <Card style={{width: '95%', height:'90%','marginTop':'3vh'}}>
               <Card.Header as="p" style= {{color:'white', 'backgroundColor': '#006588', 'fontSize': '10pt', 'fontWeight': 200, padding: '2ex 1ex'}}>

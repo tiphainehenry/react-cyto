@@ -992,14 +992,14 @@
     {
       "id": "e2r",
       "include": 1,
-      "executed": 0,
-      "pending": 1
+      "executed": 1,
+      "pending": 0
     },
     {
       "id": "e5r",
-      "include": 0,
+      "include": 1,
       "executed": 0,
-      "pending": 0
+      "pending": 1
     },
     {
       "id": "e8r",
@@ -1033,15 +1033,15 @@
     },
     {
       "id": "e3",
-      "include": 0,
+      "include": 1,
       "executed": 0,
-      "pending": 0
+      "pending": 1
     },
     {
       "id": "e4",
-      "include": 0,
+      "include": 1,
       "executed": 0,
-      "pending": 0
+      "pending": 1
     },
     {
       "id": "PrepareCommand",
