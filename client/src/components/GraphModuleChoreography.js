@@ -80,6 +80,7 @@ class GraphModuleChoreography extends React.Component {
       // example of interacting with the contract's methods.
       if(this.state.contract == null){
         this.setState({ web3, accounts, contract: instance }, this.createWorkflow);
+
       }
       console.log(accounts);
       console.log(instance);
@@ -127,6 +128,9 @@ class GraphModuleChoreography extends React.Component {
       [],
       []    
     ).send({from: accounts[0]})
+
+
+
     // await contract.methods.set(5).send({ from: accounts[0] });
 
     // Get the value from the contract to prove it worked.0
