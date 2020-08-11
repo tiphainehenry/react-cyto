@@ -98,8 +98,6 @@ class DCRgraph extends React.Component {
       this.setState({bcRes:msg});
     }
 
-
-
   }
 
 

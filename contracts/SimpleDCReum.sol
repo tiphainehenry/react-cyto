@@ -26,26 +26,26 @@ contract SimpleDCReum {
   ///////////////// Misc ////////////////////////
 
   function checkCliquedIndex(uint256 activityId) public {
-    //if (!canExecute(activityId)) {
-    //  status = 0;
-    //  revert();
-    //}
+    if (!canExecute(activityId)) {
+      status = 0;
+      revert();
+    }
 
-    //else {
-    //  // executed activity
-    //  executed = executed | (1<<activityId);
-    //  pending = pending & ~(1<<activityId);
+    else {
+      // executed activity
+      executed = executed | (1<<activityId);
+      pending = pending & ~(1<<activityId);
 
-    //  // exclude and include relations pass
-    //  // note includes happens after the exclude pass    
-    //  included = (included & ~excludesTo[activityId]) | includesTo[activityId];
+      // exclude and include relations pass
+      // note includes happens after the exclude pass    
+      included = (included & ~excludesTo[activityId]) | includesTo[activityId];
 
-    //  // response relations pass
-    //  pending = (pending | responsesTo[activityId]);
+      // response relations pass
+      pending = (pending | responsesTo[activityId]);
 
-    //  emit LogExecution(activityId, msg.sender);
+      emit LogExecution(activityId, msg.sender);
 
-    //  status = 1;
+      status = 1;
     //}
     
     
@@ -91,7 +91,6 @@ contract SimpleDCReum {
     uint256[] memory _responsesTo,
     uint256[] memory _conditionsFrom,
     uint256[] memory _milestonesFrom
-
   ) public {
     // activity data
     included = _includedStates;
