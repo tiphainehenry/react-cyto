@@ -46,7 +46,7 @@ contract SimpleDCReum {
       emit LogExecution(activityId, msg.sender);
 
       status = 1;
-    //}
+    }
     
     
     status = 1;
