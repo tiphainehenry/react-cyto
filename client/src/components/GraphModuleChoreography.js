@@ -1,25 +1,24 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
 
-import Cytoscape from "cytoscape";
+import Cytoscape from 'cytoscape';
 import CytoscapeComponent from 'react-cytoscapejs';
 import Header from './Header';
-import ExecLogger from './execLogger'
-import axios from 'axios';
+import ExecLogger from './execLogger';
 //import klay from 'cytoscape-klay';
-import COSEBilkent from "cytoscape-cose-bilkent";
+import COSEBilkent from 'cytoscape-cose-bilkent';
 // import dagre from 'cytoscape-dagre';
 Cytoscape.use(COSEBilkent);
 
-var node_style = require('../style/nodeStyle.json')
-var edge_style = require('../style/edgeStyle.json')
-var cyto_style = require('../style/cytoStyle.json')
-var dataChoreo = require('../projections/dataChoreo.json')
-var vectChoreo = require('../projections/vectChoreo.json')
-var execLogs = require('../projections/execChoreo.json')
+var node_style = require('../style/nodeStyle.json');
+var edge_style = require('../style/edgeStyle.json');
+var cyto_style = require('../style/cytoStyle.json');
+var dataChoreo = require('../projections/dataChoreo.json');
+var vectChoreo = require('../projections/vectChoreo.json');
+var execLogs = require('../projections/execChoreo.json');
 
-import DCRpublicEngine from "../contracts/DCRpublicEngine.json";
-import getWeb3 from "../getWeb3";
+import SimpleDCReum from '../contracts/SimpleDCReum.json';
+import getWeb3 from '../getWeb3';
 
 
 class GraphModuleChoreography extends React.Component {
@@ -37,22 +36,15 @@ class GraphModuleChoreography extends React.Component {
                   execLogs: execLogs, 
                   web3: null,
                   accounts: null,
-                  contract: null,
-                  activityNames:vectChoreo['activityNames'],
-                  included: vectChoreo['fullMarkings']['included'], 
-                  executed: vectChoreo['fullMarkings']['executed'], 
-                  pending:  vectChoreo['fullMarkings']['pending'],
-                  includesto: vectChoreo['fullRelations']['include'],
-                  excludesto: vectChoreo['fullRelations']['exclude'],
-                  responsesto: vectChoreo['fullRelations']['response'],
-                  conditionsFrom: vectChoreo['fullRelations']['condition'],
-                  milestonesFrom: vectChoreo['fullRelations']['milestone']
+                  contract: null
                 };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {this.setState({toBeDisp: event.target.value});  }
+  handleChange(event) {
+    this.setState({toBeDisp: event.target.value});  
+  }
 
   handleSubmit(event) {
     alert('Role projection to be displayed: ' + this.state.role);
@@ -62,28 +54,25 @@ class GraphModuleChoreography extends React.Component {
   }
   
 
-   componentDidMount = async () => {
+
+  componentDidMount = async () => {
+
     try {  
       // Get network provider and web3 instance.
       const web3 = await getWeb3();
+
       // Use web3 to get the user's accounts.
       const accounts = await web3.eth.getAccounts();
+
       // Get the contract instance.
       const networkId = await web3.eth.net.getId();
-      const deployedNetwork = DCRpublicEngine.networks[networkId];
-
+      const deployedNetwork = SimpleDCReum.networks[networkId];
       const instance = new web3.eth.Contract(
-          DCRpublicEngine.abi,
-          deployedNetwork && deployedNetwork.address,
+        SimpleDCReum.abi,
+        deployedNetwork && deployedNetwork.address,
       );
-      // Set web3, accounts, and contract to the state, and then proceed with an
-      // example of interacting with the contract's methods.
-      if(this.state.contract == null){
-        this.setState({ web3, accounts, contract: instance }, this.createWorkflow);
 
-      }
-      console.log(accounts);
-      console.log(instance);
+      this.setState({ web3, accounts, contract: instance });
     } catch (error) {
       // Catch any errors for any of the above operations.
       alert(
@@ -91,54 +80,12 @@ class GraphModuleChoreography extends React.Component {
       );
       console.error(error);
     };
-
-
     this.cy.fit();
+
     this.setUpListeners();
 
   };
 
-  createWorkflow = async () => {
-    const { accounts, 
-      contract,
-      included, 
-      executed, 
-      pending,
-      includesto,
-      excludesto,
-      responsesto,
-      conditionsFrom,
-      milestonesFrom } = this.state;
-
-    // Update list type 
-    const actnames = this.state.activityNames.map(item =>this.state.web3.utils.fromAscii(item));
-    
-    await contract.methods.createWorkflow(
-      this.state.web3.utils.fromAscii("test"),
-      actnames,
-      included, 
-      executed, 
-      pending,
-      includesto,
-      excludesto,
-      responsesto,
-      conditionsFrom,
-      milestonesFrom,
-      this.state.web3.utils.fromAscii("000000000000000000000"),
-      [],
-      []    
-    ).send({from: accounts[0]})
-
-
-
-    // await contract.methods.set(5).send({ from: accounts[0] });
-
-    // Get the value from the contract to prove it worked.0
-    // const response = await contract.methods.get().call();
-
-    // Update state with the result.
-    // this.setState({ storageValue: response });
-  };
 
    setUpListeners = () => {
     this.cy.on('click', 'node', (event) => {
@@ -154,7 +101,7 @@ class GraphModuleChoreography extends React.Component {
   }
 
   render(){
-    const layout = cyto_style['layoutCose'];
+    // const layout = cyto_style['layoutCose'];
     const style = cyto_style['style'];
     const stylesheet = node_style.concat(edge_style)
 
@@ -171,7 +118,7 @@ class GraphModuleChoreography extends React.Component {
                 <Card.Body>
                   <CytoscapeComponent elements={dataChoreo} 
                                         stylesheet={stylesheet} 
-//                                        layout={layout} 
+                                        // layout={layout} 
                                         style={style} 
                                         cy={(cy) => {this.cy = cy}}
                                         boxSelectionEnabled={false}

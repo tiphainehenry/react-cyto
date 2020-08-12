@@ -7,18 +7,6 @@
         "source-endpoint": "inside-to-node"
       }
     },
-        {
-      "selector": "edge.include, edge.exclude, edge.response]",
-      "style": {
-        "target-arrow-shape": "triangle"
-      }
-    },
-    {
-      "selector": "edge.include, edge.exclude, edge.response]",
-      "style": {
-        "target-arrow-shape": "triangle"
-      }
-    },
     {
       "selector": "edge.include",
       "style": {

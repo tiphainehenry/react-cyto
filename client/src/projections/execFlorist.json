@@ -1,34 +1,3 @@
 {
-  "execLogs": [
-    {
-      "id": 0,
-      "task": "PrepareCommand",
-      "status": "executed",
-      "timestamp": "08/11/2020, 18:39:58"
-    },
-    {
-      "id": 1,
-      "task": "CallShipper",
-      "status": "public node - executed",
-      "timestamp": "08/11/2020, 18:40:13"
-    },
-    {
-      "id": 2,
-      "task": "e2r",
-      "status": "rejected - receive choreography event",
-      "timestamp": "08/11/2020, 18:40:20"
-    },
-    {
-      "id": 3,
-      "task": "e2",
-      "status": "public node - executed",
-      "timestamp": "08/11/2020, 18:42:09"
-    },
-    {
-      "id": 4,
-      "task": "e2",
-      "status": "public node - executed",
-      "timestamp": "08/11/2020, 18:46:39"
-    }
-  ]
+  "execLogs": []
 }

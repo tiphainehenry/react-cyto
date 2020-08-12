@@ -6647,10 +6647,50 @@
       "links": {},
       "address": "0x7903646c567053F96899363E069eEAe635f98E1D",
       "transactionHash": "0x781c851d3861574e94891e280052bb9e9fc6c053232a3a2f68eb5a203f2d3d5a"
+    },
+    "1597216304022": {
+      "events": {
+        "0x7fab02713bd9109308be361c308de925c6d25f0720e51b753f8f05aeb310565e": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "activityId",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "executor",
+              "type": "address"
+            }
+          ],
+          "name": "LogExecution",
+          "type": "event"
+        },
+        "0xd061d6a1bcb331cc1e46ac8ec8ad8e737138f6885b3572c0bddc421f6a6a1c8f": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "creator",
+              "type": "address"
+            }
+          ],
+          "name": "LogWorkflowCreation",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x50814d5d058D8E428a0958250498841F856cA4A4",
+      "transactionHash": "0xc009f7a38aff643335cb67913fa09e2f97c61d478d1c979169f4b3ab2324199d"
     }
   },
   "schemaVersion": "3.2.1",
-  "updatedAt": "2020-08-11T16:04:30.443Z",
+  "updatedAt": "2020-08-12T07:14:34.172Z",
+  "networkType": "ethereum",
   "devdoc": {
     "methods": {}
   },

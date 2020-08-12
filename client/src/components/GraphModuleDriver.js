@@ -1,9 +1,9 @@
 import React from 'react';
 import Header from './Header';
-import DCRgraph from './DCRgraph'
+import DCRgraph from './DCRgraph';
 
-var data = require('../projections/dataDriver.json')
-var execLogs = require('../projections/execDriver.json')
+var data = require('../projections/dataDriver.json');
+var execLogs = require('../projections/execDriver.json');
 
 class GraphModuleFlorist extends React.Component {
   constructor(props){

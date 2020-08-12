@@ -1,18 +1,17 @@
 import React, {useState} from 'react';
 import Card from 'react-bootstrap/Card';
-import Cytoscape from "cytoscape";
-import CytoscapeComponent from 'react-cytoscapejs';
 import axios from 'axios';
 import ExecLogger from './execLogger';
-import COSEBilkent from "cytoscape-cose-bilkent";
-import DCRpublicEngine from "../contracts/DCRpublicEngine.json";
-import SimpleDCReum from "../contracts/SimpleDCReum.json";
-import getWeb3 from "../getWeb3";
+import COSEBilkent from 'cytoscape-cose-bilkent';
+import SimpleDCReum from '../contracts/SimpleDCReum.json';
+import getWeb3 from '../getWeb3';
 
+import Cytoscape from 'cytoscape';
+import CytoscapeComponent from 'react-cytoscapejs';
 Cytoscape.use(COSEBilkent);
-var node_style = require('../style/nodeStyle.json')
-var edge_style = require('../style/edgeStyle.json')
-var cyto_style = require('../style/cytoStyle.json')
+var node_style = require('../style/nodeStyle.json');
+var edge_style = require('../style/edgeStyle.json');
+var cyto_style = require('../style/cytoStyle.json');
 
 var vectChoreo = require('../projections/vectChoreo.json')
 
@@ -33,16 +32,7 @@ class DCRgraph extends React.Component {
                   accounts: null,
                   contract: null, 
                   execStatus:'',
-                  bcRes:'',
-                  storageValue:0,
-                  includedStates: vectChoreo['fullMarkings']['included'], 
-                  executedStates: vectChoreo['fullMarkings']['executed'], 
-                  pendingStates:  vectChoreo['fullMarkings']['pending'],
-                  includesTo: vectChoreo['fullRelations']['include'],
-                  excludesTo: vectChoreo['fullRelations']['exclude'],
-                  responsesTo: vectChoreo['fullRelations']['response'],
-                  conditionsFrom: vectChoreo['fullRelations']['condition'],
-                  milestonesFrom: vectChoreo['fullRelations']['milestone']
+                  bcRes:''
                 };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -76,21 +66,6 @@ class DCRgraph extends React.Component {
           SimpleDCReum.abi,
           deployedNetwork && deployedNetwork.address,
         );
-
-        //const networkId = await web3.eth.net.getId();
-        //const deployedNetwork = DCRpublicEngine.networks[networkId];
-
-        //const storageDeployedNetwork = SimpleStorage.networks[networkId];
-   
-        // const instance = new web3.eth.Contract(
-        //  DCRpublicEngine.abi,
-        //  deployedNetwork && deployedNetwork.address,
-        //);  
-
-        //        const storageInstance = new web3.eth.Contract(
-        //          SimpleStorage.abi,
-        //          storageDeployedNetwork && storageDeployedNetwork.address,
-        //);  
 
         this.setState({ web3, accounts, contract: instance });
       } catch (error) {

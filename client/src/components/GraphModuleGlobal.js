@@ -5,13 +5,6 @@ import Cytoscape from "cytoscape";
 import CytoscapeComponent from 'react-cytoscapejs';
 import Header from './Header';
 import axios from 'axios';
-//import klay from 'cytoscape-klay';
-import COSEBilkent from "cytoscape-cose-bilkent";
-// import dagre from 'cytoscape-dagre';
-Cytoscape.use(COSEBilkent);
-//Cytoscape.use(klay);
-// Cytoscape.use(dagre);
-
 import SimpleDCReum from "../contracts/SimpleDCReum.json";
 import getWeb3 from "../getWeb3";
 
@@ -43,7 +36,8 @@ class GraphModuleGlobal extends React.Component {
                   excludesTo: vectChoreo['fullRelations']['exclude'],
                   responsesTo: vectChoreo['fullRelations']['response'],
                   conditionsFrom: vectChoreo['fullRelations']['condition'],
-                  milestonesFrom: vectChoreo['fullRelations']['milestone']
+                  milestonesFrom: vectChoreo['fullRelations']['milestone'],
+                  wkState: 'Create Global Workflow OnChain'
                 };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -87,15 +81,15 @@ class GraphModuleGlobal extends React.Component {
         ).send({ from: accounts[0] });
 
       // Get the value from the contract.
-      const lgth = await contract.methods.getWkfLength().call();
-      alert('Workflow length' + lgth);
-
+      // const lgth = await contract.methods.getWkfLength().call();
+      this.setState({wkState:'Public Workflow Onchain !'});
     }
     catch (err) {
       window.alert(err);  
       console.log("web3.eth.handleRevert =", web3.eth.handleRevert);
       const msg= 'BC exec - rejected - '+err;
       this.setState({bcRes:msg});
+      this.setState({wkState:'Create Global Workflow OnChain'});
     }
 
   }
@@ -118,21 +112,6 @@ class GraphModuleGlobal extends React.Component {
         deployedNetwork && deployedNetwork.address,
       );
 
-      //const networkId = await web3.eth.net.getId();
-      //const deployedNetwork = DCRpublicEngine.networks[networkId];
-
-      //const storageDeployedNetwork = SimpleStorage.networks[networkId];
- 
-      // const instance = new web3.eth.Contract(
-      //  DCRpublicEngine.abi,
-      //  deployedNetwork && deployedNetwork.address,
-      //);  
-
-      //        const storageInstance = new web3.eth.Contract(
-      //          SimpleStorage.abi,
-      //          storageDeployedNetwork && storageDeployedNetwork.address,
-      //);  
-
       this.setState({ web3, accounts, contract: instance });
     } catch (error) {
       // Catch any errors for any of the above operations.
@@ -151,7 +130,6 @@ class GraphModuleGlobal extends React.Component {
    }
 
   render(){
-    const layout = cyto_style['layoutCose'];
     const style = cyto_style['style'];
     const stylesheet = node_style.concat(edge_style)
 
@@ -159,9 +137,9 @@ class GraphModuleGlobal extends React.Component {
              <Header/>
 
              <Card style={{width: '95%', height:'70%','marginTop':'3vh', 'borderColor':'white'}}>
-             <p>Welcome to DCRPortal, a toy portal to monitor in a decentralized fashion a flower shipment !</p>
-             <p>Before starting, instanciate onchain the public chunk of the below workflow by clicking on the blue button. </p>
-             <p>You can then navigate between the different role projections via the header to execute the process. </p>
+             <p>Welcome to DCRPortal, a toy portal to monitor a flower shipment in a decentralized fashion !</p>
+             <p>Before starting, instanciate the public chunk of the workflow onchain by clicking on the blue button (below). </p>
+             <p>To execute the process, you can then navigate between the different role projections via the header. </p>
              </Card>
               <Card id="global" style={{width: '95%', height:'70%','marginTop':'3vh'}}>
                 <Card.Header as="p" style= {{color:'black', 'backgroundColor': 'white', 'fontSize': '10pt', 'fontWeight': 200, padding: '2ex 1ex'}}>
@@ -170,9 +148,8 @@ class GraphModuleGlobal extends React.Component {
                   <CytoscapeComponent elements={dataGlobal} 
                                         stylesheet={stylesheet} 
                                         cy={(cy) => {this.cy = cy}}
-//                                        layout={layout} 
                                         style={style} />    
-                  <Button onClick={this.handleCreateWkf}>Create Global Workflow OnChain</Button>
+                  <Button onClick={this.handleCreateWkf}>{this.state.wkState}</Button>
                 </Card.Body>
                 
               </Card>
