@@ -1,3 +1,10 @@
 {
-  "execLogs": []
+  "execLogs": [
+    {
+      "id": 0,
+      "task": "CallShipper",
+      "status": "public node - executed",
+      "timestamp": "08/17/2020, 20:00:24"
+    }
+  ]
 }

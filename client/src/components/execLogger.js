@@ -8,7 +8,6 @@ import '../style/App.css';
 class ExecLogger extends React.Component {
   render(){
     return  <div>
-
               <Card id="exec" style={{width: '95%', height:'70%','marginTop':'3vh'}}>
               <Card.Header as="p" style= {{color:'white', 'backgroundColor': '#00881d', 'fontSize': '10pt', 'fontWeight': 200, padding: '2ex 1ex'}}>
                   Execution logs</Card.Header>

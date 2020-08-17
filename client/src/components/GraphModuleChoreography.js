@@ -94,8 +94,7 @@ class GraphModuleChoreography extends React.Component {
       this.setState({execlogs:this.state.execlogs.concat({
         'id':event.target['_private']['data']['id'], 
         'name':this.state.nameClicked,
-        'timestamp': new Date().toISOString().substr(0, 19).replace('T', ' ')
-    
+        'timestamp': new Date().toISOString().substr(0, 19).replace('T', ' ')    
     })})
     })
   }

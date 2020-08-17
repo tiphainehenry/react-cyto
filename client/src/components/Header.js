@@ -1,6 +1,5 @@
 import React from 'react';
 import { Navbar, Nav, NavDropdown} from 'react-bootstrap';
-import axios from 'axios';
 
 
 class Header extends React.Component {
@@ -15,13 +14,6 @@ class Header extends React.Component {
                   r2:'Driver Projection',
                   r3:'Customer Projection'
                 };
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick(event) {
-    event.preventDefault();
-    axios.post(`http://localhost:5000/reinit`, 'reinit')
-    window.location.reload(false);
   }
 
   render(){
@@ -52,7 +44,6 @@ class Header extends React.Component {
                       <NavDropdown.Item style={{color:"#BC1AF2", "fontSize":'12px'}}> -- Milestone</NavDropdown.Item>
                     </NavDropdown>
 
-                    <Nav.Link style={{color: 'white','backgroundColor':'red'}} onClick={this.handleClick}>Reinitialise Process</Nav.Link> 
                   </Nav>
                 </Navbar.Collapse>
               </Navbar>

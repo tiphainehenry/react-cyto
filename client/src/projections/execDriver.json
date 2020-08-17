@@ -1,3 +1,22 @@
 {
-  "execLogs": []
+  "execLogs": [
+    {
+      "id": 0,
+      "task": "CallShipper",
+      "status": "public node - executed",
+      "timestamp": "08/17/2020, 20:00:24"
+    },
+    {
+      "id": 1,
+      "task": "e2s",
+      "status": "BC exec - rejected - Metamask issue - Please try again (Higher gas fees, contract recompilation, or metamask reinstallation)",
+      "timestamp": "08/17/2020, 20:20:32"
+    },
+    {
+      "id": 2,
+      "task": "e2s",
+      "status": "BC exec - rejected - Did not evaluate the task",
+      "timestamp": "08/17/2020, 20:21:39"
+    }
+  ]
 }
