@@ -5,7 +5,7 @@ import DCRgraph from './DCRgraph';
 var data = require('../projections/dataCustomer.json');
 var execLogs = require('../projections/execCustomer.json');
 
-class GraphModuleFlorist extends React.Component {
+class GraphModuleCustomer extends React.Component {
   constructor(props){
     super(props);
     this.state = {id:'Customer',
@@ -22,4 +22,4 @@ class GraphModuleFlorist extends React.Component {
   }
 }
 
-export default GraphModuleFlorist
+export default GraphModuleCustomer

@@ -45,9 +45,11 @@ def processData():
     if 'BC' not in status:
         projId = data['projId']
         activity_name = data['idClicked']
+        activity_name_details = data['activityName']
+        start_timestamp = data['start_timestamp']
 
         pExec = glob.glob('./client/src/projections/exec'+projId+'*')[0]
-        execLogg(pExec, activity_name, status)
+        execLogg(pExec, activity_name_details, status, start_timestamp)
     
     return status, 200, {'Access-Control-Allow-Origin': '*'}
 
@@ -57,12 +59,14 @@ def processBCData():
     data = request.get_json(silent=True)
     status = data['execStatus'] 
     activity_name = data['idClicked']
-    
+    activity_name_details = data['activityName']
+    start_timestamp = data['start_timestamp']
+
     if ('rejected' in status):
         # update execLog
         projId = data['projId']
         pExec = glob.glob('./client/src/projections/exec'+projId+'*')[0]
-        execLogg(pExec, activity_name, status)
+        execLogg(pExec, activity_name_details, status, start_timestamp)
    
     else:
         roleProjs=glob.glob('./client/src/projections/data*')
@@ -96,7 +100,7 @@ def processBCData():
 
             ### update exec log
             pExec = rolepath.replace('data','exec')        
-            execLogg(pExec, eventName, 'public node - ' + status)
+            execLogg(pExec, activity_name_details, 'public node - ' + status, start_timestamp)
 
 
     return status, 200, {'Access-Control-Allow-Origin': '*'}

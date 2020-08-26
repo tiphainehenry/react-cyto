@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import Card from 'react-bootstrap/Card';
 import axios from 'axios';
-import ExecLogger from './execLogger';
+import ExecLogger from './ExecLogger';
+import PublicMarkings from './PublicMarkings';
 
 import SimpleDCReum from '../contracts/SimpleDCReum.json';
 import getWeb3 from '../getWeb3';
@@ -15,17 +16,17 @@ var node_style = require('../style/nodeStyle.json');
 var edge_style = require('../style/edgeStyle.json');
 var cyto_style = require('../style/cytoStyle.json');
 
+var vectChoreo = require('../resources/vectChoreo_init.json');
 
 class DCRgraph extends React.Component {
   constructor(props){
     super(props);
     this.state = {
+                  start_timestamp:'',
                   idClicked:'',
                   indexClicked:'',
                   nameClicked:'',
-                  activityNames:["e2","e5","e8","e9","e10","e11","e14","CallShipper","ReturnTruck","SettleCommand"],
-                  activityNames_s:["e2s","e5s","e8s","e9s","e10s","e11s","e14s","CallShipper","ReturnTruck","SettleCommand"],
-                  activityNames_r:["e2r","e5r","e8r","e9r","e10r","e11r","e14r","CallShipper","ReturnTruck","SettleCommand"],
+                  activityNames:vectChoreo["activityNames"],
 
                   web3: null,
                   accounts: null,
@@ -38,6 +39,7 @@ class DCRgraph extends React.Component {
                   pend:'',
                   lg_activityNames:''
                 };
+      this.fetchBCid = this.fetchBCid.bind(this);
     }
 
   componentWillMount() {
@@ -80,7 +82,7 @@ class DCRgraph extends React.Component {
     const pendVector = await contract.methods.getPending().call();
 
     this.setState({
-      lg_activityNames:'Tasks: ' + this.state.activityNames.join(),
+      lg_activityNames:'Tasks: ' + this.state.activityNames["default"].join(),
       incl:'Included vector: ' + inclVector,
       exec:'Executed vector: ' + execVector,
       pend:'Pending vector:  ' + pendVector,
@@ -93,57 +95,57 @@ class DCRgraph extends React.Component {
       this.setUpListeners();
     };
   
+  fetchBCid() {
 
-    runBCCheck = async () => {
+    // Step1: Fetch corresponding BC id.
+    var lastChar = this.state.idClicked.charAt(this.state.idClicked.length-1);
+    var activities = []
+    switch(lastChar){
+      case 's':
+        activities = this.state.activityNames["send"];
+        break;
+      case 'r':
+        activities = this.state.activityNames["receive"];
+        break;
+      default:
+        activities = this.state.activityNames["default"];
+    }
+    const isElem = (element) => element.includes(this.state.idClicked);
+    const indexClicked = activities.findIndex(isElem);
+
+    this.setState({indexClicked:indexClicked});
+
+    // window.alert('BC id to examine: '+this.state.indexClicked);
+  }
+
+  runBCCheck = async () => {
       const { accounts, contract } = this.state;
+      window.alert('Task  ['+this.state.nameClicked+'] is public... Proceeding to blockchain check');  
 
-      // checking public workflow: 
-      window.alert('Task  ['+this.state.idClicked+'] is public... Proceeding to blockchain check');  
+      // fetch public workflow id
+      this.fetchBCid();
 
-      // Step1: Fetch corresponding BC id.
-      var lastChar = this.state.idClicked.charAt(this.state.idClicked.length-1);
-      var activities = []
-      switch(lastChar){
-        case 's':
-          activities = this.state.activityNames_s;
-          break;
-        case 'r':
-          activities = this.state.activityNames_r;
-          break;
-        default:
-          activities = this.state.activityNames;
-      }
-      const isElem = (element) => element.includes(this.state.idClicked);
-      const indexClicked = activities.findIndex(isElem);
-      this.setState({indexClicked:indexClicked});
-
-
-      window.alert('BC id to examine: '+this.state.indexClicked);
-
-
-
-      // Step2: Execute transaction.
+      // execute transaction
       try{
 
         await contract.methods.checkCliquedIndex(this.state.indexClicked).send({ from: accounts[0] });
   
         // Get the value from the contract.
         const output =  await contract.methods.getCanExecuteCheck().call();
-
         switch(output) {
-          case 1:
+          case '1':
             window.alert('Task not included');
             this.setState({ bcRes: 'BC exec - rejected - taskNotIncluded' });
             break;
-          case 2:
+          case '2':
             window.alert('Conditions not fulfilled');
             this.setState({ bcRes: 'BC exec - rejected - conditionsNotFulfilled' });
             break;
-          case 3:
+          case '3':
             window.alert('Milestones not fulfilled');
             this.setState({ bcRes: 'BC exec - rejected - milestonesNotFulfilled' });
             break;
-          case 0:
+          case '0':
             window.alert('Task executable');
             this.setState({ bcRes: 'executed' });
             break;          
@@ -160,13 +162,15 @@ class DCRgraph extends React.Component {
         this.setState({bcRes:msg});
       }
 
-      var headers = {
-        "Access-Control-Allow-Origin": "*",
-      };
-
       axios.post(`http://localhost:5000/BCupdate`, 
-      {idClicked:this.state.idClicked, projId:this.props.id, execStatus:this.state.bcRes},
-      {"headers" : headers}
+      {
+        idClicked:this.state.idClicked, 
+        projId:this.props.id, 
+        execStatus:this.state.bcRes, 
+        activityName:this.state.nameClicked,
+        start_timestamp:this.state.start_timestamp
+      },
+      {"headers" : {"Access-Control-Allow-Origin": "*"}}
     );      
 
     };
@@ -176,6 +180,8 @@ class DCRgraph extends React.Component {
 
       this.cy.on('click', 'node', (event) => {
       //getClikedNode
+      var start_tmstp = new Date().toLocaleString();
+      this.setState({start_timestamp:start_tmstp});
       console.log(event.target['_private']['data']);
       this.setState({nameClicked:event.target['_private']['data']['name']});
       this.setState({idClicked:event.target['_private']['data']['id']});
@@ -187,7 +193,12 @@ class DCRgraph extends React.Component {
         "Access-Control-Allow-Origin": "*",
       };
       axios.post(`http://localhost:5000/process`, 
-        {idClicked, projId:this.props.id},
+        {
+          idClicked, 
+          projId:this.props.id, 
+          activityName:this.state.nameClicked,
+          start_timestamp:this.state.start_timestamp
+        },
         {"headers" : headers}
       ).then( 
         (response) => { 
@@ -211,17 +222,8 @@ class DCRgraph extends React.Component {
     const style = cyto_style['style'];
     const stylesheet = node_style.concat(edge_style);
 
+
     return  <div>
-              <Card style={{width: '95%', height:'90%','marginTop':'3vh'}}>
-              <Card.Header as="p" style= {{color:'white', 'backgroundColor': '#006588', 'fontSize': '10pt', 'fontWeight': 200, padding: '2ex 1ex'}}>
-                  Public projection instance marking vectors</Card.Header>
-                <Card.Body >
-                  <p>{this.state.lg_activityNames}</p>
-                  <p>{this.state.incl}</p>
-                  <p>{this.state.pend}</p>
-                  <p>{this.state.exec}</p>
-                </Card.Body>
-              </Card>
               <Card style={{width: '95%', height:'90%','marginTop':'3vh'}}>
               <Card.Header as="p" style= {{color:'white', 'backgroundColor': '#006588', 'fontSize': '10pt', 'fontWeight': 200, padding: '2ex 1ex'}}>
                   {this.props.id}</Card.Header>
@@ -237,6 +239,10 @@ class DCRgraph extends React.Component {
               </Card>
 
               <ExecLogger  execLogs = {this.props.execLogs}/>
+              <PublicMarkings lg_activityNames={this.state.lg_activityNames} 
+                              incl = {this.state.incl}
+                              pend = {this.state.pend}
+                              exec = {this.state.exec} />
             </div>; 
   }
 }

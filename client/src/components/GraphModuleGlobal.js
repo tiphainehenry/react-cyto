@@ -12,11 +12,7 @@ var node_style = require('../style/nodeStyle.json')
 var edge_style = require('../style/edgeStyle.json')
 var cyto_style = require('../style/cytoStyle.json')
 var dataGlobal = require('../projections/dataGlobal.json')
-
-var data_florist = require('../projections/dataFlorist.json')
-var execLogs_florist = require('../projections/execFlorist.json')
-
-var vectChoreo = require('../resources/vectChoreo_init.json')
+var vectChoreo = require('../projections/vectChoreo.json')
 
 class GraphModuleGlobal extends React.Component {
   constructor(props){
@@ -26,7 +22,7 @@ class GraphModuleGlobal extends React.Component {
                   accounts: null,
                   contract: null, 
 
-                  wkState: '',
+                  wkState: '... loading ...',
 
                   includedStates: vectChoreo['fullMarkings']['included'], 
                   executedStates: vectChoreo['fullMarkings']['executed'], 
@@ -36,9 +32,6 @@ class GraphModuleGlobal extends React.Component {
                   responsesTo: vectChoreo['fullRelations']['response'],
                   conditionsFrom: vectChoreo['fullRelations']['condition'],
                   milestonesFrom: vectChoreo['fullRelations']['milestone'],
-
-                  data_florist:data_florist,
-                  execLogs_florist:execLogs_florist
 
                 };
     this.handleCreateWkf = this.handleCreateWkf.bind(this);
@@ -70,7 +63,7 @@ class GraphModuleGlobal extends React.Component {
     }
 
     axios.post(`http://localhost:5000/reinit`, 'reinit');
-    window.location.reload(false);
+    // window.location.reload(false);
     
   }
 
@@ -101,8 +94,10 @@ class GraphModuleGlobal extends React.Component {
 
     // Checking if contract already populated
     const {contract} = this.state;
-    const lgth = await contract.methods.getWkfLength().call();
-    if (lgth>-1){
+
+    const inclVector = await contract.methods.getIncluded().call();
+
+    if (inclVector.length>0){
       this.setState({wkState:'Public Workflow onchain. Reset?'  });
     }
     else{
@@ -118,7 +113,7 @@ class GraphModuleGlobal extends React.Component {
   render(){
     const style = cyto_style['style'];
     const stylesheet = node_style.concat(edge_style)
-
+    
     return  <div>
              <Header/>
 

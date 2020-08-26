@@ -5,7 +5,7 @@ import DCRgraph from './DCRgraph';
 var data = require('../projections/dataDriver.json');
 var execLogs = require('../projections/execDriver.json');
 
-class GraphModuleFlorist extends React.Component {
+class GraphModuleDriver extends React.Component {
   constructor(props){
     super(props);
     this.state = {id:'Driver',
@@ -22,4 +22,4 @@ class GraphModuleFlorist extends React.Component {
   }
 }
 
-export default GraphModuleFlorist
+export default GraphModuleDriver

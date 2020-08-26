@@ -60,7 +60,7 @@ def generateRelationMatrix(relationType, eventsList, chunkEvents, relations):
         newLine = []
         for item in elem:
             newLine.append(str(item).replace('.0',''))
-        fullMatrix.append(''.join(newLine))
+        fullMatrix.append(newLine)
 
     return relationMatrix, fullMatrix
 
@@ -77,7 +77,9 @@ def generateRelationMatrices(chunks):
     # get list of events
     eventsList = []
     for event in events:
-        eventsList.append(getEventId(event))
+        e_id = getEventId(event)
+        if (e_id not in eventsList):
+            eventsList.append(getEventId(event))
     
     rc, rfc = generateRelationMatrix('condition', eventsList, events, relations)
     rm, rfm = generateRelationMatrix('milestone', eventsList, events, relations)
@@ -146,12 +148,16 @@ def addFullMarkings(markings):
     executed = []
     pending = []
     for elem in markings:
-        activitynames.append(elem['id'])
-        included.append(str(elem['include']))
-        executed.append(str(elem['executed']))
-        pending.append(str(elem['pending']))
+        if(elem['id'] not in activitynames):
+            activitynames.append(elem['id'])
+            included.append(str(elem['include']))
+            executed.append(str(elem['executed']))
+            pending.append(str(elem['pending']))
     
-    fullMarkings = [''.join(included),''.join(executed),''.join(pending)]
+    # fullMarkings = [''.join(included),''.join(executed),''.join(pending)]
+    fullMarkings = [included,executed,pending]
+
+    print(fullMarkings)
 
     return activitynames, fullMarkings
 
