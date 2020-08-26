@@ -8,8 +8,7 @@
       "x": 400,
       "y": 0
     },
-    "group": "nodes",
-    "classes": "included pending executable"
+    "group": "nodes"
   },
   {
     "data": {
@@ -20,8 +19,7 @@
       "x": 800,
       "y": 0
     },
-    "group": "nodes",
-    "classes": ""
+    "group": "nodes"
   },
   {
     "data": {
@@ -32,8 +30,7 @@
       "x": 1200,
       "y": 200
     },
-    "group": "nodes",
-    "classes": ""
+    "group": "nodes"
   },
   {
     "data": {
@@ -44,8 +41,7 @@
       "x": 1200,
       "y": -200
     },
-    "group": "nodes",
-    "classes": ""
+    "group": "nodes"
   },
   {
     "data": {
@@ -56,8 +52,7 @@
       "x": 1600,
       "y": 200
     },
-    "group": "nodes",
-    "classes": ""
+    "group": "nodes"
   },
   {
     "data": {
@@ -68,8 +63,7 @@
       "x": 1600,
       "y": 0
     },
-    "group": "nodes",
-    "classes": ""
+    "group": "nodes"
   },
   {
     "data": {

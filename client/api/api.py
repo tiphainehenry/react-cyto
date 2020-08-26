@@ -69,12 +69,19 @@ def processBCData():
         execLogg(pExec, activity_name_details, status, start_timestamp)
    
     else:
-        roleProjs=glob.glob('./client/src/projections/data*')
-        roleProjections=[]
-        for elem in roleProjs:
-            for projR in ['Florist', 'Driver', 'Customer','Choreography']:
-                if projR in elem: 
-                    roleProjections.append(elem)
+        # roleProjs=glob.glob('./client/src/projections/data*')
+        # roleProjections=[]
+
+        roleProjections=[
+            './client/src/projections/dataFlorist.json',
+            './client/src/projections/dataDriver.json',
+            './client/src/projections/dataCustomer.json',
+            './client/src/projections/dataChoreo.json'        
+        ]
+        # for elem in roleProjs:
+            # for projR in ['Florist', 'Driver', 'Customer','Choreography']:
+                # if projR in elem: 
+                    # roleProjections.append(elem)
 
         for rolepath in roleProjections:
             with open(rolepath) as json_file:
