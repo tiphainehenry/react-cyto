@@ -1,3 +1,46 @@
 {
-  "execLogs": []
+  "execLogs": [
+    {
+      "id": 0,
+      "task": "PrepareCommand",
+      "status": "executed",
+      "timestamp_startTask": "26/08/2020 \u00e0 16:19:40",
+      "timestamp_endTask": "08/26/2020, 16:19:40"
+    },
+    {
+      "id": 1,
+      "task": "CallShipper",
+      "status": "public node - executed",
+      "timestamp_startTask": "26/08/2020 \u00e0 16:20:04",
+      "timestamp_endTask": "08/26/2020, 16:20:24"
+    },
+    {
+      "id": 2,
+      "task": "?(Shipping, Driver-->Florist)",
+      "status": "rejected - receive choreography event",
+      "timestamp_startTask": "26/08/2020 \u00e0 16:20:39",
+      "timestamp_endTask": "08/26/2020, 16:20:39"
+    },
+    {
+      "id": 3,
+      "task": "!(Shipping, Driver-->Florist,Customer)",
+      "status": "public node - executed",
+      "timestamp_startTask": "26/08/2020 \u00e0 16:21:14",
+      "timestamp_endTask": "08/26/2020, 16:21:34"
+    },
+    {
+      "id": 4,
+      "task": "PrepareCommand",
+      "status": "executed",
+      "timestamp_startTask": "26/08/2020 \u00e0 18:01:43",
+      "timestamp_endTask": "08/26/2020, 18:01:44"
+    },
+    {
+      "id": 5,
+      "task": "CallShipper",
+      "status": "public node - executed",
+      "timestamp_startTask": "26/08/2020 \u00e0 18:02:02",
+      "timestamp_endTask": "08/26/2020, 18:02:53"
+    }
+  ]
 }

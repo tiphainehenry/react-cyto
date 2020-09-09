@@ -1,60 +1,59 @@
 ## declare events
 
 # Choreography exchanges
-e2[Shipping src=Driver tgt=Florist tgt=Customer]
-e5[CheckDelivery src=Customer tgt= Florist tgt=Driver]
-e8[Accept src=Customer tgt=Florist tgt=Driver]
-e9[Reject src=Customer tgt=Florist tgt=Driver]
-e10[Pay src=Customer tgt=Florist]
-e11[UnloadTruck src=Driver tgt=Customer tgt=Florist]
-e14[PayDriver src=Florist tgt=Driver]
+e1[Shipping src=Driver tgt=Florist tgt=Customer]
+e2[CheckDelivery src=Customer tgt= Florist tgt=Driver]
+e3[Accept src=Customer tgt=Florist tgt=Driver]
+e4[Reject src=Customer tgt=Florist tgt=Driver]
+e5[Pay src=Customer tgt=Florist]
+e6[UnloadTruck src=Driver tgt=Customer tgt=Florist]
+e7[PayDriver src=Florist tgt=Driver]
 
 # Internal processes
-
 "PrepareCommand"  [role=Florist]
 "CallShipper"  [role=Florist]
 "SettleCommand"  [role=Florist]
 "ReturnTruck" [role=Driver]  
 
 ## group events
-Group "Decide" {e8 e9}
-Group "ProcessToDelivery" {e10 e11}
-Group "SettleOrder" {ReturnTruck e14 SettleCommand}
+Group "Decide" {e3 e4}
+Group "ProcessToDelivery" {e5 e6}
+Group "SettleOrder" {ReturnTruck e7 SettleCommand}
 
 ## link events
-e2 --<> e5
-e2 *--> e5
+e1 --<> e2
+e1 *--> e2
 
-e5 *--> Decide
-e5 --<> Decide
+e2 *--> Decide
+e2 --<> Decide
 
-e8 -->+ e10
-e8 *--> e10
-e8 -->+ e11
-e8 *--> e11
+e3 -->+ e5
+e3 *--> e5
+e3 -->+ e6
+e3 *--> e6
 
 PrepareCommand -->* CallShipper
 PrepareCommand *--> CallShipper
 
-CallShipper -->* e2
-CallShipper *--> e2
+CallShipper -->* e1
+CallShipper *--> e1
 
-ReturnTruck -->* e14
-ReturnTruck *--> e14
+ReturnTruck -->* e7
+ReturnTruck *--> e7
 
-e14 -->* SettleCommand  
-e14 *--> SettleCommand
+e7 -->* SettleCommand  
+e7 *--> SettleCommand
 
-e9 *--> SettleOrder 
+e4 *--> SettleOrder 
 ProcessToDelivery *--> SettleOrder 
 
 ## exclude events
 Decide -->% Decide
-e9 -->% ProcessToDelivery
+e4 -->% ProcessToDelivery
 
 #monoevents - not displayed due to cytoscape layout constraints
-#e10 -->% e10
-#e11 -->% e11
+#e5 -->% e5
+#e6 -->% e6
 #ReturnTruck -->% ReturnTruck
 #e14 -->% e14
 #SettleCommand  -->% SettleCommand

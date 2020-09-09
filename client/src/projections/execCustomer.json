@@ -1,3 +1,25 @@
 {
-  "execLogs": []
+  "execLogs": [
+    {
+      "id": 0,
+      "task": "CallShipper",
+      "status": "public node - executed",
+      "timestamp_startTask": "26/08/2020 \u00e0 16:20:04",
+      "timestamp_endTask": "08/26/2020, 16:20:24"
+    },
+    {
+      "id": 1,
+      "task": "!(Shipping, Driver-->Florist,Customer)",
+      "status": "public node - executed",
+      "timestamp_startTask": "26/08/2020 \u00e0 16:21:14",
+      "timestamp_endTask": "08/26/2020, 16:21:35"
+    },
+    {
+      "id": 2,
+      "task": "CallShipper",
+      "status": "public node - executed",
+      "timestamp_startTask": "26/08/2020 \u00e0 18:02:02",
+      "timestamp_endTask": "08/26/2020, 18:02:53"
+    }
+  ]
 }
