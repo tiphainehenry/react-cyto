@@ -9,31 +9,7 @@
       "y": 0
     },
     "group": "nodes",
-    "classes": "included executed"
-  },
-  {
-    "data": {
-      "id": "e3r",
-      "name": "?(MonitorTemperature, TempSensor-->Driver)"
-    },
-    "position": {
-      "x": 500,
-      "y": 200
-    },
-    "group": "nodes",
-    "classes": "included pending executable"
-  },
-  {
-    "data": {
-      "id": "e4r",
-      "name": "?(MonitorLocation, GPSSensor-->Driver)"
-    },
-    "position": {
-      "x": 500,
-      "y": -200
-    },
-    "group": "nodes",
-    "classes": "included pending executable"
+    "classes": "included executed pending executable"
   },
   {
     "data": {
@@ -154,24 +130,6 @@
   },
   {
     "data": {
-      "id": "e3r_e5r_milestone",
-      "source": "e3r",
-      "target": "e5r"
-    },
-    "group": "edges",
-    "classes": "milestone"
-  },
-  {
-    "data": {
-      "id": "e4r_e5r_milestone",
-      "source": "e4r",
-      "target": "e5r"
-    },
-    "group": "edges",
-    "classes": "milestone"
-  },
-  {
-    "data": {
       "id": "e2s_e5r_response",
       "source": "e2s",
       "target": "e5r"
@@ -183,96 +141,6 @@
     "data": {
       "id": "e2s_e5r_response_back",
       "source": "e5r",
-      "target": "e2s"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
-      "id": "e3r_e5r_response",
-      "source": "e3r",
-      "target": "e5r"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e3r_e5r_response_back",
-      "source": "e5r",
-      "target": "e3r"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
-      "id": "e4r_e5r_response",
-      "source": "e4r",
-      "target": "e5r"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e4r_e5r_response_back",
-      "source": "e5r",
-      "target": "e4r"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
-      "id": "e2s_e3r_response",
-      "source": "e2s",
-      "target": "e3r"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e2s_e3r_response_back",
-      "source": "e3r",
-      "target": "e2s"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
-      "id": "e2s_e3r_include",
-      "source": "e2s",
-      "target": "e3r"
-    },
-    "group": "edges",
-    "classes": "include"
-  },
-  {
-    "data": {
-      "id": "e2s_e4r_include",
-      "source": "e2s",
-      "target": "e4r"
-    },
-    "group": "edges",
-    "classes": "include"
-  },
-  {
-    "data": {
-      "id": "e2s_e4r_response",
-      "source": "e2s",
-      "target": "e4r"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e2s_e4r_response_back",
-      "source": "e4r",
       "target": "e2s"
     },
     "group": "edges",
@@ -388,15 +256,6 @@
   },
   {
     "data": {
-      "id": "e8r_e8r_exclude",
-      "source": "e8r",
-      "target": "e8r"
-    },
-    "group": "edges",
-    "classes": "exclude"
-  },
-  {
-    "data": {
       "id": "e8r_e9r_exclude",
       "source": "e8r",
       "target": "e9r"
@@ -430,69 +289,6 @@
     },
     "group": "edges",
     "classes": "exclude"
-  },
-  {
-    "data": {
-      "id": "e11s_e11s_exclude",
-      "source": "e11s",
-      "target": "e11s"
-    },
-    "group": "edges",
-    "classes": "exclude"
-  },
-  {
-    "data": {
-      "id": "ReturnTruck_ReturnTruck_exclude",
-      "source": "ReturnTruck",
-      "target": "ReturnTruck"
-    },
-    "group": "edges",
-    "classes": "exclude"
-  },
-  {
-    "data": {
-      "id": "e14r_e14r_exclude",
-      "source": "e14r",
-      "target": "e14r"
-    },
-    "group": "edges",
-    "classes": "exclude"
-  },
-  {
-    "data": {
-      "id": "e3r_e3r_response",
-      "source": "e3r",
-      "target": "e3r"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e3r_e3r_response_back",
-      "source": "e3r",
-      "target": "e3r"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
-      "id": "e4r_e4r_response",
-      "source": "e4r",
-      "target": "e4r"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e4r_e4r_response_back",
-      "source": "e4r",
-      "target": "e4r"
-    },
-    "group": "edges",
-    "classes": "response back"
   },
   {
     "data": {

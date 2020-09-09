@@ -45,9 +45,11 @@ def processData():
     if 'BC' not in status:
         projId = data['projId']
         activity_name = data['idClicked']
+        activity_name_details = data['activityName']
+        start_timestamp = data['start_timestamp']
 
         pExec = glob.glob('./client/src/projections/exec'+projId+'*')[0]
-        execLogg(pExec, activity_name, status)
+        execLogg(pExec, activity_name_details, status, start_timestamp)
     
     return status, 200, {'Access-Control-Allow-Origin': '*'}
 
@@ -55,22 +57,31 @@ def processData():
 @app.route('/BCupdate', methods=['POST', 'GET'])
 def processBCData():
     data = request.get_json(silent=True)
-    status = data['bcRes'] 
+    status = data['execStatus'] 
     activity_name = data['idClicked']
-    
+    activity_name_details = data['activityName']
+    start_timestamp = data['start_timestamp']
+
     if ('rejected' in status):
         # update execLog
         projId = data['projId']
         pExec = glob.glob('./client/src/projections/exec'+projId+'*')[0]
-        execLogg(pExec, activity_name, status)
+        execLogg(pExec, activity_name_details, status, start_timestamp)
    
     else:
-        roleProjs=glob.glob('./client/src/projections/data*')
-        roleProjections=[]
-        for elem in roleProjs:
-            for projR in ['Florist', 'Driver', 'Customer','Choreography']:
-                if projR in elem: 
-                    roleProjections.append(elem)
+        # roleProjs=glob.glob('./client/src/projections/data*')
+        # roleProjections=[]
+
+        roleProjections=[
+            './client/src/projections/dataFlorist.json',
+            './client/src/projections/dataDriver.json',
+            './client/src/projections/dataCustomer.json',
+            './client/src/projections/dataChoreo.json'        
+        ]
+        # for elem in roleProjs:
+            # for projR in ['Florist', 'Driver', 'Customer','Choreography']:
+                # if projR in elem: 
+                    # roleProjections.append(elem)
 
         for rolepath in roleProjections:
             with open(rolepath) as json_file:
@@ -96,7 +107,7 @@ def processBCData():
 
             ### update exec log
             pExec = rolepath.replace('data','exec')        
-            execLogg(pExec, eventName, 'public node - ' + status)
+            execLogg(pExec, activity_name_details, 'public node - ' + status, start_timestamp)
 
 
     return status, 200, {'Access-Control-Allow-Origin': '*'}

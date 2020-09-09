@@ -269,7 +269,6 @@ def executeApprovedNode(pathname, activity_name):
         if activity_id == len(dataProj):
             return 'activity not found' ## append status to execlog (?)
 
-
     relations = dataVect['relations'][0]
     fromCondition, fromMilestone, toInclude, toExclude, toRespond = retrieveActivityRelations(relations, 
         activity_id, dataProj)
@@ -294,7 +293,7 @@ def executeApprovedNode(pathname, activity_name):
     return 'executed' ## append status to execlog (?)
 
 
-def execLogg(pExec, activity_name, status):
+def execLogg(pExec, activity_name, status, start_timestamp):
     with open(pExec) as json_file:
         try:
             execData = json.load(json_file)
@@ -309,7 +308,8 @@ def execLogg(pExec, activity_name, status):
             'id':id,
             'task':activity_name,
             'status':status,
-            'timestamp':date_time
+            'timestamp_startTask':start_timestamp,
+            'timestamp_endTask':date_time
         })
 
     with open(pExec, 'w') as outfile:

@@ -9,7 +9,7 @@
       "y": 0
     },
     "group": "nodes",
-    "classes": "included executed"
+    "classes": "included executed pending executable"
   },
   {
     "data": {
@@ -82,30 +82,6 @@
     },
     "group": "nodes",
     "classes": ""
-  },
-  {
-    "data": {
-      "id": "e3",
-      "name": "TempSensor\nMonitorTemperature\nDriver"
-    },
-    "position": {
-      "x": 900,
-      "y": 200
-    },
-    "group": "nodes",
-    "classes": "external"
-  },
-  {
-    "data": {
-      "id": "e4",
-      "name": "GPSSensor\nMonitorLocation\nDriver"
-    },
-    "position": {
-      "x": 900,
-      "y": -200
-    },
-    "group": "nodes",
-    "classes": "external"
   },
   {
     "data": {
@@ -373,15 +349,6 @@
   },
   {
     "data": {
-      "id": "e8r_e8r_exclude",
-      "source": "e8r",
-      "target": "e8r"
-    },
-    "group": "edges",
-    "classes": "exclude"
-  },
-  {
-    "data": {
       "id": "e8r_e9r_exclude",
       "source": "e8r",
       "target": "e9r"
@@ -400,15 +367,6 @@
   },
   {
     "data": {
-      "id": "e9r_e9r_exclude",
-      "source": "e9r",
-      "target": "e9r"
-    },
-    "group": "edges",
-    "classes": "exclude"
-  },
-  {
-    "data": {
       "id": "e9r_e10r_exclude",
       "source": "e9r",
       "target": "e10r"
@@ -421,42 +379,6 @@
       "id": "e9r_e11r_exclude",
       "source": "e9r",
       "target": "e11r"
-    },
-    "group": "edges",
-    "classes": "exclude"
-  },
-  {
-    "data": {
-      "id": "e10r_e10r_exclude",
-      "source": "e10r",
-      "target": "e10r"
-    },
-    "group": "edges",
-    "classes": "exclude"
-  },
-  {
-    "data": {
-      "id": "e11r_e11r_exclude",
-      "source": "e11r",
-      "target": "e11r"
-    },
-    "group": "edges",
-    "classes": "exclude"
-  },
-  {
-    "data": {
-      "id": "e14s_e14s_exclude",
-      "source": "e14s",
-      "target": "e14s"
-    },
-    "group": "edges",
-    "classes": "exclude"
-  },
-  {
-    "data": {
-      "id": "SettleCommand_SettleCommand_exclude",
-      "source": "SettleCommand",
-      "target": "SettleCommand"
     },
     "group": "edges",
     "classes": "exclude"
@@ -565,114 +487,6 @@
       "id": "e11r_SettleCommand_response_back",
       "source": "SettleCommand",
       "target": "e11r"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
-      "id": "e3_e5r_milestone",
-      "source": "e3",
-      "target": "e5r"
-    },
-    "group": "edges",
-    "classes": "milestone"
-  },
-  {
-    "data": {
-      "id": "e4_e5r_milestone",
-      "source": "e4",
-      "target": "e5r"
-    },
-    "group": "edges",
-    "classes": "milestone"
-  },
-  {
-    "data": {
-      "id": "e3_e5r_response",
-      "source": "e3",
-      "target": "e5r"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e3_e5r_response_back",
-      "source": "e5r",
-      "target": "e3"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
-      "id": "e4_e5r_response",
-      "source": "e4",
-      "target": "e5r"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e4_e5r_response_back",
-      "source": "e5r",
-      "target": "e4"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
-      "id": "e2r_e3_response",
-      "source": "e2r",
-      "target": "e3"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e2r_e3_response_back",
-      "source": "e3",
-      "target": "e2r"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
-      "id": "e2r_e3_include",
-      "source": "e2r",
-      "target": "e3"
-    },
-    "group": "edges",
-    "classes": "include"
-  },
-  {
-    "data": {
-      "id": "e2r_e4_include",
-      "source": "e2r",
-      "target": "e4"
-    },
-    "group": "edges",
-    "classes": "include"
-  },
-  {
-    "data": {
-      "id": "e2r_e4_response",
-      "source": "e2r",
-      "target": "e4"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e2r_e4_response_back",
-      "source": "e4",
-      "target": "e2r"
     },
     "group": "edges",
     "classes": "response back"

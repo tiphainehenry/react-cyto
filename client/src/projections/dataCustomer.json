@@ -9,7 +9,7 @@
       "y": 0
     },
     "group": "nodes",
-    "classes": "included executed"
+    "classes": "included executed pending executable"
   },
   {
     "data": {
@@ -70,30 +70,6 @@
     },
     "group": "nodes",
     "classes": ""
-  },
-  {
-    "data": {
-      "id": "e3",
-      "name": "TempSensor\nMonitorTemperature\nDriver"
-    },
-    "position": {
-      "x": 500,
-      "y": -200
-    },
-    "group": "nodes",
-    "classes": "external"
-  },
-  {
-    "data": {
-      "id": "e4",
-      "name": "GPSSensor\nMonitorLocation\nDriver"
-    },
-    "position": {
-      "x": 500,
-      "y": 200
-    },
-    "group": "nodes",
-    "classes": "external"
   },
   {
     "data": {
@@ -280,15 +256,6 @@
   },
   {
     "data": {
-      "id": "e8s_e8s_exclude",
-      "source": "e8s",
-      "target": "e8s"
-    },
-    "group": "edges",
-    "classes": "exclude"
-  },
-  {
-    "data": {
       "id": "e8s_e9s_exclude",
       "source": "e8s",
       "target": "e9s"
@@ -301,15 +268,6 @@
       "id": "e9s_e8s_exclude",
       "source": "e9s",
       "target": "e8s"
-    },
-    "group": "edges",
-    "classes": "exclude"
-  },
-  {
-    "data": {
-      "id": "e9s_e9s_exclude",
-      "source": "e9s",
-      "target": "e9s"
     },
     "group": "edges",
     "classes": "exclude"
@@ -331,132 +289,6 @@
     },
     "group": "edges",
     "classes": "exclude"
-  },
-  {
-    "data": {
-      "id": "e10s_e10s_exclude",
-      "source": "e10s",
-      "target": "e10s"
-    },
-    "group": "edges",
-    "classes": "exclude"
-  },
-  {
-    "data": {
-      "id": "e11r_e11r_exclude",
-      "source": "e11r",
-      "target": "e11r"
-    },
-    "group": "edges",
-    "classes": "exclude"
-  },
-  {
-    "data": {
-      "id": "e3_e5s_milestone",
-      "source": "e3",
-      "target": "e5s"
-    },
-    "group": "edges",
-    "classes": "milestone"
-  },
-  {
-    "data": {
-      "id": "e4_e5s_milestone",
-      "source": "e4",
-      "target": "e5s"
-    },
-    "group": "edges",
-    "classes": "milestone"
-  },
-  {
-    "data": {
-      "id": "e3_e5s_response",
-      "source": "e3",
-      "target": "e5s"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e3_e5s_response_back",
-      "source": "e5s",
-      "target": "e3"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
-      "id": "e4_e5s_response",
-      "source": "e4",
-      "target": "e5s"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e4_e5s_response_back",
-      "source": "e5s",
-      "target": "e4"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
-      "id": "e2r_e3_response",
-      "source": "e2r",
-      "target": "e3"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e2r_e3_response_back",
-      "source": "e3",
-      "target": "e2r"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
-      "id": "e2r_e3_include",
-      "source": "e2r",
-      "target": "e3"
-    },
-    "group": "edges",
-    "classes": "include"
-  },
-  {
-    "data": {
-      "id": "e2r_e4_include",
-      "source": "e2r",
-      "target": "e4"
-    },
-    "group": "edges",
-    "classes": "include"
-  },
-  {
-    "data": {
-      "id": "e2r_e4_response",
-      "source": "e2r",
-      "target": "e4"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e2r_e4_response_back",
-      "source": "e4",
-      "target": "e2r"
-    },
-    "group": "edges",
-    "classes": "response back"
   },
   {
     "data": {

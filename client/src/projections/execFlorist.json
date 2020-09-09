@@ -4,59 +4,43 @@
       "id": 0,
       "task": "PrepareCommand",
       "status": "executed",
-      "timestamp": "07/17/2020, 11:49:00"
+      "timestamp_startTask": "26/08/2020 \u00e0 16:19:40",
+      "timestamp_endTask": "08/26/2020, 16:19:40"
     },
     {
       "id": 1,
-      "task": "PrepareCommand",
-      "status": "executed",
-      "timestamp": "07/17/2020, 11:50:33"
+      "task": "CallShipper",
+      "status": "public node - executed",
+      "timestamp_startTask": "26/08/2020 \u00e0 16:20:04",
+      "timestamp_endTask": "08/26/2020, 16:20:24"
     },
     {
       "id": 2,
-      "task": [
-        "CallShipper"
-      ],
-      "status": "public node - test executable",
-      "timestamp": "07/17/2020, 11:51:55"
+      "task": "?(Shipping, Driver-->Florist)",
+      "status": "rejected - receive choreography event",
+      "timestamp_startTask": "26/08/2020 \u00e0 16:20:39",
+      "timestamp_endTask": "08/26/2020, 16:20:39"
     },
     {
       "id": 3,
-      "task": "e2r",
-      "status": "rejected - receive choreography event",
-      "timestamp": "07/17/2020, 11:52:01"
+      "task": "!(Shipping, Driver-->Florist,Customer)",
+      "status": "public node - executed",
+      "timestamp_startTask": "26/08/2020 \u00e0 16:21:14",
+      "timestamp_endTask": "08/26/2020, 16:21:34"
     },
     {
       "id": 4,
-      "task": [
-        "e2s",
-        "e2r",
-        "e2"
-      ],
-      "status": "public node - test executable",
-      "timestamp": "07/17/2020, 11:52:14"
+      "task": "PrepareCommand",
+      "status": "executed",
+      "timestamp_startTask": "26/08/2020 \u00e0 18:01:43",
+      "timestamp_endTask": "08/26/2020, 18:01:44"
     },
     {
       "id": 5,
-      "task": [
-        "e2s",
-        "e2r",
-        "e2"
-      ],
-      "status": "public node - test executable",
-      "timestamp": "07/17/2020, 11:53:53"
-    },
-    {
-      "id": 6,
-      "task": "e2",
-      "status": "public node - test executable",
-      "timestamp": "07/17/2020, 11:54:05"
-    },
-    {
-      "id": 7,
-      "task": "e2",
-      "status": "public node - test executable",
-      "timestamp": "07/17/2020, 11:56:35"
+      "task": "CallShipper",
+      "status": "public node - executed",
+      "timestamp_startTask": "26/08/2020 \u00e0 18:02:02",
+      "timestamp_endTask": "08/26/2020, 18:02:53"
     }
   ]
 }
