@@ -2,6 +2,8 @@ const path = require("path");
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 const MNEMONIC = "awkward genuine possible animal maze baby outside return movie panel echo letter cute wasp need";
 
+// smart contract ropsten address: 0xd21445983ddeee252621603367cd45c658a85251
+
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
   // to customize your Truffle configuration!
