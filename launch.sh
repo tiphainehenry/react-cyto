@@ -1,0 +1,1 @@
+gnome-terminal --geometry=150x50 --tab --title="api" -e "bash -c \"python client/api/api.py;exec bash\"" --tab --title="front" -e "bash -c \"cd client && npm start;exec bash\"" --tab --title="ganache" -e "bash -c \"ganache-cli;exec bash\""  --tab --title="truffle" -e "bash -c \"truffle compile;exec bash\""

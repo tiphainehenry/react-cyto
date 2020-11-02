@@ -1,0 +1,49 @@
+## declare events
+
+# Choreography exchanges
+e1[PrescribeMed src=Doctor tgt=Nurse]
+e2[DontTrustPrescr(N) src=Nurse tgt=Doctor]
+e3[AcceptPrescription src=CP tgt=Doctor]
+e4[DontTrustPrescr(CP) src=CP tgt=Doctor]
+e5[MakePrescription src=PA tgt=CP]
+e6[DontTrustPrep(CP) src=CP tgt=PA]
+e7[DontTrustPrep(N) src=Nurse tgt=PA]
+
+# Internal processes
+"EditPrescription" [role=Doctor]
+"CancelPrescription" [role=Doctor]
+"SignDoctor" [role=Doctor]
+"GiveMedecine" [role=Nurse]
+"SignPA" [role=PA]
+"SignCP" [role=CP]
+
+## link events
+EditPrescription *--> SignDoctor
+e1 *--> SignDoctor
+e1 -->+ EditPrescription
+e1 -->+ CancelPrescription
+e1 *--> GiveMedecine
+
+SignDoctor -->* e2
+e2 *--> SignDoctor
+
+
+SignDoctor *--> e3
+e4 *--> SignDoctor
+
+e3 *--> e5
+e3 -->* e5
+e3 --<> e5
+
+e5 *--> SignPA
+e5 -->* SignPA
+e5 --<> SignPA
+
+SignPA -->* e6
+e6 *--> SignPA
+
+SignPA -->* SignCP
+SignPA --<> SignCP
+
+SignCP -->* e7
+e7 *--> SignCP

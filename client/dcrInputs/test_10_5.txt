@@ -10,11 +10,11 @@ e8[C8 src=A tgt=C]
 e9[C9 src=C tgt=B]
 e10[C10 src=C tgt=A]
 
-"I1" [role=A]
-"I2" [role=B]
-"I3" [role=C]
-"I4" [role=A]  
-"I5" [role=B]  
+I1[role=A]
+I2[role=B]
+I3[role=C]
+I4[role=A]  
+I5[role=B]  
 
 ## Relations
 e1 --<> I1

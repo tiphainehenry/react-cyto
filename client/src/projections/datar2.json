@@ -1,0 +1,83 @@
+[
+  {
+    "data": {
+      "id": "e1r", 
+      "name": "?(PrescribeMed, Doctor-->Nurse)"
+    }, 
+    "classes": "included executable", 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "id": "e2s", 
+      "name": "!(DontTrustPrescr(N), Nurse-->Doctor)"
+    }, 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "id": "e7s", 
+      "name": "!(DontTrustPrep(N), Nurse-->PA)"
+    }, 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "id": "GiveMedecine", 
+      "name": "GiveMedecine"
+    }, 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "id": "SignDoctor", 
+      "name": "SignDoctor"
+    }, 
+    "classes": "external", 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "id": "SignCP", 
+      "name": "SignCP"
+    }, 
+    "classes": "external", 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "source": "e1r", 
+      "id": "e1r_GiveMedecine_response", 
+      "target": "GiveMedecine"
+    }, 
+    "classes": "response", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "GiveMedecine", 
+      "id": "e1r_GiveMedecine_response_back", 
+      "target": "e1r"
+    }, 
+    "classes": "response back", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "SignDoctor", 
+      "id": "SignDoctor_e2s_condition", 
+      "target": "e2s"
+    }, 
+    "classes": "condition", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "SignCP", 
+      "id": "SignCP_e7s_condition", 
+      "target": "e7s"
+    }, 
+    "classes": "condition", 
+    "group": "edges"
+  }
+]

@@ -1,0 +1,129 @@
+[
+  {
+    "data": {
+      "id": "e9r", 
+      "name": "?(C9, C-->F)"
+    }, 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "id": "e10s", 
+      "name": "!(C10, F-->A)"
+    }, 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "id": "e7", 
+      "name": "B\nC7\nA"
+    }, 
+    "classes": "external", 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "id": "e8", 
+      "name": "A\nC8\nC"
+    }, 
+    "classes": "external", 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "id": "I5", 
+      "name": "I5"
+    }, 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "source": "e9r", 
+      "id": "e9r_e10s_response", 
+      "target": "e10s"
+    }, 
+    "classes": "response", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "e10s", 
+      "id": "e9r_e10s_response_back", 
+      "target": "e9r"
+    }, 
+    "classes": "response back", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "e9r", 
+      "id": "e9r_e10s_condition", 
+      "target": "e10s"
+    }, 
+    "classes": "condition", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "e8", 
+      "id": "e8_e9r_response", 
+      "target": "e9r"
+    }, 
+    "classes": "response", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "e9r", 
+      "id": "e8_e9r_response_back", 
+      "target": "e8"
+    }, 
+    "classes": "response back", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "e8", 
+      "id": "e8_e9r_condition", 
+      "target": "e9r"
+    }, 
+    "classes": "condition", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "e7", 
+      "id": "e7_I5_condition", 
+      "target": "I5"
+    }, 
+    "classes": "condition", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "e7", 
+      "id": "e7_I5_response", 
+      "target": "I5"
+    }, 
+    "classes": "response", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "I5", 
+      "id": "e7_I5_response_back", 
+      "target": "e7"
+    }, 
+    "classes": "response back", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "I5", 
+      "id": "I5_e8_condition", 
+      "target": "e8"
+    }, 
+    "classes": "condition", 
+    "group": "edges"
+  }
+]

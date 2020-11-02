@@ -1,6 +1,8 @@
 import React from 'react';
 import { Navbar, Nav, NavDropdown} from 'react-bootstrap';
 
+var dcrTexts = require('../projections/dcrTexts.json');
+
 
 class Header extends React.Component {
 
@@ -9,13 +11,34 @@ class Header extends React.Component {
     this.state = {text:null,
                   toBeDisp:'', 
                   global: 'Global DCR to project',
-                  choreo:'Public Projection', 
-                  r1:'Florist Projection',
-                  r2:'Driver Projection',
-                  r3:'Customer Projection'
+                  public:'Public Projection', 
+                  roleLength:'',
+                  roles:[],
                 };
   }
 
+
+  componentDidMount(){
+    var roleLength = dcrTexts['roleMapping'].length;
+    
+    var i;
+    var roles=[];
+
+    for (i = 1; i <= roleLength; i++) {
+      var role=[];
+      var r = 'r'+i;
+      role.push('/'+r);
+      role.push(dcrTexts[r]['role'])
+      roles.push(role)
+    } 
+    this.setState({
+      roleLength:roleLength,
+      roles:roles
+    });
+
+  }
+
+  
   render(){
 
     return <div>
@@ -26,9 +49,9 @@ class Header extends React.Component {
                   <Nav className="mr-auto">
                     <Nav.Link href="/public">Public Projection</Nav.Link>
                     <NavDropdown title="Role Projections" id="collasible-nav-dropdown">
-                      <NavDropdown.Item href="/florist">{this.state.r1}</NavDropdown.Item>
-                      <NavDropdown.Item href="/driver">{this.state.r2}</NavDropdown.Item>
-                      <NavDropdown.Item href="/customer">{this.state.r3}</NavDropdown.Item>
+                    {this.state.roles.map(item=> 
+                      <NavDropdown.Item href={item[0]}>{item[1]}</NavDropdown.Item>
+                      )}
                     </NavDropdown>
                   </Nav>
 

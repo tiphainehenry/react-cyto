@@ -1,0 +1,161 @@
+[
+  {
+    "data": {
+      "id": "e3s", 
+      "name": "!(AcceptPrescription, CP-->Doctor)"
+    }, 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "id": "e4s", 
+      "name": "!(DontTrustPrescr(CP), CP-->Doctor)"
+    }, 
+    "classes": "included executable", 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "id": "e5r", 
+      "name": "?(MakePrescription, PA-->CP)"
+    }, 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "id": "e6s", 
+      "name": "!(DontTrustPrep(CP), CP-->PA)"
+    }, 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "id": "e7", 
+      "name": "Nurse\nDontTrustPrep(N)\nPA"
+    }, 
+    "classes": "external", 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "id": "SignCP", 
+      "name": "SignCP"
+    }, 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "id": "SignDoctor", 
+      "name": "SignDoctor"
+    }, 
+    "classes": "external", 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "id": "SignPA", 
+      "name": "SignPA"
+    }, 
+    "classes": "external", 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "source": "e3s", 
+      "id": "e3s_e5r_response", 
+      "target": "e5r"
+    }, 
+    "classes": "response", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "e5r", 
+      "id": "e3s_e5r_response_back", 
+      "target": "e3s"
+    }, 
+    "classes": "response back", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "e3s", 
+      "id": "e3s_e5r_condition", 
+      "target": "e5r"
+    }, 
+    "classes": "condition", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "e3s", 
+      "id": "e3s_e5r_milestone", 
+      "target": "e5r"
+    }, 
+    "classes": "milestone", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "SignDoctor", 
+      "id": "SignDoctor_e3s_response", 
+      "target": "e3s"
+    }, 
+    "classes": "response", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "e3s", 
+      "id": "SignDoctor_e3s_response_back", 
+      "target": "SignDoctor"
+    }, 
+    "classes": "response back", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "SignPA", 
+      "id": "SignPA_e6s_condition", 
+      "target": "e6s"
+    }, 
+    "classes": "condition", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "SignPA", 
+      "id": "SignPA_SignCP_condition", 
+      "target": "SignCP"
+    }, 
+    "classes": "condition", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "SignPA", 
+      "id": "SignPA_SignCP_milestone", 
+      "target": "SignCP"
+    }, 
+    "classes": "milestone", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "e7", 
+      "id": "e7_SignCP_response", 
+      "target": "SignCP"
+    }, 
+    "classes": "response", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "SignCP", 
+      "id": "e7_SignCP_response_back", 
+      "target": "e7"
+    }, 
+    "classes": "response back", 
+    "group": "edges"
+  }
+]

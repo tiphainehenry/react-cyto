@@ -1,0 +1,154 @@
+[
+  {
+    "data": {
+      "id": "e5s", 
+      "name": "!(MakePrescription, PA-->CP)"
+    }, 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "id": "e6r", 
+      "name": "?(DontTrustPrep(CP), CP-->PA)"
+    }, 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "id": "e7r", 
+      "name": "?(DontTrustPrep(N), Nurse-->PA)"
+    }, 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "id": "e3", 
+      "name": "CP\nAcceptPrescription\nDoctor"
+    }, 
+    "classes": "external", 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "id": "SignPA", 
+      "name": "SignPA"
+    }, 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "id": "SignCP", 
+      "name": "SignCP"
+    }, 
+    "classes": "external", 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "source": "e5s", 
+      "id": "e5s_SignPA_response", 
+      "target": "SignPA"
+    }, 
+    "classes": "response", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "SignPA", 
+      "id": "e5s_SignPA_response_back", 
+      "target": "e5s"
+    }, 
+    "classes": "response back", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "e5s", 
+      "id": "e5s_SignPA_condition", 
+      "target": "SignPA"
+    }, 
+    "classes": "condition", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "e5s", 
+      "id": "e5s_SignPA_milestone", 
+      "target": "SignPA"
+    }, 
+    "classes": "milestone", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "SignPA", 
+      "id": "SignPA_e6r_condition", 
+      "target": "e6r"
+    }, 
+    "classes": "condition", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "e6r", 
+      "id": "e6r_SignPA_response", 
+      "target": "SignPA"
+    }, 
+    "classes": "response", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "SignPA", 
+      "id": "e6r_SignPA_response_back", 
+      "target": "e6r"
+    }, 
+    "classes": "response back", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "e3", 
+      "id": "e3_e5s_response", 
+      "target": "e5s"
+    }, 
+    "classes": "response", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "e5s", 
+      "id": "e3_e5s_response_back", 
+      "target": "e3"
+    }, 
+    "classes": "response back", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "e3", 
+      "id": "e3_e5s_condition", 
+      "target": "e5s"
+    }, 
+    "classes": "condition", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "e3", 
+      "id": "e3_e5s_milestone", 
+      "target": "e5s"
+    }, 
+    "classes": "milestone", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "SignCP", 
+      "id": "SignCP_e7r_condition", 
+      "target": "e7r"
+    }, 
+    "classes": "condition", 
+    "group": "edges"
+  }
+]

@@ -1,5 +1,6 @@
 import json
 import os
+from src.utils.chunking import getRoleMapping
 
 def extractGroupRelations(groupings, linkages):
     #clean list
@@ -94,7 +95,7 @@ def extractChunks(data):
             groupings.append(line)
         elif '->' in line:
             linkages.append(line.strip())
-        elif ('role=' in line) and ('#' not in elem):
+        elif ('role=' in line) and ('#' not in line):
             nameChunk = line.split()
             role = nameChunk.pop()
             name=''.join(nameChunk).replace('"', '')
@@ -321,7 +322,7 @@ def cytoEdges(edges):
 def generateGraph(data, externalIds, target, role):
     # chunk events
 
-    if (role not in ['Global','Choreo']):
+    if (role not in ['Global','Public']):
         chunks = extractRoleChunks(data)
         # generate tasks and relations
         cTasks = cytoTasks(chunks['events']+chunks['internalEvents'], externalIds)
@@ -334,13 +335,18 @@ def generateGraph(data, externalIds, target, role):
         cEdges = cytoEdges(chunks['linkages'])
 
     # fix ctask coordinates:
-    with open(os.path.join(target.replace('projections','resources'),'data'+role+'_init.json')) as json_file:
-        cData = json.load(json_file)
+    #with open(os.path.join(target.replace('projections','resources'),'data'+role+'_init.json')) as json_file:
+    #    cData = json.load(json_file)
 
-    # cData = cTasks + cEdges
+    cData = cTasks + cEdges
 
     # json dumps
-    with open(os.path.join(target, 'data'+role+'.json'), 'w') as outfile:
-        # json.dump(cData, outfile, indent=2)
+    if (role not in ['Global','Public']):
+        roleMapping=getRoleMapping(role)
+        role_id=roleMapping['id']
+    else:
+        role_id=role
+
+    with open(os.path.join(target, 'data'+role_id+'.json'), 'w') as outfile:
         json.dump(cData, outfile, indent=2)
 

@@ -19,7 +19,6 @@ def reinitBis(filename):
     dataChoreo = choreoFile.readlines()
     choreoFile.close()
 
-    print(dataChoreo)
     with open(os.path.join(target, 'dataChoreo.json'), 'w') as outfile:
         json.dump(dataChoreo, outfile, indent=2)
 

@@ -1,3 +1,7 @@
+from src.utils.formatting import cleanName, getFileName, groupItems, getRoleTenant, getSender, getReceiver, getRole, getArrowLink, getChoreographyDetails, getType, getRoleList,generateDictEvent,generateDictRelation
+import numpy as np
+import json
+
 #### RETRIEVING FUNCTIONS 
 
 
@@ -126,6 +130,7 @@ def extractChunks(data):
         'internalEvents':internalEvents,
         'linkages':linkages,
     }
+
     return chunks, roles
 
 
@@ -170,4 +175,276 @@ def getLinkages(projRefs, linkages):
     #print(linkages)   
     return linkages
 
+
+
+##### COMPOSITION FUNCTIONS
+
+def transitiveIncludeExclude(rExt, e, l, rGlob):
+    if((e==getReceiver(l)) and (getType(l) in ['condition', 'milestone'])):
+        for rel in rGlob:
+            if((getType(rel) in ['include','exclude']) and (getReceiver(rel)==getSender(l))):
+                rExt.append(rel)
+    return rExt
+
+
+def transitiveResponse(rExt, e, l, rGlob):
+    if((e==getSender(l)) and(getType(l)=='milestone')):
+        for rel in rGlob:
+            if ((getType(rel)=='response') and (getSender(rel)==getReceiver(l))):
+                rExt.append(rel)
+    return rExt
+
+
+def computeExternalRelations(externalLinkages,externalIds,eGlob):
+    _externalLinkages = []
+    for link in externalLinkages:
+        sender = getSender(link)
+        receiver = getReceiver(link)
+        arrow_link = getArrowLink(link)
+
+        if sender in externalIds:
+            for elem in eGlob:
+                toTest = getRole(elem) 
+                if toTest in sender:
+                    newLink = toTest + ' ' + arrow_link + ' ' + receiver
+                    _externalLinkages.append(newLink)
+        else: # receiver in externalIds:
+            for elem in eGlob:
+                toTest = getRole(elem)  
+                if toTest in receiver:
+                    newLink = sender + ' ' + arrow_link + ' ' + toTest    
+                    _externalLinkages.append(newLink.strip())
+
+    return _externalLinkages
+
+
+def computeExternalEvents(rExt, eProj):
+    eExt=[]
+    for r in rExt:
+        sender = getSender(r)
+        receiver = getReceiver(r)
+
+        if ((sender not in eExt) and (sender not in eProj)):
+            eExt.append(sender)
+
+        if ((receiver not in eExt) and (receiver not in eProj)):
+            eExt.append(receiver)
+    return eExt
+
+
+def retrieveExternalRelations(eProj, rProj, eGlob, rGlob):
+    rExt=[]
+    for e in eProj:
+        for l in rGlob:
+            if((l not in rProj) and (e == getReceiver(l))):
+                rExt.append(l) # direct relations
+                rExt = transitiveIncludeExclude(rExt, e, l, rGlob)
+                rExt = transitiveResponse(rExt, e, l, rGlob)
+
+    eExt = computeExternalEvents(rExt, eProj)
+    rExt = computeExternalRelations(rExt,eExt,eGlob)
+
+    return eExt, rExt
+
+def getEventDeclarationFromName(names,all_events):
+    externalEvents = []
+    for elem in all_events:
+        for n in names:
+            if getRole(elem) in n:
+                externalEvents.append(elem)
+    return externalEvents
+
+
+def applyComposition(roleIds, rProj, chunks, choreoEventsProj):    
+    externalLinkages = []
+
+    eGlob=chunks['internalEvents'] + chunks['events']
+    rGlob=chunks['linkages']
+
+    # retrieve relations
+    eProj=roleIds
+    eExt, rExt = retrieveExternalRelations(eProj,rProj,eGlob,rGlob)
+
+    # retrieve corresponding events
+    externalEvents = getEventDeclarationFromName(eExt,eGlob)        
+
+    return eExt, externalEvents, rExt
+
+
     
+#### REAGREGATE GRAPH FUNCTION
+def countChunks(e,r):
+    
+    events=getRoleList(e)
+
+    #retrieve number of inputs of each elem. If no input, then elem is a chunk start.
+    cntInputs=np.zeros(len(events))
+    for event in events:
+        for relation in r:
+            if(getReceiver(relation)==event):
+                cntInputs[events.index(event)]=cntInputs[events.index(event)]+1
+
+    # retrieve chunk starts    
+    chunkStarts=[]
+    ind=0
+    for elem in cntInputs:
+        if (int(elem)==0):
+            chunkStarts.append(events[ind])
+        ind=ind+1
+
+    return (cntInputs == 0).sum(), chunkStarts
+
+def retrieveFollower(elem, r):
+    for relation in r:
+        if(getSender(relation))==elem:
+            return(getReceiver(relation))
+
+    return ''
+
+
+def retrieveOriginalOrder(starts,rGlob):
+    startA=starts[0]
+    startB=starts[1]
+
+    a_followers=[]
+    # retrieve relation where A starts
+    for relation in rGlob:
+        if(getSender(relation))==startA:
+            neighbour=getReceiver(relation)
+            if neighbour==startB:
+                return startA,startB
+            else:
+                a_followers.append(neighbour)
+    
+    for elem in range(len(rGlob)+1):
+        neighbour=retrieveFollower(a_followers[-1],rGlob)
+        if neighbour==startB:
+            return startA,startB
+        else:
+            a_followers.append(neighbour)
+
+    # check on the global graph who's first: 
+    #whether B is one of the getReceivers of the set of relations where A starts. If not, then it is the other way around
+    
+    return startB, startA 
+
+
+def retrieveChunkTail(first,events,relations, rGlob):
+
+    events=getRoleList(events)
+    neighbours=[]
+    # retrieve relation where A starts
+    for relation in relations:
+        if(getSender(relation)) in first:
+            neighbour=getReceiver(relation)
+            if (neighbour not in neighbours):
+                neighbours.append(neighbour)
+
+    if (len(neighbours)>0):
+        #retrieve following chunk elems
+        for elem in range(len(relations)+1):
+            neighbour=retrieveFollower(neighbours[-1],relations)
+            if( (neighbour != '') and (neighbour not in neighbours)):
+                neighbours.append(neighbour)
+            
+        #retrieve additional routes
+        for elem in neighbours:
+            cntNext=0
+            for relation in relations:
+                if (getSender(relation)==elem):
+                    cntNext=cntNext+1
+                    neighbour=getReceiver(relation)
+                    if( (neighbour != '') and (neighbour not in neighbours)):
+                        neighbours.append(neighbour)
+
+        cntOutputs=np.zeros(len(neighbours))
+        for event in neighbours:
+            for relation in relations:
+                if(getSender(relation)==event):
+                    cntOutputs[neighbours.index(event)]=cntOutputs[neighbours.index(event)]+1
+
+        # retrieve chunk starts    
+        chunkTails=[]
+        ind=0
+        for elem in cntOutputs:
+            if (int(elem)==0):
+                chunkTails.append(neighbours[ind])
+            ind=ind+1
+
+
+        # remove wrong chunks (ie real outputs)
+        real_outputs=[]
+
+        outputs=[]
+        for elem in rGlob:
+            if (getReceiver(elem) not in outputs):
+                outputs.append(getReceiver(elem))
+        cntOutputsGlob=np.zeros(len(outputs))
+        for event in outputs:
+            for relation in rGlob:
+                if(getSender(relation)==event):
+                    cntOutputsGlob[outputs.index(event)]=cntOutputsGlob[outputs.index(event)]+1
+        ind=0
+        for elem in cntOutputsGlob:
+            if (int(elem)==0):
+                real_outputs.append(outputs[ind])
+            ind=ind+1
+
+        _chunkTails=[]
+        for elem in chunkTails:
+            if (elem not in real_outputs):
+                _chunkTails.append(elem)
+
+        return (cntOutputs == 0).sum(), _chunkTails
+
+    else:
+        return 0, [first]
+
+def reagregateGraph(e,r, rGlob):
+    cnt, starts = countChunks(e,r)
+
+    iter=0
+    while (cnt >1 and iter<5):
+        # do agregation
+        first,second=retrieveOriginalOrder(starts,rGlob)
+
+        if (second != starts[0]):
+            cntOutputs,tails = retrieveChunkTail(first,e,r, rGlob)
+            if (len(tails)!=0):
+                relation = tails[0]+' -->* '+second 
+                r.append(relation)
+
+        else:
+            cntOutputs,tails = retrieveChunkTail(second,e,r, rGlob)
+            if (len(tails)!=0):
+                relation = tails[0]+' -->* '+first 
+                r.append(relation)
+
+        # reevaluate
+        cnt,starts = countChunks(e,r)
+        iter=iter+1
+    return e,r
+
+def getRoles():
+    dcrPath='./client/src/projections/dcrTexts.json'
+    with open(dcrPath) as json_file:
+        dcrs = json.load(json_file)
+    roles=[]
+    for elem in dcrs['roleMapping']:
+        roles.append(elem['role'])
+    
+    return roles
+
+
+def getRoleMapping(role):
+    dcrPath='./client/src/projections/dcrTexts.json'
+    with open(dcrPath) as json_file:
+        dcrs = json.load(json_file)
+    roleId=''
+    for elem in dcrs['roleMapping']:
+        if (elem['role']==role):
+            return elem
+    
+    else: 
+        return 'err- role not found'
+

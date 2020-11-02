@@ -1,7 +1,10 @@
 import React, {useState} from 'react';
 import Card from 'react-bootstrap/Card';
+import CardGroup from 'react-bootstrap/CardGroup';
+import ListGroup from 'react-bootstrap/ListGroup'
+
 import axios from 'axios';
-import ExecLogger from './ExecLogger';
+import ExecLogger from './execLogger';
 import PublicMarkings from './PublicMarkings';
 
 import SimpleDCReum from '../contracts/SimpleDCReum.json';
@@ -10,13 +13,13 @@ import getWeb3 from '../getWeb3';
 import Cytoscape from 'cytoscape';
 import CytoscapeComponent from 'react-cytoscapejs';
 
-// import COSEBilkent from 'cytoscape-cose-bilkent';
-// Cytoscape.use(COSEBilkent);
+import COSEBilkent from 'cytoscape-cose-bilkent';
+Cytoscape.use(COSEBilkent);
 var node_style = require('../style/nodeStyle.json');
 var edge_style = require('../style/edgeStyle.json');
 var cyto_style = require('../style/cytoStyle.json');
 
-var vectChoreo = require('../resources/vectChoreo_init.json');
+var vectPublic = require('../projections/vectPublic.json');
 
 class DCRgraph extends React.Component {
   constructor(props){
@@ -26,7 +29,7 @@ class DCRgraph extends React.Component {
                   idClicked:'',
                   indexClicked:'',
                   nameClicked:'',
-                  activityNames:vectChoreo["activityNames"],
+                  activityNames:vectPublic["activityNames"],
 
                   web3: null,
                   accounts: null,
@@ -37,7 +40,9 @@ class DCRgraph extends React.Component {
                   incl:'',
                   exec:'',
                   pend:'',
-                  lg_activityNames:''
+                  dataHashes:'',
+                  activityData:'', 
+                  dataValues:[]
                 };
       this.fetchBCid = this.fetchBCid.bind(this);
     }
@@ -80,12 +85,13 @@ class DCRgraph extends React.Component {
     const inclVector = await contract.methods.getIncluded().call();
     const execVector = await contract.methods.getExecuted().call();
     const pendVector = await contract.methods.getPending().call();
+    const hashesVector = await contract.methods.getHashes().call();
 
     this.setState({
-      lg_activityNames:'Tasks: ' + this.state.activityNames["default"].join(),
-      incl:'Included vector: ' + inclVector,
-      exec:'Executed vector: ' + execVector,
-      pend:'Pending vector:  ' + pendVector,
+      incl:inclVector,
+      exec:execVector,
+      pend:pendVector,
+      dataHashes:hashesVector,
   });
 
   }
@@ -99,6 +105,8 @@ class DCRgraph extends React.Component {
 
     // Step1: Fetch corresponding BC id.
     var lastChar = this.state.idClicked.charAt(this.state.idClicked.length-1);
+    console.log(lastChar)
+
     var activities = []
     switch(lastChar){
       case 's':
@@ -126,9 +134,11 @@ class DCRgraph extends React.Component {
       this.fetchBCid();
 
       // execute transaction
+      
       try{
+        var hashData = this.state.web3.utils.fromAscii(this.state.activityData);
 
-        await contract.methods.checkCliquedIndex(this.state.indexClicked).send({ from: accounts[0] });
+        await contract.methods.checkCliquedIndex(this.state.indexClicked, hashData).send({ from: accounts[0] });
   
         // Get the value from the contract.
         const output =  await contract.methods.getCanExecuteCheck().call();
@@ -146,7 +156,7 @@ class DCRgraph extends React.Component {
             this.setState({ bcRes: 'BC exec - rejected - milestonesNotFulfilled' });
             break;
           case '0':
-            window.alert('Task executable');
+            //window.alert('Task executable');
             this.setState({ bcRes: 'executed' });
             break;          
           default:
@@ -156,11 +166,15 @@ class DCRgraph extends React.Component {
 
       }
       catch (err) {
-        console.log("web3.eth.handleRevert =", web3.eth.handleRevert);
+        console.log("web3.eth.handleRevert =", this.state.web3.eth.handleRevert);
         const msg= 'BC exec - rejected - Metamask issue - Please try again (Higher gas fees, contract recompilation, or metamask reinstallation)';
         window.alert(msg);  
         this.setState({bcRes:msg});
       }
+
+      this.setState({dataValues:this.state.dataValues.push(this.state.activityData)});
+
+      window.alert(this.state.dataValues);
 
       axios.post(`http://localhost:5000/BCupdate`, 
       {
@@ -168,7 +182,8 @@ class DCRgraph extends React.Component {
         projId:this.props.id, 
         execStatus:this.state.bcRes, 
         activityName:this.state.nameClicked,
-        start_timestamp:this.state.start_timestamp
+        start_timestamp:this.state.start_timestamp,
+        data:this.state.activityData
       },
       {"headers" : {"Access-Control-Allow-Origin": "*"}}
     );      
@@ -185,52 +200,61 @@ class DCRgraph extends React.Component {
       console.log(event.target['_private']['data']);
       this.setState({nameClicked:event.target['_private']['data']['name']});
       this.setState({idClicked:event.target['_private']['data']['id']});
-    
-      //updateGraphMarkings
-      event.preventDefault();
-      const idClicked = this.state.idClicked;
-      var headers = {
-        "Access-Control-Allow-Origin": "*",
-      };
-      axios.post(`http://localhost:5000/process`, 
-        {
-          idClicked, 
-          projId:this.props.id, 
-          activityName:this.state.nameClicked,
-          start_timestamp:this.state.start_timestamp
-        },
-        {"headers" : headers}
-      ).then( 
-        (response) => { 
-            var result = response.data; 
+      var data = prompt('Please Enter Task Data');
 
-            if (result.includes('BC')){
-              //check BC execution
-              this.runBCCheck();
-            }
-        }, 
-        (error) => { 
-            console.log(error); 
-        } 
-    ); 
+      if(data === null){
+        console.log('canceled exec');
+      }
+      else{
+        this.setState({activityData:data});
+    
+        //updateGraphMarkings
+        event.preventDefault();
+        const idClicked = this.state.idClicked;
+        var headers = {
+          "Access-Control-Allow-Origin": "*",
+        };
+        axios.post(`http://localhost:5000/process`, 
+          {
+            idClicked, 
+            projId:this.props.id, 
+            activityName:this.state.nameClicked,
+            start_timestamp:this.state.start_timestamp,
+            data:this.state.activityData
+          },
+          {"headers" : headers}
+        ).then( 
+          (response) => { 
+              var result = response.data; 
+  
+              if (result.includes('BC')){
+                //check BC execution
+                this.runBCCheck();
+              }
+          }, 
+          (error) => { 
+              console.log(error); 
+          } 
+      ); 
+      }
 
     })
   }
 
   render(){
-    // const layout = cyto_style['layoutCose'];
+    const layout = cyto_style['layoutCose'];
     const style = cyto_style['style'];
     const stylesheet = node_style.concat(edge_style);
 
 
     return  <div>
               <Card style={{width: '95%', height:'90%','marginTop':'3vh'}}>
-              <Card.Header as="p" style= {{color:'white', 'backgroundColor': '#006588', 'fontSize': '10pt', 'fontWeight': 200, padding: '2ex 1ex'}}>
+              <Card.Header as="p" style= {{color:'white', 'backgroundColor': '#f09329', 'fontSize': '10pt', 'fontWeight': 200, padding: '2ex 1ex'}}>
                   {this.props.id}</Card.Header>
                 <Card.Body >
                   <CytoscapeComponent elements={this.props.data} 
                                         stylesheet={stylesheet} 
-                                        // layout={layout} 
+                                        layout={layout} 
                                         style={style} 
                                         cy={(cy) => {this.cy = cy}}
                                         boxSelectionEnabled={false}
@@ -238,11 +262,17 @@ class DCRgraph extends React.Component {
                 </Card.Body>
               </Card>
 
-              <ExecLogger  execLogs = {this.props.execLogs}/>
-              <PublicMarkings lg_activityNames={this.state.lg_activityNames} 
+              <ExecLogger  execLogs = {this.props.execLogs} activityNames={this.state.activityNames}/>
+              <PublicMarkings activityNames={this.state.activityNames["default"]} 
+                              execLogs = {this.props.execLogs} 
+                              activityNamesBis={this.state.activityNames}
                               incl = {this.state.incl}
                               pend = {this.state.pend}
-                              exec = {this.state.exec} />
+                              exec = {this.state.exec}
+                              dataHashes = {this.state.dataHashes}
+                              dataValues = {this.state.dataValues}
+                              />
+
             </div>; 
   }
 }

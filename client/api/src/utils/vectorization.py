@@ -6,7 +6,7 @@ import json
 import numpy as np
 import json
 
-from src.utils.formatting import getFileName, NumpyEncoder
+from src.utils.formatting import getFileName, NumpyEncoder, getRoleList
 from src.utils.chunking import extractChunks, extractRoleChunks
 from src.utils.graphManager import initializeGraph
 
@@ -39,7 +39,7 @@ def getRelationElems(relation):
 def getEventId(event):
     return event.split('[')[0].strip()
 
-def generateRelationMatrix(relationType, eventsList, chunkEvents, relations):
+def generateRelationMatrix(relationType, eventsList, relations):
     relationMatrix = np.zeros((len(eventsList),len(eventsList)))
 
     # filter set of relations with relation type
@@ -72,33 +72,29 @@ def generateRelationMatrices(chunks):
     events = chunks['events'] + chunks['internalEvents'] 
 
     if relations == []:
-        return []
+        return [],[0,0,0,0,0]
+    else:
+        # get list of events
+        eventsList = getRoleList(events)
+        
+        rc, rfc = generateRelationMatrix('condition', eventsList, relations)
+        rm, rfm = generateRelationMatrix('milestone', eventsList, relations)
+        rr, rfr = generateRelationMatrix('response', eventsList, relations)
+        ri, rfi = generateRelationMatrix('include', eventsList, relations)
+        re, rfe = generateRelationMatrix('exclude', eventsList, relations)
 
-    # get list of events
-    eventsList = []
-    for event in events:
-        e_id = getEventId(event)
-        if (e_id not in eventsList):
-            eventsList.append(getEventId(event))
-    
-    rc, rfc = generateRelationMatrix('condition', eventsList, events, relations)
-    rm, rfm = generateRelationMatrix('milestone', eventsList, events, relations)
-    rr, rfr = generateRelationMatrix('response', eventsList, events, relations)
-    ri, rfi = generateRelationMatrix('include', eventsList, events, relations)
-    re, rfe = generateRelationMatrix('exclude', eventsList, events, relations)
+        relationMatrices= [
+                        {
+                            'condition':rc,
+                            'milestone':rm,
+                            'response': rr,
+                            'include':  ri,
+                            'exclude':  re,
+                        }
+            ]
 
-    relationMatrices= [
-                    {
-                        'condition':rc,
-                        'milestone':rm,
-                        'response': rr,
-                        'include':  ri,
-                        'exclude':  re,
-                    }
-        ]
-
-    fullRelations= [rfi,rfe,rfr,rfc,rfm]
-    return relationMatrices, fullRelations
+        fullRelations= [rfi,rfe,rfr,rfc,rfm]
+        return relationMatrices, fullRelations
 
 def generateInitialMarking(eventsList, events, relations):
     #m_Matrix = np.zeros(len(eventsList))
@@ -140,6 +136,25 @@ def generateInitialMarkings(chunks):
     return markingMatrices
  
 
+
+def computeActivityNames(activities):
+    send=[]
+    receive=[]
+
+    for elem in activities:
+        if(elem[0]=='e'):
+            send.append(elem+'s')
+            receive.append(elem+'r')
+        else:
+            send.append(elem)
+            receive.append(elem)
+
+    return {
+        'default':activities,
+        'send':send,
+        'receive':receive
+    }
+
 def addFullMarkings(markings):
 
     ## add activitynames
@@ -157,9 +172,7 @@ def addFullMarkings(markings):
     # fullMarkings = [''.join(included),''.join(executed),''.join(pending)]
     fullMarkings = [included,executed,pending]
 
-    print(fullMarkings)
-
-    return activitynames, fullMarkings
+    return computeActivityNames(activitynames), fullMarkings
 
 def vectorize(data, filename):
 

@@ -1,538 +1,347 @@
 [
   {
     "data": {
-      "id": "e2",
-      "name": "Driver\nShipping\nFlorist"
-    },
-    "position": {
-      "x": 800,
-      "y": 0
-    },
+      "id": "e1", 
+      "name": "Doctor\nPrescribeMed\nNurse"
+    }, 
+    "classes": "included executable", 
     "group": "nodes"
-  },
+  }, 
   {
     "data": {
-      "id": "e5",
-      "name": "Customer\nCheckDelivery\nFlorist"
-    },
-    "position": {
-      "x": 1200,
-      "y": 0
-    },
+      "id": "e2", 
+      "name": "Nurse\nDontTrustPrescr(N)\nDoctor"
+    }, 
     "group": "nodes"
-  },
+  }, 
   {
     "data": {
-      "id": "e8",
-      "name": "Customer\nAccept\nFlorist"
-    },
-    "position": {
-      "x": 1400,
-      "y": 200
-    },
+      "id": "e3", 
+      "name": "CP\nAcceptPrescription\nDoctor"
+    }, 
     "group": "nodes"
-  },
+  }, 
   {
     "data": {
-      "id": "e9",
-      "name": "Customer\nReject\nFlorist"
-    },
-    "position": {
-      "x": 1400,
-      "y": -200
-    },
+      "id": "e4", 
+      "name": "CP\nDontTrustPrescr(CP)\nDoctor"
+    }, 
+    "classes": "included executable", 
     "group": "nodes"
-  },
+  }, 
   {
     "data": {
-      "id": "e10",
-      "name": "Customer\nPay\nFlorist"
-    },
-    "position": {
-      "x": 1700,
-      "y": 200
-    },
+      "id": "e5", 
+      "name": "PA\nMakePrescription\nCP"
+    }, 
     "group": "nodes"
-  },
+  }, 
   {
     "data": {
-      "id": "e11",
-      "name": "Driver\nUnloadTruck\nCustomer"
-    },
-    "position": {
-      "x": 1700,
-      "y": 0
-    },
+      "id": "e6", 
+      "name": "CP\nDontTrustPrep(CP)\nPA"
+    }, 
     "group": "nodes"
-  },
+  }, 
   {
     "data": {
-      "id": "e14",
-      "name": "Florist\nPayDriver\nDriver"
-    },
-    "position": {
-      "x": 1700,
-      "y": -200
-    },
+      "id": "e7", 
+      "name": "Nurse\nDontTrustPrep(N)\nPA"
+    }, 
     "group": "nodes"
-  },
+  }, 
   {
     "data": {
-      "id": "PrepareCommand",
-      "name": "PrepareCommand"
-    },
-    "position": {
-      "x": 0,
-      "y": 0
-    },
-    "group": "nodes",
-    "classes": "included executable"
-  },
-  {
-    "data": {
-      "id": "CallShipper",
-      "name": "CallShipper"
-    },
-    "position": {
-      "x": 400,
-      "y": 0
-    },
+      "id": "EditPrescription", 
+      "name": "EditPrescription"
+    }, 
     "group": "nodes"
-  },
+  }, 
   {
     "data": {
-      "id": "SettleCommand",
-      "name": "SettleCommand"
-    },
-    "position": {
-      "x": 2000,
-      "y": 0
-    },
+      "id": "CancelPrescription", 
+      "name": "CancelPrescription"
+    }, 
     "group": "nodes"
-  },
+  }, 
   {
     "data": {
-      "id": "ReturnTruck",
-      "name": "ReturnTruck"
-    },
-    "position": {
-      "x": 1400,
-      "y": -400
-    },
+      "id": "SignDoctor", 
+      "name": "SignDoctor"
+    }, 
     "group": "nodes"
-  },
+  }, 
   {
     "data": {
-      "id": "e2_e5_response",
-      "source": "e2",
-      "target": "e5"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
+      "id": "GiveMedecine", 
+      "name": "GiveMedecine"
+    }, 
+    "group": "nodes"
+  }, 
   {
     "data": {
-      "id": "e2_e5_response_back",
-      "source": "e5",
+      "id": "SignPA", 
+      "name": "SignPA"
+    }, 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "id": "SignCP", 
+      "name": "SignCP"
+    }, 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "source": "EditPrescription", 
+      "id": "EditPrescription_SignDoctor_response", 
+      "target": "SignDoctor"
+    }, 
+    "classes": "response", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "SignDoctor", 
+      "id": "EditPrescription_SignDoctor_response_back", 
+      "target": "EditPrescription"
+    }, 
+    "classes": "response back", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "e1", 
+      "id": "e1_SignDoctor_response", 
+      "target": "SignDoctor"
+    }, 
+    "classes": "response", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "SignDoctor", 
+      "id": "e1_SignDoctor_response_back", 
+      "target": "e1"
+    }, 
+    "classes": "response back", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "e1", 
+      "id": "e1_EditPrescription_include", 
+      "target": "EditPrescription"
+    }, 
+    "classes": "include", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "e1", 
+      "id": "e1_CancelPrescription_include", 
+      "target": "CancelPrescription"
+    }, 
+    "classes": "include", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "e1", 
+      "id": "e1_GiveMedecine_response", 
+      "target": "GiveMedecine"
+    }, 
+    "classes": "response", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "GiveMedecine", 
+      "id": "e1_GiveMedecine_response_back", 
+      "target": "e1"
+    }, 
+    "classes": "response back", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "SignDoctor", 
+      "id": "SignDoctor_e2_condition", 
       "target": "e2"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
+    }, 
+    "classes": "condition", 
+    "group": "edges"
+  }, 
   {
     "data": {
-      "id": "e5_e8_response",
-      "source": "e5",
-      "target": "e8"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
+      "source": "e2", 
+      "id": "e2_SignDoctor_response", 
+      "target": "SignDoctor"
+    }, 
+    "classes": "response", 
+    "group": "edges"
+  }, 
   {
     "data": {
-      "id": "e5_e8_response_back",
-      "source": "e8",
-      "target": "e5"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
-      "id": "e5_e9_response",
-      "source": "e5",
-      "target": "e9"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e5_e9_response_back",
-      "source": "e9",
-      "target": "e5"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
-      "id": "e8_e10_include",
-      "source": "e8",
-      "target": "e10"
-    },
-    "group": "edges",
-    "classes": "include"
-  },
-  {
-    "data": {
-      "id": "e8_e10_response",
-      "source": "e8",
-      "target": "e10"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e8_e10_response_back",
-      "source": "e10",
-      "target": "e8"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
-      "id": "e8_e11_include",
-      "source": "e8",
-      "target": "e11"
-    },
-    "group": "edges",
-    "classes": "include"
-  },
-  {
-    "data": {
-      "id": "e8_e11_response",
-      "source": "e8",
-      "target": "e11"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e8_e11_response_back",
-      "source": "e11",
-      "target": "e8"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
-      "id": "PrepareCommand_CallShipper_condition",
-      "source": "PrepareCommand",
-      "target": "CallShipper"
-    },
-    "group": "edges",
-    "classes": "condition"
-  },
-  {
-    "data": {
-      "id": "PrepareCommand_CallShipper_response",
-      "source": "PrepareCommand",
-      "target": "CallShipper"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "PrepareCommand_CallShipper_response_back",
-      "source": "CallShipper",
-      "target": "PrepareCommand"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
-      "id": "CallShipper_e2_condition",
-      "source": "CallShipper",
+      "source": "SignDoctor", 
+      "id": "e2_SignDoctor_response_back", 
       "target": "e2"
-    },
-    "group": "edges",
-    "classes": "condition"
-  },
+    }, 
+    "classes": "response back", 
+    "group": "edges"
+  }, 
   {
     "data": {
-      "id": "CallShipper_e2_response",
-      "source": "CallShipper",
-      "target": "e2"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
+      "source": "SignDoctor", 
+      "id": "SignDoctor_e3_response", 
+      "target": "e3"
+    }, 
+    "classes": "response", 
+    "group": "edges"
+  }, 
   {
     "data": {
-      "id": "CallShipper_e2_response_back",
-      "source": "e2",
-      "target": "CallShipper"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
+      "source": "e3", 
+      "id": "SignDoctor_e3_response_back", 
+      "target": "SignDoctor"
+    }, 
+    "classes": "response back", 
+    "group": "edges"
+  }, 
   {
     "data": {
-      "id": "ReturnTruck_e14_condition",
-      "source": "ReturnTruck",
-      "target": "e14"
-    },
-    "group": "edges",
-    "classes": "condition"
-  },
+      "source": "e4", 
+      "id": "e4_SignDoctor_response", 
+      "target": "SignDoctor"
+    }, 
+    "classes": "response", 
+    "group": "edges"
+  }, 
   {
     "data": {
-      "id": "ReturnTruck_e14_response",
-      "source": "ReturnTruck",
-      "target": "e14"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
+      "source": "SignDoctor", 
+      "id": "e4_SignDoctor_response_back", 
+      "target": "e4"
+    }, 
+    "classes": "response back", 
+    "group": "edges"
+  }, 
   {
     "data": {
-      "id": "ReturnTruck_e14_response_back",
-      "source": "e14",
-      "target": "ReturnTruck"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
+      "source": "e3", 
+      "id": "e3_e5_response", 
+      "target": "e5"
+    }, 
+    "classes": "response", 
+    "group": "edges"
+  }, 
   {
     "data": {
-      "id": "e14_SettleCommand_condition",
-      "source": "e14",
-      "target": "SettleCommand"
-    },
-    "group": "edges",
-    "classes": "condition"
-  },
+      "source": "e5", 
+      "id": "e3_e5_response_back", 
+      "target": "e3"
+    }, 
+    "classes": "response back", 
+    "group": "edges"
+  }, 
   {
     "data": {
-      "id": "e14_SettleCommand_response",
-      "source": "e14",
-      "target": "SettleCommand"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
+      "source": "e3", 
+      "id": "e3_e5_condition", 
+      "target": "e5"
+    }, 
+    "classes": "condition", 
+    "group": "edges"
+  }, 
   {
     "data": {
-      "id": "e14_SettleCommand_response_back",
-      "source": "SettleCommand",
-      "target": "e14"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
+      "source": "e5", 
+      "id": "e5_SignPA_response", 
+      "target": "SignPA"
+    }, 
+    "classes": "response", 
+    "group": "edges"
+  }, 
   {
     "data": {
-      "id": "e8_e9_exclude",
-      "source": "e8",
-      "target": "e9"
-    },
-    "group": "edges",
-    "classes": "exclude"
-  },
+      "source": "SignPA", 
+      "id": "e5_SignPA_response_back", 
+      "target": "e5"
+    }, 
+    "classes": "response back", 
+    "group": "edges"
+  }, 
   {
     "data": {
-      "id": "e9_e8_exclude",
-      "source": "e9",
-      "target": "e8"
-    },
-    "group": "edges",
-    "classes": "exclude"
-  },
+      "source": "e5", 
+      "id": "e5_SignPA_condition", 
+      "target": "SignPA"
+    }, 
+    "classes": "condition", 
+    "group": "edges"
+  }, 
   {
     "data": {
-      "id": "e9_e10_exclude",
-      "source": "e9",
-      "target": "e10"
-    },
-    "group": "edges",
-    "classes": "exclude"
-  },
+      "source": "SignPA", 
+      "id": "SignPA_e6_condition", 
+      "target": "e6"
+    }, 
+    "classes": "condition", 
+    "group": "edges"
+  }, 
   {
     "data": {
-      "id": "e9_e11_exclude",
-      "source": "e9",
-      "target": "e11"
-    },
-    "group": "edges",
-    "classes": "exclude"
-  },
+      "source": "e6", 
+      "id": "e6_SignPA_response", 
+      "target": "SignPA"
+    }, 
+    "classes": "response", 
+    "group": "edges"
+  }, 
   {
     "data": {
-      "id": "e9_ReturnTruck_response",
-      "source": "e9",
-      "target": "ReturnTruck"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
+      "source": "SignPA", 
+      "id": "e6_SignPA_response_back", 
+      "target": "e6"
+    }, 
+    "classes": "response back", 
+    "group": "edges"
+  }, 
   {
     "data": {
-      "id": "e9_ReturnTruck_response_back",
-      "source": "ReturnTruck",
-      "target": "e9"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
+      "source": "SignPA", 
+      "id": "SignPA_SignCP_condition", 
+      "target": "SignCP"
+    }, 
+    "classes": "condition", 
+    "group": "edges"
+  }, 
   {
     "data": {
-      "id": "e9_e14_response",
-      "source": "e9",
-      "target": "e14"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
+      "source": "SignCP", 
+      "id": "SignCP_e7_condition", 
+      "target": "e7"
+    }, 
+    "classes": "condition", 
+    "group": "edges"
+  }, 
   {
     "data": {
-      "id": "e9_e14_response_back",
-      "source": "e14",
-      "target": "e9"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
+      "source": "e7", 
+      "id": "e7_SignCP_response", 
+      "target": "SignCP"
+    }, 
+    "classes": "response", 
+    "group": "edges"
+  }, 
   {
     "data": {
-      "id": "e9_SettleCommand_response",
-      "source": "e9",
-      "target": "SettleCommand"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e9_SettleCommand_response_back",
-      "source": "SettleCommand",
-      "target": "e9"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
-      "id": "e10_ReturnTruck_response",
-      "source": "e10",
-      "target": "ReturnTruck"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e10_ReturnTruck_response_back",
-      "source": "ReturnTruck",
-      "target": "e10"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
-      "id": "e10_e14_response",
-      "source": "e10",
-      "target": "e14"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e10_e14_response_back",
-      "source": "e14",
-      "target": "e10"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
-      "id": "e10_SettleCommand_response",
-      "source": "e10",
-      "target": "SettleCommand"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e10_SettleCommand_response_back",
-      "source": "SettleCommand",
-      "target": "e10"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
-      "id": "e11_ReturnTruck_response",
-      "source": "e11",
-      "target": "ReturnTruck"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e11_ReturnTruck_response_back",
-      "source": "ReturnTruck",
-      "target": "e11"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
-      "id": "e11_e14_response",
-      "source": "e11",
-      "target": "e14"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e11_e14_response_back",
-      "source": "e14",
-      "target": "e11"
-    },
-    "group": "edges",
-    "classes": "response back"
-  },
-  {
-    "data": {
-      "id": "e11_SettleCommand_response",
-      "source": "e11",
-      "target": "SettleCommand"
-    },
-    "group": "edges",
-    "classes": "response"
-  },
-  {
-    "data": {
-      "id": "e11_SettleCommand_response_back",
-      "source": "SettleCommand",
-      "target": "e11"
-    },
-    "group": "edges",
-    "classes": "response back"
+      "source": "SignCP", 
+      "id": "e7_SignCP_response_back", 
+      "target": "e7"
+    }, 
+    "classes": "response back", 
+    "group": "edges"
   }
 ]

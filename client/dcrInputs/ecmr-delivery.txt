@@ -1,0 +1,106 @@
+## Declaration
+e1[OrderMerchandise src=Customer tgt=Supplier]
+e2[ChoseDriver src=Supplier tgt=Carrier]
+
+e3[AcceptMission src=Carrier tgt=Supplier]
+e4[DeclineMission src=Carrier tgt=Supplier]
+
+e5[AcceptMerchandise src=Customer tgt=Carrier]
+e6[DeclineMerchandise src=Customer tgt=Carrier]
+
+e7[RefundMoney src=Blockchain tgt=Customer]
+e8[OpenClaim src=Blockchain tgt=Customer tgt=Supplier tgt=Insurer]
+
+e9[PayDelivery src=Blockchain tgt=Carrier]
+e10[PayMerchandise src=Blockchain tgt=Supplier]
+
+CreateInfo[role=Carrier]
+UpdateInfo[role=Carrier]
+ComputeECMR(IPFS)[role=Carrier]
+RegisterECMR_BC[role=Carrier]
+Deliver[role=Carrier]
+DeclareAccident[role=Carrier]
+ReturnMerchandise[role=Carrier]
+
+UpdateIPFS_BC[role=Blockchain]
+
+WithholdMoney_BC[role=Customer]
+CheckDelivery[role=Customer]
+
+LaunchSearch_BC[role=Supplier]
+FetchResults_BC[role=Supplier]
+
+## Relations
+e1 -->* WithholdMoney_BC
+e1 +--> WithholdMoney_BC
+
+e1 -->* LaunchSearch_BC
+e1 +--> LaunchSearch_BC
+
+LaunchSearch_BC -->* FetchResults_BC
+LaunchSearch_BC *--> FetchResults_BC
+
+FetchResults_BC -->* e2
+FetchResults_BC *--> e2
+
+e2 -->+ e3
+e2 *--> e3
+
+e2 -->+ e4
+e2 *--> e4
+
+e3 -->% e4
+e4 -->% e3
+
+CheckDelivery -->+ e5
+CheckDelivery *--> e5
+
+CheckDelivery -->+ e6
+CheckDelivery *--> e6
+
+e5 -->% e6
+e6 -->% e5
+
+CreateInfo -->+ UpdateInfo
+
+CreateInfo -->* ComputeECMR(IPFS)
+CreateInfo *--> ComputeECMR(IPFS)
+
+UpdateInfo -->* ComputeECMR(IPFS)
+UpdateInfo *--> ComputeECMR(IPFS)
+
+ComputeECMR(IPFS) -->* RegisterECMR_BC
+ComputeECMR(IPFS) *--> RegisterECMR_BC
+
+e3 -->* Deliver
+e3 *--> Deliver
+
+Deliver -->* CheckDelivery
+Deliver *--> CheckDelivery
+
+Deliver -->+ DeclareAccident
+
+DeclareAccident -->* e7
+DeclareAccident *--> e7
+
+DeclareAccident -->* e8
+DeclareAccident *--> e8
+
+e6 -->* e7
+e6 *--> e7
+
+e6 -->* e8
+e6 *--> e8
+
+e6 -->* ReturnMerchandise
+e6 *--> ReturnMerchandise
+
+
+e5 -->* e9
+e5 *--> e9
+
+e5 *--> e10
+e5 -->* e10
+
+e5 *--> UpdateIPFS_BC
+e6 *--> UpdateIPFS_BC

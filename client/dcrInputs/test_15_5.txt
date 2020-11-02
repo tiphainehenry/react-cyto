@@ -15,11 +15,11 @@ e13[C13 src=A tgt=C]
 e14[C14 src=C tgt=B]
 e15[C15 src=C tgt=A]
 
-"I1" [role=A]
-"I2" [role=B]
-"I3" [role=C]
-"I4" [role=A]  
-"I5" [role=B]  
+I1[role=A]
+I2[role=B]
+I3[role=C]
+I4[role=A]  
+I5[role=B]  
 
 ## Relations
 e1 --<> I1
@@ -66,6 +66,9 @@ e9 -->* e10
 
 e10 -->+ e11
 e10 *--> e11
+
+e11 -->+ e12
+e11 *--> e12
 
 e12 -->+ e13
 e12 *--> e13

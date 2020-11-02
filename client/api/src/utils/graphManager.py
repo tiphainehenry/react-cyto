@@ -2,7 +2,7 @@ import os
 import json
 import glob
 from datetime import datetime
-
+from src.utils.chunking import getRoleMapping
 
 def retrieveMarkingOnId(markings, elem):
     id = elem['data']['id']
@@ -13,6 +13,7 @@ def retrieveMarkingOnId(markings, elem):
         return []
 
 def retrieveMarkingOnName(markings, activity_name):
+
     for elem in markings:
         if elem['id'] == activity_name:
             return elem
@@ -21,6 +22,7 @@ def retrieveMarkingOnName(markings, activity_name):
 def initializeGraph(filename):
     with open(filename) as json_data:
         data = json.load(json_data)    
+    
     markings = data['markings'] 
 
     dataFilename = filename.replace('vect','data')
@@ -49,14 +51,26 @@ def retrieveActivityRelations(relations, activity_id, dataProj):
     excludes = relations['exclude']
     includes = relations['include']
 
+    toCondition =[]
+    cnt = 0
+    for elem in conditions[activity_id]:
+        if elem == 1:
+            toCondition.append({
+                'vectid':cnt,
+                'projid':dataProj[cnt]['data']['id']})
+
+        cnt=cnt+1
+
     fromCondition = []
     cnt = 0
     for conditionFrom in conditions:
+        print(conditionFrom)
         if conditionFrom[activity_id] == 1:
             fromCondition.append({
                 'vectid':cnt,
                 'projid':dataProj[cnt]['data']['id']})
         cnt = cnt + 1
+
 
     fromMilestone = []
     cnt = 0
@@ -76,13 +90,14 @@ def retrieveActivityRelations(relations, activity_id, dataProj):
                 'projid':dataProj[cnt]['data']['id']})
         cnt = cnt + 1
 
+
     toExclude = []
     cnt = 0
     for to_exclude in excludes[activity_id]:
         if to_exclude == 1:
             toExclude.append({
                 'vectid':cnt,
-                'projid':dataProj[cnt]['data']['id']})
+                'projid':dataProj[cnt]['data']['id'].replace("u'","").replace("'","")})
         cnt = cnt + 1
 
     toRespond = []
@@ -94,8 +109,11 @@ def retrieveActivityRelations(relations, activity_id, dataProj):
                 'projid':dataProj[cnt]['data']['id']})
         cnt = cnt + 1
 
-    """print('Conditions:')
+    """
+    print('From Conditions:')
     print(fromCondition)
+    print('To Conditions:')
+    print(toCondition)
     print('Milestones:')
     print(fromMilestone)
     print('Include:')
@@ -103,14 +121,15 @@ def retrieveActivityRelations(relations, activity_id, dataProj):
     print('Exclude:')
     print(toExclude)
     print('Responses:')
-    print(toRespond)"""
-
-    return fromCondition, fromMilestone, toInclude, toExclude, toRespond
+    print(toRespond)
+    """
+    return toCondition, fromCondition, fromMilestone, toInclude, toExclude, toRespond
 
 def preExecCheck(fromCondition, fromMilestone, markings):
     ## if conditions not empty: get markings of conditions --> if not executed yet and included: error
     if (len(fromCondition)!=0):
         for elem in fromCondition:
+            print(fromCondition)
             if (retrieveMarkingOnName(markings, elem['projid'])['executed'] == 0) and (retrieveMarkingOnName(markings, elem)['include'] == 1):
                 print('[INFO] error - elem condition not executed')
                 return False
@@ -124,10 +143,14 @@ def preExecCheck(fromCondition, fromMilestone, markings):
 
     return True
 
-def postExecManager(toInclude, toExclude, toRespond, markings):
+def postExecManager(toCondition, toInclude, toExclude, toRespond, markings):
 
     if(len(toInclude)!=0):
         for elem in toInclude:
+            retrieveMarkingOnName(markings, elem['projid'])['include'] = 1
+
+    if(len(toCondition)!=0):
+        for elem in toCondition:
             retrieveMarkingOnName(markings, elem['projid'])['include'] = 1
 
     if(len(toExclude)!=0):
@@ -138,6 +161,7 @@ def postExecManager(toInclude, toExclude, toRespond, markings):
         for elem in toRespond:
             retrieveMarkingOnName(markings, elem['projid'])['pending'] = 1
             retrieveMarkingOnName(markings, elem['projid'])['include'] = 1    
+
     return markings
 
 def updCytoData(dataProj, markings):
@@ -147,13 +171,13 @@ def updCytoData(dataProj, markings):
                 pass
             else:
                 classes = []
+
                 if retrieveMarkingOnId(markings, elem)['include'] == 1:
-                    classes.append('included')
+                    classes.append('included  executable')
                 if retrieveMarkingOnId(markings, elem)['executed'] == 1:
                     classes.append('executed')
                 if retrieveMarkingOnId(markings, elem)['pending'] == 1:
                     classes.append('pending executable')
-
                 elem.update({'classes': ' '.join(classes)})
 
     return dataProj
@@ -169,11 +193,11 @@ def executeNode(data):
     status = 'waiting'
     # retrieve activity data
 
-    
-    pData = glob.glob('./client/src/projections/data'+projId+'*')[0]
+    roleMapping=getRoleMapping(projId)
+    pData = glob.glob('./client/src/projections/data'+roleMapping['id']+'.json')[0]
     #pData = glob.glob('./src/projections/data'+projId+'*')[0]
 
-    pVect = glob.glob('./client/src/projections/vect'+projId+'*')[0]
+    pVect = glob.glob('./client/src/projections/vect'+roleMapping['id']+'.json')[0]
     #pVect = glob.glob('./src/projections/vect'+projId+'*')[0]
 
     with open(pData) as json_data:
@@ -183,6 +207,7 @@ def executeNode(data):
 
     # check if not external event
     activity_id = 0
+
     while(dataProj[activity_id]['data']['id'] != activity_name):
         activity_id = activity_id+1
     if 'external' in dataProj[activity_id]['classes']:
@@ -195,15 +220,12 @@ def executeNode(data):
         print('[INFO] error - elem not included')
         return 'rejected - not included'
 
-    # if ('classes' not in dataProj[activity_id]) or ('included' not in dataProj[activity_id]['classes']):
-        # print('[INFO] error - elem not included')
-        # return 'throw error - not included'
 
     else:
         print('[INFO] success - elem included')
         # retrieve activity relations (conditions, milestones, included, excluded, response)
         relations = dataVect['relations'][0]
-        fromCondition, fromMilestone, toInclude, toExclude, toRespond = retrieveActivityRelations(relations, 
+        toCondition, fromCondition, fromMilestone, toInclude, toExclude, toRespond = retrieveActivityRelations(relations, 
         activity_id, dataProj)
 
         # pre_execution evaluation
@@ -212,19 +234,20 @@ def executeNode(data):
             return 'throw error - prexec conditions not executed'
 
         # retrieve semiinternal events
-        with open('./client/src/resources/externalEvents.json') as json_data:
-            externalEvents = json.load(json_data)
+        with open('./client/src/projections/vectPublic.json') as json_data:
+            publicInfos = json.load(json_data)
+        publicEvents=publicInfos['activityNames']['default'] +publicInfos['activityNames']['send']+publicInfos['activityNames']['receive']
+
 
         # execution
-        semiInterEvents = [elem['name'] for elem in externalEvents]
+        #semiInterEvents = [elem['event'] for elem in externalEvents]
 
-        if (activity_name[0] == 'e') and (activity_name[1].isdigit()) and (activity_name[-1]=='s'):
+        #if (activity_name[0] == 'e') and (activity_name[1].isdigit()) and (activity_name[-1]=='s'):
             ### execute choreography onChain
-            return 'BC choreography - not implemented yet'
-
-        elif activity_name in semiInterEvents:
+        #    return 'BC choreography'
+        if activity_name in publicEvents:
             ### execute event onChain
-            return 'BC semi internal - not implemented yet'
+            return 'BC exec'
 
         else: ### local update
             # Update markings:
@@ -232,7 +255,7 @@ def executeNode(data):
             activity_marking['pending'] = 0
 
             # post_execution evaluation  --> upd markings included, excluded, response
-            markings = postExecManager(toInclude, toExclude, toRespond, markings)
+            markings = postExecManager(toCondition, toInclude, toExclude, toRespond, markings)
 
             ## rewrite vectData
             with open(pVect, 'w') as outfile:
@@ -270,7 +293,7 @@ def executeApprovedNode(pathname, activity_name):
             return 'activity not found' ## append status to execlog (?)
 
     relations = dataVect['relations'][0]
-    fromCondition, fromMilestone, toInclude, toExclude, toRespond = retrieveActivityRelations(relations, 
+    toCondition, fromCondition, fromMilestone, toInclude, toExclude, toRespond = retrieveActivityRelations(relations, 
         activity_id, dataProj)
 
     # execution
@@ -279,7 +302,7 @@ def executeApprovedNode(pathname, activity_name):
     activity_marking['pending'] = 0
 
     # post_execution evaluation  --> upd markings included, excluded, response
-    markings = postExecManager(toInclude, toExclude, toRespond, markings)
+    markings = postExecManager(toCondition, toInclude, toExclude, toRespond, markings)
 
     ## rewrite vectData
     with open(pVect, 'w') as outfile:
@@ -293,7 +316,7 @@ def executeApprovedNode(pathname, activity_name):
     return 'executed' ## append status to execlog (?)
 
 
-def execLogg(pExec, activity_name, status, start_timestamp):
+def execLogg(pExec, activity_name, status, start_timestamp, data):
     with open(pExec) as json_file:
         try:
             execData = json.load(json_file)
@@ -309,7 +332,8 @@ def execLogg(pExec, activity_name, status, start_timestamp):
             'task':activity_name,
             'status':status,
             'timestamp_startTask':start_timestamp,
-            'timestamp_endTask':date_time
+            'timestamp_endTask':date_time,
+            'data':data
         })
 
     with open(pExec, 'w') as outfile:

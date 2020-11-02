@@ -1,0 +1,45 @@
+[
+  {
+    "data": {
+      "id": "e6s", 
+      "name": "!(C6, G-->B)"
+    }, 
+    "classes": "included executed", 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "id": "e3", 
+      "name": "D\nC3\nC"
+    }, 
+    "classes": "external", 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "source": "e3", 
+      "id": "e3_e6s_condition", 
+      "target": "e6s"
+    }, 
+    "classes": "condition", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "e3", 
+      "id": "e3_e6s_response", 
+      "target": "e6s"
+    }, 
+    "classes": "response", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "e6s", 
+      "id": "e3_e6s_response_back", 
+      "target": "e3"
+    }, 
+    "classes": "response back", 
+    "group": "edges"
+  }
+]

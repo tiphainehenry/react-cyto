@@ -1,13 +1,13 @@
-## Declaration
+##Declaration
 e1[CA src=A tgt=B tgt=C]
 
-"I1" [role=A]
-"I2" [role=B]
-"I3" [role=C]
-"I4" [role=B]  
-"I5" [role=A]  
+I1[role=A]
+I2[role=B]
+I3[role=C]
+I4[role=B]  
+I5[role=A]  
 
-## Relations
+##Relations
 e1 --<> I1
 e1 *--> I1
 

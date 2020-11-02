@@ -1,0 +1,45 @@
+[
+  {
+    "data": {
+      "id": "e9s", 
+      "name": "!(C9, J-->B)"
+    }, 
+    "classes": "included executed", 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "id": "e8", 
+      "name": "I\nC8\nC"
+    }, 
+    "classes": "external", 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "source": "e8", 
+      "id": "e8_e9s_response", 
+      "target": "e9s"
+    }, 
+    "classes": "response", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "e9s", 
+      "id": "e8_e9s_response_back", 
+      "target": "e8"
+    }, 
+    "classes": "response back", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "e8", 
+      "id": "e8_e9s_condition", 
+      "target": "e9s"
+    }, 
+    "classes": "condition", 
+    "group": "edges"
+  }
+]

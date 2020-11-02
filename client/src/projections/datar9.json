@@ -1,0 +1,45 @@
+[
+  {
+    "data": {
+      "id": "e8s", 
+      "name": "!(C8, I-->C)"
+    }, 
+    "classes": "included executed", 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "id": "I5", 
+      "name": "I5"
+    }, 
+    "classes": "external", 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "source": "I5", 
+      "id": "I5_e8s_milestone", 
+      "target": "e8s"
+    }, 
+    "classes": "milestone", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "I5", 
+      "id": "I5_e8s_response", 
+      "target": "e8s"
+    }, 
+    "classes": "response", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "e8s", 
+      "id": "I5_e8s_response_back", 
+      "target": "I5"
+    }, 
+    "classes": "response back", 
+    "group": "edges"
+  }
+]

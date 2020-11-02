@@ -1,0 +1,42 @@
+## declare events
+
+# Choreography exchanges
+e1[IssueInvoice src=Admin tgt=Responsible]
+e2[ResendInvoice src=Responsible tgt=Admin]
+e3[ApproveInvoice src=Responsible tgt=Finance]
+e4[ConfirmPayment src=Finance tgt=Admin]
+
+# Internal processes
+"ReceiveInvoice" [role=Admin]
+"ScanInvoice" [role=Admin]
+"CreateInvoice" [role=Admin]
+"FixInvoice" [role=Admin]
+"CheckInvoice" [role=Responsible]
+"PayInvoice" [role=Finance]
+
+## link events
+ReceiveInvoice -->* ScanInvoice
+ReceiveInvoice *--> ScanInvoice
+
+ScanInvoice -->* CreateInvoice
+
+CreateInvoice -->* e1
+CreateInvoice *--> e1
+
+FixInvoice -->+ e1
+FixInvoice *--> e1
+
+e1 -->* CheckInvoice
+
+CheckInvoice -->* e2
+CheckInvoice *--> e2
+
+e2 -->* FixInvoice
+
+CheckInvoice -->* e3
+CheckInvoice *--> e3
+
+e3 -->* PayInvoice
+
+PayInvoice -->* e4
+
