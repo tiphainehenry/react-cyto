@@ -14,7 +14,8 @@ contract SimpleDCReum {
 
   //activity data:
   //string[] activityNames;
-  bytes[9] ipfsActivityHashes;
+  bytes[] ipfsActivityHashes;
+  uint numActivities;
 
   uint256[] included;
   uint256[] executed;
@@ -23,11 +24,11 @@ contract SimpleDCReum {
   uint32 canExecuteCheck;
   uint256 checheck;
   //relations
-  uint256[9][] includesTo;
-  uint256[9][] excludesTo;
-  uint256[9][] responsesTo;
-  uint256[9][] conditionsFrom;
-  uint256[9][] milestonesFrom;
+  uint256[][] includesTo;
+  uint256[][] excludesTo;
+  uint256[][] responsesTo;
+  uint256[][] conditionsFrom;
+  uint256[][] milestonesFrom;
 
 
   ///////////////// Misc ////////////////////////
@@ -58,11 +59,11 @@ contract SimpleDCReum {
     return checheck;
   }
 
-  function getConditionsFrom() public view returns (uint256[9][] memory){
+  function getConditionsFrom() public view returns (uint256[][] memory){
     return conditionsFrom;
   }
 
-  function getHashes() public view returns (bytes[9] memory) {
+  function getHashes() public view returns (bytes[] memory) {
     return ipfsActivityHashes;
   }
 
@@ -79,7 +80,7 @@ contract SimpleDCReum {
 
     // all conditions executed
     for(uint id=0; id<conditionsFrom.length;id++){
-      uint256[9] memory conditionsRow = conditionsFrom[id]; 
+      uint256[] memory conditionsRow = conditionsFrom[id]; 
       if(conditionsRow[activityId]==1){
         if((executed[id]==0) && (included[id]==1)){
           canExecuteCheck = 2;
@@ -90,7 +91,7 @@ contract SimpleDCReum {
 
     // no milestones pending
     for(uint id=0; id<milestonesFrom.length;id++){
-      uint256[9] memory milestonesRow = milestonesFrom[id]; 
+      uint256[] memory milestonesRow = milestonesFrom[id]; 
       if(milestonesRow[activityId]==1){
         if((pending[id]==1) && (included[id]==1)){
           canExecuteCheck = 3;
@@ -107,6 +108,7 @@ contract SimpleDCReum {
 
 
   function createWorkflow(
+
     // packed state variables
     uint256[] memory _includedStates,
     uint256[] memory _executedStates,
@@ -114,14 +116,17 @@ contract SimpleDCReum {
     //bytes[] memory _activityNames,
 
     // relations
-    uint256[9][] memory _includesTo,
-    uint256[9][] memory _excludesTo,
-    uint256[9][] memory _responsesTo,
-    uint256[9][] memory _conditionsFrom,
-    uint256[9][] memory _milestonesFrom
+    uint256[][] memory _includesTo,
+    uint256[][] memory _excludesTo,
+    uint256[][] memory _responsesTo,
+    uint256[][] memory _conditionsFrom,
+    uint256[][] memory _milestonesFrom
   ) public {
     // activity data
     //activityNames = _activityNames;
+    numActivities = _includedStates.length;
+    ipfsActivityHashes = new bytes[](numActivities);
+
     included = _includedStates;
     executed = _executedStates;
     pending = _pendingStates;
@@ -149,14 +154,14 @@ function checkCliquedIndex(uint256 activityId, bytes memory ipfsHash) public {
       pending[activityId] = 0; 
       ipfsActivityHashes[activityId] = ipfsHash; 
 
-      uint256[9] memory exclude_vect_check =  excludesTo[activityId];
-      uint256[9] memory response_vect_check =  responsesTo[activityId];
+      uint256[] memory exclude_vect_check =  excludesTo[activityId];
+      uint256[] memory response_vect_check =  responsesTo[activityId];
 
       // add include relations
-      uint256[9] memory include_vect_check =  includesTo[activityId];
+      uint256[] memory include_vect_check =  includesTo[activityId];
 
       // update with condition relations ok
-      uint256[9] memory conditionsTo =  conditionsFrom[activityId]; //extract row condition 
+      uint256[] memory conditionsTo =  conditionsFrom[activityId]; //extract row condition 
       for (uint id=0; id<conditionsTo.length;id++){
         if(conditionsTo[id]==1){
             include_vect_check[id]=1;
@@ -185,3 +190,4 @@ function checkCliquedIndex(uint256 activityId, bytes memory ipfsHash) public {
     }
   }
 }
+

@@ -167,15 +167,13 @@ class DCRgraph extends React.Component {
       }
       catch (err) {
         console.log("web3.eth.handleRevert =", this.state.web3.eth.handleRevert);
-        const msg= 'BC exec - rejected - Metamask issue - Please try again (Higher gas fees, contract recompilation, or metamask reinstallation)';
-        window.alert(msg);  
+        const msg= 'BC exec - rejected - Metamask issue - Please try again (Higher gas fees, contract recompilation, or metamask reinstallation)';  
         this.setState({bcRes:msg});
       }
 
       this.setState({dataValues:this.state.dataValues.push(this.state.activityData)});
 
-      window.alert(this.state.dataValues);
-
+   
       axios.post(`http://localhost:5000/BCupdate`, 
       {
         idClicked:this.state.idClicked, 
