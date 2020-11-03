@@ -5,8 +5,8 @@ This portal projects an input global DCR choreography over each tenant view.
 - The tenant projections are updated locally for privacy concerns. Each one of the incorporated public tasks communicates with the blockchain-based DCR graph. 
 
 
-## Input DCR
-The global DCR textual description can be found under inputExample.tex
+## Input DCRs
+Examples of global DCR graphs are accessible in the folder ./dcrInputs/.
 
 ## The DCR portal
 
