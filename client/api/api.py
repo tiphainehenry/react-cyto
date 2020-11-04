@@ -22,7 +22,8 @@ from src.utils.graphManager import executeNode, executeApprovedNode, execLogg
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('HELLO WORLD')
-app = Flask(__name__)
+#app = Flask(__name__)
+app = Flask(__name__, static_folder='../build', static_url_path='/')
 cors = CORS(app, resources={r"*": {"origins": "*"}})
 api = Api(app)
 #app.config['CORS_HEADERS'] = 'Content-Type'
@@ -64,7 +65,7 @@ def upd(data):
 
     projectPublic(_data, target)
 
-@app.route('/process', methods=['POST', 'GET'])
+@app.route('/api/process', methods=['POST', 'GET'])
 def processData():
     data = request.get_json(silent=True)
     status = executeNode(data)
@@ -85,7 +86,7 @@ def processData():
     return status, 200, {'Access-Control-Allow-Origin': '*'}
 
 
-@app.route('/BCupdate', methods=['POST', 'GET'])
+@app.route('/api/BCupdate', methods=['POST', 'GET'])
 def processBCData():
     data = request.get_json(silent=True)
     status = data['execStatus']
@@ -140,7 +141,7 @@ def processBCData():
     return status, 200, {'Access-Control-Allow-Origin': '*'}
 
 
-@app.route('/reinit', methods=['POST', 'GET'])
+@app.route('/api/reinit', methods=['POST', 'GET'])
 def reinitialise():
     dataPath='./client/src/projections/dcrTexts.json'
     with open(dataPath) as json_file:
@@ -159,7 +160,7 @@ def reinitialise():
     return 'ok', 200, {'Access-Control-Allow-Origin': '*'}
 
 
-@app.route('/inputFile', methods=['GET','POST'])
+@app.route('/api/inputFile', methods=['GET','POST'])
 def inputFileLaunch():
     file = request.files['file']
     data = file.readlines()
