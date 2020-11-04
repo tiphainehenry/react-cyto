@@ -72,7 +72,7 @@ class TestMenu extends React.Component {
 
 
   fileUpload(file){
-    const url = `https://dcrchoreo.herokuapp.com/inputFile`;
+    const url = `https://dcrchoreo.herokuapp.com/api/inputFile`;
     const formData = new FormData();
     formData.append('file',file);
     const config = {

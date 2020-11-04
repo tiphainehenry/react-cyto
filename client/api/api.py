@@ -159,7 +159,7 @@ def reinitialise():
     return 'ok', 200, {'Access-Control-Allow-Origin': '*'}
 
 
-@app.route('/inputFile', methods=['POST', 'GET'])
+@app.route('/inputFile', methods=['GET','POST'])
 def inputFileLaunch():
     file = request.files['file']
     data = file.readlines()
