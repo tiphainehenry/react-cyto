@@ -65,6 +65,10 @@ def upd(data):
 
     projectPublic(_data, target)
 
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
+
 @app.route('/api/process', methods=['POST', 'GET'])
 def processData():
     data = request.get_json(silent=True)
