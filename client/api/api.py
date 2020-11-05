@@ -166,10 +166,10 @@ def reinitialise():
 
 @app.route('/api/inputFile', methods=['GET','POST'])
 def inputFileLaunch():
-    file = request.files['file']
-    data = file.readlines()
+#    file = request.files['file']
+#    data = file.readlines()
 
-    upd(data)
+#    upd(data)
 
     return 'ok', 200, {'Access-Control-Allow-Origin': '*'}
 
