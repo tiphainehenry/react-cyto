@@ -1,1 +1,1 @@
-web: bin/boot
+web: python api/api.py
