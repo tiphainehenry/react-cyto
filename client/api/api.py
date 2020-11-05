@@ -166,15 +166,16 @@ def reinitialise():
 
 @app.route('/api/inputFile', methods=['GET','POST'])
 def inputFileLaunch():
-#    file = request.files['file']
-#    data = file.readlines()
+    file = request.files['file']
+    data = file.readlines()
 
-#    upd(data)
+    upd(data)
 
     return 'ok', 200, {'Access-Control-Allow-Origin': '*'}
 
+@app.errorhandler(404)
+def not_found(e):
+    return app.send_static_file('index.html')
 
 if __name__ == "__main__":
-    app.secret_key = os.urandom(24)
-    app.run(debug=False,host="0.0.0.0",use_reloader=False)
-
+    app.run(host='0.0.0.0', debug=False, port=os.environ.get('PORT', 80))
