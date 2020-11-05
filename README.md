@@ -15,4 +15,4 @@ The projection and bitvector algorithms can be found in the folder ./api/src/
 The generated data is stored under ./src/projections/
 
 ### Running the code
-The Dapp runs on https://dcr-choreo.herokuapp.com/. Make sure you have Metamask installed on your favorite browser.
+The Dapp runs on https://dcrchoreo.herokuapp.com/. Make sure you have Metamask installed on your favorite browser.
