@@ -69,7 +69,7 @@ def upd(data):
 def index():
     return app.send_static_file('index.html')
 
-@app.route('/api/process', methods=['POST', 'GET'])
+@app.route('/process', methods=['POST', 'GET'])
 def processData():
     data = request.get_json(silent=True)
     status = executeNode(data)
@@ -90,7 +90,7 @@ def processData():
     return status, 200, {'Access-Control-Allow-Origin': '*'}
 
 
-@app.route('/api/BCupdate', methods=['POST', 'GET'])
+@app.route('/BCupdate', methods=['POST', 'GET'])
 def processBCData():
     data = request.get_json(silent=True)
     status = data['execStatus']
@@ -145,7 +145,7 @@ def processBCData():
     return status, 200, {'Access-Control-Allow-Origin': '*'}
 
 
-@app.route('/api/reinit', methods=['POST', 'GET'])
+@app.route('/reinit', methods=['POST', 'GET'])
 def reinitialise():
     dataPath='./client/src/projections/dcrTexts.json'
     with open(dataPath) as json_file:
@@ -164,7 +164,7 @@ def reinitialise():
     return 'ok', 200, {'Access-Control-Allow-Origin': '*'}
 
 
-@app.route('/api/inputFile', methods=['GET','POST'])
+@app.route('/inputFile', methods=['GET','POST'])
 def inputFileLaunch():
     file = request.files['file']
     data = file.readlines()
@@ -178,4 +178,6 @@ def not_found(e):
     return app.send_static_file('index.html')
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', debug=False, port=os.environ.get('PORT', 80))
+    app.secret_key = os.urandom(24)
+    app.run(debug=True,host="0.0.0.0",use_reloader=False)
+

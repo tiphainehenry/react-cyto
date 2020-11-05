@@ -65,5 +65,5 @@
     "url": "https://github.com/thenry16/react-cyto/issues"
   },
   "homepage": "https://github.com/thenry16/react-cyto#readme",
-  "proxy":"https://dcrchoreo.heroku.com/api/"
+  "proxy":"http://localhost:5000"
 }

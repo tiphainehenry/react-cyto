@@ -1,139 +1,173 @@
 [
   {
     "data": {
-      "id": "e7", 
-      "name": "Nurse\nDontTrustPrep(N)\nPA"
-    }, 
-    "group": "nodes"
-  }, 
-  {
-    "data": {
-      "id": "e3", 
-      "name": "CP\nAcceptPrescription\nDoctor"
-    }, 
-    "group": "nodes"
-  }, 
-  {
-    "data": {
       "id": "e1", 
-      "name": "Doctor\nPrescribeMed\nNurse"
+      "name": "Admin\nIssueInvoice\nResponsible"
     }, 
-    "classes": "included executable", 
     "group": "nodes"
   }, 
   {
     "data": {
       "id": "e2", 
-      "name": "Nurse\nDontTrustPrescr(N)\nDoctor"
+      "name": "Responsible\nResendInvoice\nAdmin"
     }, 
     "group": "nodes"
   }, 
   {
     "data": {
       "id": "e3", 
-      "name": "CP\nAcceptPrescription\nDoctor"
+      "name": "Responsible\nApproveInvoice\nFinance"
     }, 
     "group": "nodes"
   }, 
   {
     "data": {
       "id": "e4", 
-      "name": "CP\nDontTrustPrescr(CP)\nDoctor"
+      "name": "Finance\nConfirmPayment\nAdmin"
+    }, 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "id": "CheckInvoice", 
+      "name": "CheckInvoice"
+    }, 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "id": "PayInvoice", 
+      "name": "PayInvoice"
+    }, 
+    "group": "nodes"
+  }, 
+  {
+    "data": {
+      "id": "CreateInvoice", 
+      "name": "CreateInvoice"
     }, 
     "classes": "included executable", 
     "group": "nodes"
   }, 
   {
     "data": {
-      "id": "e5", 
-      "name": "PA\nMakePrescription\nCP"
+      "id": "FixInvoice", 
+      "name": "FixInvoice"
     }, 
     "group": "nodes"
   }, 
   {
     "data": {
-      "id": "e6", 
-      "name": "CP\nDontTrustPrep(CP)\nPA"
+      "source": "CreateInvoice", 
+      "id": "CreateInvoice_e1_condition", 
+      "target": "e1"
     }, 
-    "group": "nodes"
+    "classes": "condition", 
+    "group": "edges"
   }, 
   {
     "data": {
-      "id": "e7", 
-      "name": "Nurse\nDontTrustPrep(N)\nPA"
-    }, 
-    "group": "nodes"
-  }, 
-  {
-    "data": {
-      "id": "SignDoctor", 
-      "name": "SignDoctor"
-    }, 
-    "group": "nodes"
-  }, 
-  {
-    "data": {
-      "id": "SignCP", 
-      "name": "SignCP"
-    }, 
-    "group": "nodes"
-  }, 
-  {
-    "data": {
-      "id": "SignPA", 
-      "name": "SignPA"
-    }, 
-    "group": "nodes"
-  }, 
-  {
-    "data": {
-      "source": "e1", 
-      "id": "e1_SignDoctor_response", 
-      "target": "SignDoctor"
+      "source": "CreateInvoice", 
+      "id": "CreateInvoice_e1_response", 
+      "target": "e1"
     }, 
     "classes": "response", 
     "group": "edges"
   }, 
   {
     "data": {
-      "source": "SignDoctor", 
-      "id": "e1_SignDoctor_response_back", 
-      "target": "e1"
+      "source": "e1", 
+      "id": "CreateInvoice_e1_response_back", 
+      "target": "CreateInvoice"
     }, 
     "classes": "response back", 
     "group": "edges"
   }, 
   {
     "data": {
-      "source": "SignDoctor", 
-      "id": "SignDoctor_e2_condition", 
+      "source": "FixInvoice", 
+      "id": "FixInvoice_e1_include", 
+      "target": "e1"
+    }, 
+    "classes": "include", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "FixInvoice", 
+      "id": "FixInvoice_e1_response", 
+      "target": "e1"
+    }, 
+    "classes": "response", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "e1", 
+      "id": "FixInvoice_e1_response_back", 
+      "target": "FixInvoice"
+    }, 
+    "classes": "response back", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "e1", 
+      "id": "e1_CheckInvoice_condition", 
+      "target": "CheckInvoice"
+    }, 
+    "classes": "condition", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "CheckInvoice", 
+      "id": "CheckInvoice_e2_condition", 
       "target": "e2"
     }, 
     "classes": "condition", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "CheckInvoice", 
+      "id": "CheckInvoice_e2_response", 
+      "target": "e2"
+    }, 
+    "classes": "response", 
     "group": "edges"
   }, 
   {
     "data": {
       "source": "e2", 
-      "id": "e2_SignDoctor_response", 
-      "target": "SignDoctor"
-    }, 
-    "classes": "response", 
-    "group": "edges"
-  }, 
-  {
-    "data": {
-      "source": "SignDoctor", 
-      "id": "e2_SignDoctor_response_back", 
-      "target": "e2"
+      "id": "CheckInvoice_e2_response_back", 
+      "target": "CheckInvoice"
     }, 
     "classes": "response back", 
     "group": "edges"
   }, 
   {
     "data": {
-      "source": "SignDoctor", 
-      "id": "SignDoctor_e3_response", 
+      "source": "e2", 
+      "id": "e2_FixInvoice_condition", 
+      "target": "FixInvoice"
+    }, 
+    "classes": "condition", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "CheckInvoice", 
+      "id": "CheckInvoice_e3_condition", 
+      "target": "e3"
+    }, 
+    "classes": "condition", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "CheckInvoice", 
+      "id": "CheckInvoice_e3_response", 
       "target": "e3"
     }, 
     "classes": "response", 
@@ -142,145 +176,28 @@
   {
     "data": {
       "source": "e3", 
-      "id": "SignDoctor_e3_response_back", 
-      "target": "SignDoctor"
+      "id": "CheckInvoice_e3_response_back", 
+      "target": "CheckInvoice"
     }, 
     "classes": "response back", 
     "group": "edges"
   }, 
   {
     "data": {
-      "source": "e4", 
-      "id": "e4_SignDoctor_response", 
-      "target": "SignDoctor"
+      "source": "e3", 
+      "id": "e3_PayInvoice_condition", 
+      "target": "PayInvoice"
     }, 
-    "classes": "response", 
+    "classes": "condition", 
     "group": "edges"
   }, 
   {
     "data": {
-      "source": "SignDoctor", 
-      "id": "e4_SignDoctor_response_back", 
+      "source": "PayInvoice", 
+      "id": "PayInvoice_e4_condition", 
       "target": "e4"
     }, 
-    "classes": "response back", 
-    "group": "edges"
-  }, 
-  {
-    "data": {
-      "source": "e3", 
-      "id": "e3_e5_response", 
-      "target": "e5"
-    }, 
-    "classes": "response", 
-    "group": "edges"
-  }, 
-  {
-    "data": {
-      "source": "e5", 
-      "id": "e3_e5_response_back", 
-      "target": "e3"
-    }, 
-    "classes": "response back", 
-    "group": "edges"
-  }, 
-  {
-    "data": {
-      "source": "e3", 
-      "id": "e3_e5_condition", 
-      "target": "e5"
-    }, 
     "classes": "condition", 
-    "group": "edges"
-  }, 
-  {
-    "data": {
-      "source": "e5", 
-      "id": "e5_SignPA_response", 
-      "target": "SignPA"
-    }, 
-    "classes": "response", 
-    "group": "edges"
-  }, 
-  {
-    "data": {
-      "source": "SignPA", 
-      "id": "e5_SignPA_response_back", 
-      "target": "e5"
-    }, 
-    "classes": "response back", 
-    "group": "edges"
-  }, 
-  {
-    "data": {
-      "source": "e5", 
-      "id": "e5_SignPA_condition", 
-      "target": "SignPA"
-    }, 
-    "classes": "condition", 
-    "group": "edges"
-  }, 
-  {
-    "data": {
-      "source": "SignPA", 
-      "id": "SignPA_e6_condition", 
-      "target": "e6"
-    }, 
-    "classes": "condition", 
-    "group": "edges"
-  }, 
-  {
-    "data": {
-      "source": "e6", 
-      "id": "e6_SignPA_response", 
-      "target": "SignPA"
-    }, 
-    "classes": "response", 
-    "group": "edges"
-  }, 
-  {
-    "data": {
-      "source": "SignPA", 
-      "id": "e6_SignPA_response_back", 
-      "target": "e6"
-    }, 
-    "classes": "response back", 
-    "group": "edges"
-  }, 
-  {
-    "data": {
-      "source": "SignPA", 
-      "id": "SignPA_SignCP_condition", 
-      "target": "SignCP"
-    }, 
-    "classes": "condition", 
-    "group": "edges"
-  }, 
-  {
-    "data": {
-      "source": "SignCP", 
-      "id": "SignCP_e7_condition", 
-      "target": "e7"
-    }, 
-    "classes": "condition", 
-    "group": "edges"
-  }, 
-  {
-    "data": {
-      "source": "e7", 
-      "id": "e7_SignCP_response", 
-      "target": "SignCP"
-    }, 
-    "classes": "response", 
-    "group": "edges"
-  }, 
-  {
-    "data": {
-      "source": "SignCP", 
-      "id": "e7_SignCP_response_back", 
-      "target": "e7"
-    }, 
-    "classes": "response back", 
     "group": "edges"
   }
 ]

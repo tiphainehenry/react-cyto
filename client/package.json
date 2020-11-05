@@ -47,5 +47,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://dcrchoreo.heroku.com/api/"
+  "proxy":"http://localhost:5000"
 }

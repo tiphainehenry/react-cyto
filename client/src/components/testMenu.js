@@ -72,7 +72,7 @@ class TestMenu extends React.Component {
 
 
   fileUpload(file){
-    const url = `/api/inputFile`;
+    const url = `http://localhost:5000/inputFile`;
     const formData = new FormData();
     formData.append('file',file);
     const config = {
