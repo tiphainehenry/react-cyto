@@ -118,6 +118,7 @@ class TestMenu extends React.Component {
                 height: .2,
                 borderColor : 'LightGrey'
             }}/>
+             <Card style={{width: '95%', height:'70%','marginTop':'3vh', 'borderColor':'white'}}>
 
             <h3>Legend</h3>
             <h4>Event types</h4>
@@ -163,6 +164,7 @@ class TestMenu extends React.Component {
               The trigger of a public event launches the evaluation of the public projection stored on-chain. When a public choreography event of type send is triggered,  the back-end invokes the smart contract function corresponding to the execution of the send event. If the corresponding marking is enabled,  the back-end fires a sendEvent transaction to the SC. When the SC receives the sendEvent transaction callback, it fires a receiveEvent transaction. 
               The local markings transcribe the outcome of the smart contract call. When a public external event is triggered, it is updated following the same logic (i.e. checked and validated with the DCR smart contract). %Another option is to compute the termination outcome of the external events in order to preserve privacy. 
               </p>
+              </Card>
 
 
 

@@ -112,7 +112,7 @@ class GMGlobal extends React.Component {
     
     return  <div>
              <Card style={{width: '95%', height:'70%','marginTop':'3vh', 'borderColor':'white'}}>
-             <p>Before starting, instanciate the public chunk of the workflow onchain by clicking on the blue button (below). </p>
+             <p>Before starting, instanciate the public chunk of the workflow onchain by clicking on the button below. </p>
              <p>To execute the process, navigate between the different role projections accessible via the header. </p>
 
               <Button style = {{width:'20%', 'backgroundColor':'#f09329', 'border':'none'}} onClick={this.handleCreateWkf}>{this.state.wkState}</Button>
