@@ -24,6 +24,10 @@
     "react-web3-provider": "^1.1.2",
     "truffle-hdwallet-provider": "^1.0.17"
   },
+  "engines": {
+    "node": "10.15.2",
+    "npm":"6.14.8"
+    },
   "scripts": {
     "start": "react-scripts start",
     "start-api": "cd api && venv/Scripts/flask run --no-debugger",
@@ -46,7 +50,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://dcr-choreo.herokuapp.com/api/",
   "description": "This code implements the proof-of-concept presented in the paper <em>Towards Trusted DCR Choreographies</em> submitted for the Coopis'20 conference. \r This portal projects an input global DCR choreography over each tenant view. \r - The shared public tasks are gathered together in a public DCR graph. The later is compiled and updated in the blokchain for trust purposes. \r - The tenant projections are updated locally for privacy concerns. Each one of the incorporated public tasks communicates with the blockchain-based DCR graph.",
   "main": "truffle-config.js",
   "directories": {
