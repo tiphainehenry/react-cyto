@@ -84,24 +84,27 @@ class GMGlobal extends React.Component {
       );
 
       this.setState({ web3, accounts, contract: instance });
+
+      // Checking if contract already populated
+      const {contract} = this.state;
+
+      const inclVector = await contract.methods.getIncluded().call();
+
+      if (inclVector.length>0){
+        this.setState({wkState:'Public Workflow onchain. Reset?'  });
+      }
+      else{
+        this.setState({wkState:'Create Global Workflow OnChain.'})
+      }  
+
     } catch (error) {
         alert(
-          `Failed to load web3, accounts, or contract. Check console for details.`,
+          `Failed to load web3, accounts, or contract. 
+          Check console for details.
+          Tip: Webpage should be connected to the Ropsten network via Metamask (https://metamask.io/).`,
         );
         console.error(error);
     };
-
-    // Checking if contract already populated
-    const {contract} = this.state;
-
-    const inclVector = await contract.methods.getIncluded().call();
-
-    if (inclVector.length>0){
-      this.setState({wkState:'Public Workflow onchain. Reset?'  });
-    }
-    else{
-      this.setState({wkState:'Create Global Workflow OnChain.'})
-    }
   }
 
 

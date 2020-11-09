@@ -1,209 +1,170 @@
 [
   {
-    "group": "nodes", 
-    "classes": "", 
     "data": {
       "id": "e1s", 
-      "name": "!(IssueInvoice, Admin-->Responsible)"
-    }
+      "name": "!(PrescribeMed, Doctor-->Nurse)"
+    }, 
+    "classes": "included executable", 
+    "group": "nodes"
   }, 
   {
-    "group": "nodes", 
-    "classes": "", 
     "data": {
       "id": "e2r", 
-      "name": "?(ResendInvoice, Responsible-->Admin)"
-    }
+      "name": "?(DontTrustPrescr(N), Nurse-->Doctor)"
+    }, 
+    "group": "nodes"
   }, 
   {
-    "group": "nodes", 
-    "classes": "", 
+    "data": {
+      "id": "e3r", 
+      "name": "?(AcceptPrescription, CP-->Doctor)"
+    }, 
+    "group": "nodes"
+  }, 
+  {
     "data": {
       "id": "e4r", 
-      "name": "?(ConfirmPayment, Finance-->Admin)"
-    }
+      "name": "?(DontTrustPrescr(CP), CP-->Doctor)"
+    }, 
+    "classes": "included executable", 
+    "group": "nodes"
   }, 
   {
-    "group": "nodes", 
-    "classes": "included  executable executed", 
     "data": {
-      "id": "ReceiveInvoice", 
-      "name": "ReceiveInvoice"
-    }
+      "id": "EditPrescription", 
+      "name": "EditPrescription"
+    }, 
+    "group": "nodes"
   }, 
   {
-    "group": "nodes", 
-    "classes": "included  executable pending executable", 
     "data": {
-      "id": "ScanInvoice", 
-      "name": "ScanInvoice"
-    }
+      "id": "CancelPrescription", 
+      "name": "CancelPrescription"
+    }, 
+    "group": "nodes"
   }, 
   {
-    "group": "nodes", 
-    "classes": "", 
     "data": {
-      "id": "CreateInvoice", 
-      "name": "CreateInvoice"
-    }
+      "id": "SignDoctor", 
+      "name": "SignDoctor"
+    }, 
+    "group": "nodes"
   }, 
   {
-    "group": "nodes", 
-    "classes": "", 
     "data": {
-      "id": "FixInvoice", 
-      "name": "FixInvoice"
-    }
-  }, 
-  {
-    "group": "nodes", 
-    "classes": "external", 
-    "data": {
-      "id": "CheckInvoice", 
-      "name": "CheckInvoice"
-    }
-  }, 
-  {
-    "group": "nodes", 
-    "classes": "external", 
-    "data": {
-      "id": "PayInvoice", 
-      "name": "PayInvoice"
-    }
-  }, 
-  {
-    "group": "edges", 
-    "classes": "condition", 
-    "data": {
-      "source": "ReceiveInvoice", 
-      "id": "ReceiveInvoice_ScanInvoice_condition", 
-      "target": "ScanInvoice"
-    }
-  }, 
-  {
-    "group": "edges", 
+      "source": "EditPrescription", 
+      "id": "EditPrescription_SignDoctor_response", 
+      "target": "SignDoctor"
+    }, 
     "classes": "response", 
-    "data": {
-      "source": "ReceiveInvoice", 
-      "id": "ReceiveInvoice_ScanInvoice_response", 
-      "target": "ScanInvoice"
-    }
+    "group": "edges"
   }, 
   {
-    "group": "edges", 
+    "data": {
+      "source": "SignDoctor", 
+      "id": "EditPrescription_SignDoctor_response_back", 
+      "target": "EditPrescription"
+    }, 
     "classes": "response back", 
-    "data": {
-      "source": "ScanInvoice", 
-      "id": "ReceiveInvoice_ScanInvoice_response_back", 
-      "target": "ReceiveInvoice"
-    }
+    "group": "edges"
   }, 
   {
-    "group": "edges", 
-    "classes": "condition", 
-    "data": {
-      "source": "ScanInvoice", 
-      "id": "ScanInvoice_CreateInvoice_condition", 
-      "target": "CreateInvoice"
-    }
-  }, 
-  {
-    "group": "edges", 
-    "classes": "condition", 
-    "data": {
-      "source": "CreateInvoice", 
-      "id": "CreateInvoice_e1s_condition", 
-      "target": "e1s"
-    }
-  }, 
-  {
-    "group": "edges", 
-    "classes": "response", 
-    "data": {
-      "source": "CreateInvoice", 
-      "id": "CreateInvoice_e1s_response", 
-      "target": "e1s"
-    }
-  }, 
-  {
-    "group": "edges", 
-    "classes": "response back", 
     "data": {
       "source": "e1s", 
-      "id": "CreateInvoice_e1s_response_back", 
-      "target": "CreateInvoice"
-    }
+      "id": "e1s_SignDoctor_response", 
+      "target": "SignDoctor"
+    }, 
+    "classes": "response", 
+    "group": "edges"
   }, 
   {
-    "group": "edges", 
+    "data": {
+      "source": "SignDoctor", 
+      "id": "e1s_SignDoctor_response_back", 
+      "target": "e1s"
+    }, 
+    "classes": "response back", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "e1s", 
+      "id": "e1s_EditPrescription_include", 
+      "target": "EditPrescription"
+    }, 
     "classes": "include", 
-    "data": {
-      "source": "FixInvoice", 
-      "id": "FixInvoice_e1s_include", 
-      "target": "e1s"
-    }
+    "group": "edges"
   }, 
   {
-    "group": "edges", 
-    "classes": "response", 
-    "data": {
-      "source": "FixInvoice", 
-      "id": "FixInvoice_e1s_response", 
-      "target": "e1s"
-    }
-  }, 
-  {
-    "group": "edges", 
-    "classes": "response back", 
     "data": {
       "source": "e1s", 
-      "id": "FixInvoice_e1s_response_back", 
-      "target": "FixInvoice"
-    }
+      "id": "e1s_CancelPrescription_include", 
+      "target": "CancelPrescription"
+    }, 
+    "classes": "include", 
+    "group": "edges"
   }, 
   {
-    "group": "edges", 
+    "data": {
+      "source": "SignDoctor", 
+      "id": "SignDoctor_e2r_condition", 
+      "target": "e2r"
+    }, 
     "classes": "condition", 
+    "group": "edges"
+  }, 
+  {
     "data": {
       "source": "e2r", 
-      "id": "e2r_FixInvoice_condition", 
-      "target": "FixInvoice"
-    }
-  }, 
-  {
-    "group": "edges", 
-    "classes": "condition", 
-    "data": {
-      "source": "CheckInvoice", 
-      "id": "CheckInvoice_e2r_condition", 
-      "target": "e2r"
-    }
-  }, 
-  {
-    "group": "edges", 
+      "id": "e2r_SignDoctor_response", 
+      "target": "SignDoctor"
+    }, 
     "classes": "response", 
+    "group": "edges"
+  }, 
+  {
     "data": {
-      "source": "CheckInvoice", 
-      "id": "CheckInvoice_e2r_response", 
+      "source": "SignDoctor", 
+      "id": "e2r_SignDoctor_response_back", 
       "target": "e2r"
-    }
-  }, 
-  {
-    "group": "edges", 
+    }, 
     "classes": "response back", 
-    "data": {
-      "source": "e2r", 
-      "id": "CheckInvoice_e2r_response_back", 
-      "target": "CheckInvoice"
-    }
+    "group": "edges"
   }, 
   {
-    "group": "edges", 
-    "classes": "condition", 
     "data": {
-      "source": "PayInvoice", 
-      "id": "PayInvoice_e4r_condition", 
+      "source": "SignDoctor", 
+      "id": "SignDoctor_e3r_response", 
+      "target": "e3r"
+    }, 
+    "classes": "response", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "e3r", 
+      "id": "SignDoctor_e3r_response_back", 
+      "target": "SignDoctor"
+    }, 
+    "classes": "response back", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "e4r", 
+      "id": "e4r_SignDoctor_response", 
+      "target": "SignDoctor"
+    }, 
+    "classes": "response", 
+    "group": "edges"
+  }, 
+  {
+    "data": {
+      "source": "SignDoctor", 
+      "id": "e4r_SignDoctor_response_back", 
       "target": "e4r"
-    }
+    }, 
+    "classes": "response back", 
+    "group": "edges"
   }
 ]

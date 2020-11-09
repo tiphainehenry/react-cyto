@@ -1,12 +1,3 @@
 {
-  "execLogs": [
-    {
-      "status": "executed", 
-      "task": "ReceiveInvoice", 
-      "timestamp_endTask": "11/05/2020, 15:33:06", 
-      "timestamp_startTask": "05/11/2020 \u00e0 15:33:05", 
-      "data": "cqs", 
-      "id": 0
-    }
-  ]
+  "execLogs": []
 }
