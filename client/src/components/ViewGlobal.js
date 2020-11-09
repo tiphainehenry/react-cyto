@@ -53,16 +53,16 @@ class GMGlobal extends React.Component {
             this.state.conditionsFrom,
             this.state.milestonesFrom
         ).send({ from: accounts[0] });
-    
+
+        
+      axios.post(`http://localhost:5000/reinit`, 'reinit');
+      // window.location.reload(false);
+
     }
     catch (err) {
       window.alert(err);  
-      console.log("web3.eth.handleRevert =", this.state.web3.eth.handleRevert);
       this.setState({wkState:'Create Global Workflow OnChain'});
     }
-
-    axios.post(`http://localhost:5000/reinit`, 'reinit');
-    // window.location.reload(false);
     
   }
 
