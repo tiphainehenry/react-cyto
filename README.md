@@ -25,10 +25,11 @@ The projection and bitvector algorithms can be found in the folder ./api/src/
 The generated data is stored under ./src/projections/
 
 ### Running the code
-The Dapp runs on http://90.84.244.33:3000/. Make sure you have Metamask installed on your favorite browser. The smartcontract is deployed on the Ropsten network. 
 
-To install the app locally,
-The required environment is python, node, and npm.
+#### Online app
+The Dapp runs on http://90.84.244.33:3000/. Make sure you have Metamask installed on your favorite browser. The smartcontract is deployed on the Ropsten network. 
+#### Local install
+To install the app locally, the required environment is python, node, and npm.
 After cloning the repo, in the folder ./client, launch 'pip install -r requirements.txt' and 'npm install'
 
 To run the app locally, launch the frontend with the command 'cd ./client & npm start'. Launch the backend with the command python api/api.py.
