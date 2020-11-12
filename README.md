@@ -3,7 +3,7 @@ This code implements the proof-of-concept presented in the paper <em>Towards Tru
 Choreographies</em>. 
 This portal projects an input global DCR choreography over each tenant view. 
 - The shared public tasks are gathered together in a public DCR graph. The later is compiled and updated in the blokchain for trust purposes. 
-- The tenant projections are updated locally for privacy concerns. Each one of the incorporated public tasks communicates with the blockchain-based DCR graph. 
+- The tenant projections are updated locally for privacy concerns and communicate with the public DCR vis external events. 
 
 We use python Flask for the backend of the application and React for the front end. We use cytoscape.js, a React package, to generate the graph visualizations. Web3.js is used to connect the decentralized application to a blockchain network. Truffle manages the compilation and migration of the DCR smart contract, and Metamask controls contract interactions. 
 
