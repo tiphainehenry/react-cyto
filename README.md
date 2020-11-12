@@ -7,7 +7,7 @@ This portal projects an input global DCR choreography over each tenant view.
 We use python Flask for the backend of the application and React for the front end. We use cytoscape.js, a React package, to generate the graph visualizations. Web3.js is used to connect the decentralized application to a blockchain network. Truffle manages the compilation and migration of the DCR smart contract, and Metamask controls contract interactions. 
 
 # Functionalities
-On the design siden the platform: 
+On the design side, the platform: 
 - separates the public and private projections out of a given textual representation. 
 - instantiates the public DCR smart contract stored in Ethereum with the newly generated public projection
 
