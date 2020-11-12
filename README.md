@@ -10,7 +10,7 @@ We use python Flask for the backend of the application and React for the front e
 The projection and bitvector algorithms can be found in the folder ./api/src/
 The generated data is stored under ./src/projections/
 
-# Functionalities
+## Functionalities
 On the design side, the platform: 
 - separates the public and private projections out of a given textual representation. 
 - instantiates the public DCR smart contract stored in Ethereum with the newly generated public projection
