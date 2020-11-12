@@ -18,17 +18,15 @@ On the execution side, each user can (1) execute its local projection, (2) have 
 ## Input DCRs
 Examples of global DCR graphs are accessible in the folder ./dcrInputs/.
 
-## The DCR portal
-
-### Algorithms
+## Algorithms
 The projection and bitvector algorithms can be found in the folder ./api/src/
 The generated data is stored under ./src/projections/
 
-### Running the code
+## Running the code
 
-#### Online app
+### Online app
 The Dapp runs on http://90.84.244.33:3000/. Make sure you have Metamask installed on your favorite browser. The smartcontract is deployed on the Ropsten network. 
-#### Local install
+### Local install
 To install the app locally, the required environment is python, node, and npm.
 After cloning the repo, in the folder ./client, launch 'pip install -r requirements.txt' and 'npm install'
 
