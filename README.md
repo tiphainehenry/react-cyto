@@ -22,7 +22,7 @@ Examples of global DCR graphs are accessible in the folder ./dcrInputs/.
 ## Running the code
 
 ### GUI
-The Dapp runs on http://90.84.244.33:3000/. Make sure you have Metamask installed on your favorite browser. The smartcontract is deployed on the Ropsten network. 
+The Dapp runs on http://90.84.244.33:3000/. Make sure you have Metamask installed on your favorite browser. The smart contract is deployed on the Ropsten network. 
 ### Local install
 To install the app locally, the required environment is python, node, and npm.
 After cloning the repo, in the folder ./client, launch 'pip install -r requirements.txt' and 'npm install'
