@@ -22,7 +22,7 @@ class GMGlobal extends React.Component {
                   accounts: null,
                   contract: null, 
 
-                  wkState: '... loading ...',
+                  wkState: '... waiting for Smart Contract instanciation ...',
 
                   includedStates: vectPublic['fullMarkings']['included'], 
                   executedStates: vectPublic['fullMarkings']['executed'], 
@@ -114,11 +114,11 @@ class GMGlobal extends React.Component {
     const stylesheet = node_style.concat(edge_style)
     
     return  <div>
-             <Card style={{width: '95%', height:'70%','marginTop':'3vh', 'borderColor':'white'}}>
-             <p>Before starting, instanciate the public chunk of the workflow onchain by clicking on the button below. </p>
-             <p>To execute the process, navigate between the different role projections accessible via the header. </p>
+            <h5>Step 2</h5>
+             <p>Instanciate the public chunk of the workflow onchain by clicking on the button below. </p>
+             <p>Make sure you have Metamask installed on your favorite browser. The smart contract is deployed on the Ropsten network.</p>
 
-              <Button style = {{width:'20%', 'backgroundColor':'#f09329', 'border':'none'}} onClick={this.handleCreateWkf}>{this.state.wkState}</Button>
+              <Button class="btn btn-primary my-2 my-sm-0"  onClick={this.handleCreateWkf}>{this.state.wkState}</Button>
 
 
               <CytoscapeComponent elements={data} 
@@ -128,8 +128,6 @@ class GMGlobal extends React.Component {
                                         cy={(cy) => {this.cy = cy}}
                                         boxSelectionEnabled={false}
                                         />    
-
-             </Card>
             </div>; 
   }
 }

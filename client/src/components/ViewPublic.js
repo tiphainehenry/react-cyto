@@ -1,8 +1,13 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
+import CardGroup from 'react-bootstrap/CardGroup';
+import RoleDescription from './roleDescription';
+
 import Header from './Header';
 import ExecLogger from './execLogger';
 import PublicMarkings from './PublicMarkings';
+
+
 
 import SimpleDCReum from '../contracts/SimpleDCReum.json';
 import getWeb3 from '../getWeb3';
@@ -104,28 +109,47 @@ class ViewPublic extends React.Component {
 
     return  <div>
               <Header/>
+              <div class="bg-green pt-5 pb-3">
 
-              <Card id="choreo" style={{width: '95%', height:'70%','marginTop':'3vh'}}>
-                <Card.Header as="p" style= {{color:'white', 'backgroundColor': '#006588', 'fontSize': '10pt', 'fontWeight': 200, padding: '2ex 1ex'}}>
-                  {this.state.choreo}</Card.Header>
-                <Card.Body>
-                  <CytoscapeComponent elements={dataChoreo} 
-                                        stylesheet={stylesheet} 
-                                        layout={layout} 
-                                        style={style} 
-                                        cy={(cy) => {this.cy = cy}}
-                                        boxSelectionEnabled={false}
-                                        />    
-                </Card.Body>
-              </Card>
+              <div class='container'>
+                <h2>Public Projection</h2>
+                <p>This view represents the public DCR projection of the input workflow. Its state is managed in the blockchain. Execution logs and the markings of the public graph are displayed in the panels below. </p>
+                <p>To update the public DCR, navigate to the role projections.</p>
+                <Card id="choreo" style={{height:'70%','marginTop':'3vh'}}>
+                  <Card.Header as="p" style= {{color:'white', 'backgroundColor': '#006588', 'borderBottom':'white'}}>
+                    {this.state.choreo}</Card.Header>
+                  <Card.Body>
+                    <CytoscapeComponent elements={dataChoreo} 
+                                          stylesheet={stylesheet} 
+                                          layout={layout} 
+                                          style={style} 
+                                          cy={(cy) => {this.cy = cy}}
+                                          boxSelectionEnabled={false}
+                                          />    
+                  </Card.Body>
+                </Card>
 
-              <ExecLogger  execLogs = {this.state.execLogs} activityNames={this.state.activityNames}/>
-              <PublicMarkings activityNames={this.state.lg_activityNames} 
-                              incl = {this.state.incl}
-                              pend = {this.state.pend}
-                              exec = {this.state.exec}
-                              dataHashes = {this.state.dataHashes}
-                              />
+                <ExecLogger  execLogs = {this.state.execLogs} activityNames={this.state.activityNames}/>
+                <PublicMarkings activityNames={this.state.lg_activityNames} 
+                                incl = {this.state.incl}
+                                pend = {this.state.pend}
+                                exec = {this.state.exec}
+                                dataHashes = {this.state.dataHashes}
+                                />
+
+              </div>
+              </div>
+              <footer class="o-footer" id="footer" role="contentinfo">
+                <div class="o-footer-bottom">
+                  <div class="container">
+                    <div class="row mb-0">
+                      <ul class="nav">
+                        <li class="nav-item"><span class="nav-link">© Caise 2020 submissions, T.Henry, A.Brahem, N. Laga, W. Gaaloul - Towards Trusted Declarative BP choreographies</span></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </footer>
 
             </div>; 
   }

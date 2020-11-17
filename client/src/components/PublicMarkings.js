@@ -116,8 +116,8 @@ class PublicMarkings extends React.Component {
 
   render(){
     return  <div>
-              <Card style={{width: '95%', height:'90%','marginTop':'3vh'}}>
-              <Card.Header as="p" style= {{color:'white', 'backgroundColor': '#a267c9', 'fontSize': '10pt', 'fontWeight': 200, padding: '2ex 1ex'}}>
+              <Card style={{height:'90%','marginTop':'3vh'}}>
+              <Card.Header as="p" style= {{color:'white', 'backgroundColor': '#a267c9', 'borderBottom':'white'}}>
                   Public projection instance marking vectors</Card.Header>
                 <Card.Body >
                 <Row  style= {{'fontSize': '10pt', 'fontWeight': 1000}} xs={1} md={3} >

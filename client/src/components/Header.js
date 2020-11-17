@@ -1,5 +1,6 @@
 import React from 'react';
 import { Navbar, Nav, NavDropdown} from 'react-bootstrap';
+import '../style/boosted.min.css';
 
 var dcrTexts = require('../projections/dcrTexts.json');
 
@@ -42,11 +43,13 @@ class Header extends React.Component {
   render(){
 
     return <div>
-                 <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky="top">
-                <Navbar.Brand href="/">DCR Portal</Navbar.Brand>
+
+                 <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky="top" class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                   <Nav className="mr-auto">
+                    <Nav.Link href="/">Homepage</Nav.Link>
                     <Nav.Link href="/public">Public Projection</Nav.Link>
                     <NavDropdown title="Role Projections" id="collasible-nav-dropdown">
                     {this.state.roles.map(item=> 
@@ -66,7 +69,6 @@ class Header extends React.Component {
                       <NavDropdown.Item style={{color:"#FFA500", "fontSize":'12px'}}> -- Condition</NavDropdown.Item>
                       <NavDropdown.Item style={{color:"#BC1AF2", "fontSize":'12px'}}> -- Milestone</NavDropdown.Item>
                     </NavDropdown>
-
                   </Nav>
                 </Navbar.Collapse>
               </Navbar>

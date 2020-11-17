@@ -163,7 +163,6 @@ class DCRgraph extends React.Component {
             this.setState({ bcRes: 'BC exec - rejected - Did not evaluate the task' });
         }
 
-
       }
       catch (err) {
         console.log("web3.eth.handleRevert =", this.state.web3.eth.handleRevert);
@@ -246,8 +245,22 @@ class DCRgraph extends React.Component {
 
 
     return  <div>
-              <Card style={{width: '95%', height:'90%','marginTop':'3vh'}}>
-              <Card.Header as="p" style= {{color:'white', 'backgroundColor': '#f09329', 'fontSize': '10pt', 'fontWeight': 200, padding: '2ex 1ex'}}>
+      
+              <div class="bg-green pt-5 pb-3">
+
+              <div class='container'>
+                <h2>Private Projection for the role {this.props.id}</h2>
+                <p>This view represents a private DCR projection of the input workflow. Its state is managed in a hybrid fashion.
+                  The local tasks are updated locally via API calls.  
+                  The public tasks are updated after a call to the smart contract instance of the public projection. </p>
+
+                <p> Execution logs and the markings of the public graph are displayed in the panels below. </p>
+
+                 <p> Click on one of the nodes of the graph below to update the state of the workflow execution. NB. A task needs to be enabled (with a white background here) to be successful. Black tasks are external tasks, managed by another tenant.</p>
+
+
+              <Card style={{height:'90%','marginTop':'3vh'}}>
+              <Card.Header as="p" style= {{color:'white', 'backgroundColor': '#f09329', 'borderBottom':'white'}}>
                   {this.props.id}</Card.Header>
                 <Card.Body >
                   <CytoscapeComponent elements={this.props.data} 
@@ -270,8 +283,21 @@ class DCRgraph extends React.Component {
                               dataHashes = {this.state.dataHashes}
                               dataValues = {this.state.dataValues}
                               />
+              </div>
+              </div>
+              <footer class="o-footer" id="footer" role="contentinfo">
+                <div class="o-footer-bottom">
+                  <div class="container">
+                    <div class="row mb-0">
+                      <ul class="nav">
+                        <li class="nav-item"><span class="nav-link">© Caise 2020 submissions, T.Henry, A.Brahem, N. Laga, W. Gaaloul - Towards Trusted Declarative BP choreographies</span></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </footer>
 
-            </div>; 
+              </div>; 
   }
 }
 

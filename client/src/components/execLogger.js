@@ -113,8 +113,8 @@ class ExecLogger extends React.Component {
 
   render(){
     return  <div>
-              <Card id="exec" style={{width: '95%', height:'70%','marginTop':'3vh'}}>
-              <Card.Header as="p" style= {{color:'white', 'backgroundColor': '#32a86f', 'fontSize': '10pt', 'fontWeight': 200, padding: '2ex 1ex'}}>
+              <Card id="exec" style={{height:'70%','marginTop':'3vh'}}>
+              <Card.Header as="p" style= {{color:'white', 'backgroundColor': '#32a86f', 'borderBottom':'white'}}>
                   Execution logs</Card.Header>
                 <Card.Body style={{height:'20%'}}>
                   <div className="card-text" >

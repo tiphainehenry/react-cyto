@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import Card from 'react-bootstrap/Card';
-import CardGroup from 'react-bootstrap/CardGroup';
+import ListGroup from 'react-bootstrap/ListGroup';
+import '../style/boosted.min.css';
 import Header from './Header';
 import axios, { post } from 'axios';
 import ViewGlobal from './ViewGlobal';
-import RoleDescription from './roleDescription';
+import { Button } from 'react-bootstrap';
 
 var dcrTexts = require('../projections/dcrTexts.json');
 
@@ -19,6 +19,8 @@ class TestMenu extends React.Component {
 
       roleLength:'',
       projs:[],
+      roles:[],
+
 
     };
     this.onFormSubmit = this.onFormSubmit.bind(this);
@@ -43,8 +45,20 @@ class TestMenu extends React.Component {
       projs.push(role)
     } 
 
+  
+    var i;
+    var roles=[];
+    for (i = 1; i <= roleLength; i++) {
+      var role=[];
+      var r = 'r'+i;
+      role.push('/'+r);
+      role.push(dcrTexts[r]['role'])
+      roles.push(role)
+    } 
+
     this.setState({
       roleLength:roleLength,
+      roles:roles,
       projs:projs
     });
 
@@ -88,104 +102,202 @@ class TestMenu extends React.Component {
   render(){
     return  <div>
              <Header/>
-             <Card style={{width: '95%', height:'70%','marginTop':'3vh', 'borderColor':'white'}}>
-             <p>
-               Welcome to the test portal. Load a DCR file to be projected.
-             </p>
-             <form onSubmit={this.onFormSubmit}>
-              <input type="file" onChange={this.onChange} />
-              <button type="submit">Upload</button>
-            </form>                   
-             </Card>
 
-             <hr  style={{
-                width: '95%', 
-                'marginLeft':'2.5%',
-                color: 'LightGrey',
-                backgroundColor: 'LightGrey',
-                height: .2,
-                borderColor : 'LightGrey'
-            }}/>
+             <div class="discovery-module-one-pop-out py-5 py-lg-3">
+                <div class="container">
+                      <h2 class="display-1">Towards trusted declarative business process choreographies</h2>
+                      <p class="lead">
+                      In this webapp, we propose a hybrid approach to the execution of business process choreographies, where public tasks are tracked in the blockchain for trust purposes and where tenant projections are updated locally for privacy concerns.</p>
+                      <p class="lead">
+                      We provide the visualization results for three DCR graphs proposed in the literature. The projection tool and the hybrid monitoring support are also made available.  
+                      </p>                      
+                  </div>
+              </div>
 
-            <ViewGlobal/>
-
-
-            <hr  style={{
-                width: '95%', 
-                'marginLeft':'2.5%',
-                color: 'LightGrey',
-                backgroundColor: 'LightGrey',
-                height: .2,
-                borderColor : 'LightGrey'
-            }}/>
-             <Card style={{width: '95%', height:'70%','marginTop':'3vh', 'borderColor':'white'}}>
-
-            <h3>Legend</h3>
-            <h4>Event types</h4>
-            <p>
-              The graph legend depicts four types of events. 
-              Choreography events comprise a sender, a receiver, and an event. 
-              Send/Receive events correspond to a choreography send or a receive event. Send events are marked with an exclamation mark (!) and receive events with an interrogation mark (?). Plus, they contain the event name, the sender, and the receiver. 
-              Internal events comprise the event name only. 
-              External events are filled in black.
-              </p>
-
-              <h4>Excluded / Included events</h4>
-              <p>
-              The local projected excluded events are filled in grey, while the local events included and/or executed are filled in white. 
-              </p>
-              <h4>DCR relations</h4>
-              <p>
-              The usual DCR relations are figured: include in green, exclude in red, milestone in violet, condition in orange, and response in blue. 
-              </p>
-              <h3>Execution</h3>
-              <p>
-              Concerning the process execution, (i) the local events that do not have any interaction with other private projections 
-              are executed off-chain, (ii) choreography events and external events are executed in the Ethereum BC through REST API calls. 
-              </p>
+              <div class="popular-services bg-light">
+                <div class="container pt-5">
+                  <div class="d-flex mb-3">
+                    <h2 class="mb-0">Tested dataset</h2>
+                  </div>
+                  <div class="row">
+                  <div class="col-12 col-md-4 mb-3 mb-md-0">
+                      <div class="card border-light">
+                        <img class="card-img-top img-fluid" src="images/popular-services-2.png" alt="" width="416" height="322" loading="lazy"/>
+                        <div class="card-body">
+                          <h3 class="card-title">Delivery</h3>
+                          <p class="card-text">
+                            3 tenants, 9 public events, 1 private events, 28 constraints.
+                          </p>
+                          <a href="https://github.com/tiphainehenry/react-cyto/blob/master/dcrInputs/delivery.txt" class="o-link-arrow">DCR input (github)</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-4 mb-3 mb-md-0">
+                      <div class="card border-light">
+                        <img class="card-img-top img-fluid" src="images/popular-services-1.png" alt="" width="416" height="322" loading="lazy"/>
+                        <div class="card-body">
+                          <h3 class="card-title">Invoice</h3>
+                          <p class="card-text">
+                            3 tenants, 8 public events, 2 private events, 15 constraints.
+                          </p>
+                          <a href="https://github.com/tiphainehenry/react-cyto/blob/master/dcrInputs/invoice.txt" class="o-link-arrow">DCR input (github)</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-4 mb-3 mb-md-0">
+                      <div class="card border-light">
+                        <img class="card-img-top img-fluid" src="images/popular-services-3.png" alt="" width="416" height="322" loading="lazy"/>
+                        <div class="card-body">
+                          <h3 class="card-title">Oncology</h3>
+                          <p class="card-text">
+                            4 tenants, 10 public events, 3 private events, 21 constraints.
+                          </p>
+                          <a href="https://github.com/tiphainehenry/react-cyto/blob/master/dcrInputs/oncology.txt" class="o-link-arrow">DCR input (github)</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>              
               
-              <h4>Markings</h4>
+    
+              <div class="bg-light pt-5 pb-3">
+                <div class="container">
+                  <h2>Results</h2>
+                  <p>For each dataset, and at each stage of the process execution, we record the execution fee and the time of execution. The experiments are run on a personal
+computer with an Intel i5 core CPU.</p>
+                  <h5>(1) Average task transaction fees and execution time</h5>
+                  <table id="news-table" class="table tablesorter mb-5 bg-light">
+                    <thead class="cf">
+                      <tr>
+                        <th scope="col" class="header">Workflow</th>
+                        <th scope="col" class="header">Instanciation tx. fees (ETH)</th>
+                        <th scope="col" class="header">Task tx. fees (ETH)</th>
+                        <th scope="col" class="header">Public task exec. (sec)</th>
+                        <th scope="col" class="header">Private task exec. (sec)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="align-middle">Delivery</td>
+                        <td class="align-middle">0,029393</td>
+                        <td class="align-middle">0,0093127</td>
+                        <td class="align-middle">15</td>
+                        <td class="align-middle">1</td>
+                      </tr>
+                      <tr>
+                        <td class="align-middle">Invoice</td>
+                        <td class="align-middle">0,027092</td>
+                        <td class="align-middle">0,0069615</td>
+                        <td class="align-middle">10</td>
+                        <td class="align-middle">1</td>
+                      </tr>
+                      <tr>
+                        <td class="align-middle">Oncology</td>
+                        <td class="align-middle">0,037696</td>
+                        <td class="align-middle">0,0116857</td>
+                        <td class="align-middle">19</td>
+                        <td class="align-middle">2</td>
+                      </tr>
+                    </tbody>
+                  </table>
+<p>The average transaction fees requested for a
+task execution are smaller than the process instantiation ones in the subset
+of processes tested. Moreover, the average execution time for a private task is
+one order of magnitude smaller than the one needed for a public task. Indeed,
+we compute private activities off-chain. Thus the execution time of a private
+event corresponds to the time used to check the nature of the event (private or
+public), a post request, and the time needed to update the private markings.
+On the opposite, the execution of public activities comprises an interaction with
+the BC network. Thus the execution time of a public event corresponds to the
+time needed to check the nature of the event (private or public), to interact with
+the on-chain DCR smart contract, and to update the private markings.</p>
+                  <h5>(2) End-to-end execution of the invoice workflow</h5>
+                  <table id="news-table" class="table tablesorter mb-3 bg-light">
+                    <thead class="cf">
+                      <tr>
+                        <th scope="col" class="header">Execution approach</th>
+                        <th scope="col" class="header">Total exec. fees (ETH)</th>
+                        <th scope="col" class="header">Total exec. time (sec)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="align-middle">End-to-end BC execution</td>
+                        <td class="align-middle">0.1896101</td>
+                        <td class="align-middle">247</td>
+                      </tr>
+                      <tr>
+                        <td class="align-middle">Our approach</td>
+                        <td class="align-middle">0.154553</td>
+                        <td class="align-middle">196</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p> We execute one of the tested processes - the invoice workflow - following an end-to-end execution on the BC and compare it to our approach. 
+                    Our approach leads to execution fees and time savings that will be more significant in the case of larger graphs.</p>
+                </div>
+              </div>
 
-              <p>
-              Each projection holds a marking with both internal and external event states. These are set to one if the event is activated, and null otherwise. 
-              </p>
+              <div class="bg-green pt-5 pb-3">
+                <div class="container">
+                  <h2>DCR projection tool - Experiment yourself </h2>
+                  <h5>Step 1 </h5>
 
-              <h4>Private events</h4>
-              <p>
-              The trigger of a private event launches the evaluation of the corresponding DCR projection stored locally. 
-              When a private event is triggered, its label is sent to the backend via a POST request. 
-              The marking of the event is retrieved and examined in the back-end. 
-              The activity is executed if included and if its condition and milestone relations are fulfilled. 
-              The event marking is updated (executed and not pending), and the events holding a direct relation with the later have their marking 
-              updated. Once the event markings are updated, the JSON Cytoscape description of the events is updated accordingly. 
-              </p>
-              <h4>Public events</h4>
-              <p>
-              The trigger of a public event launches the evaluation of the public projection stored on-chain. When a public choreography event of type send is triggered,  the back-end invokes the smart contract function corresponding to the execution of the send event. If the corresponding marking is enabled,  the back-end fires a sendEvent transaction to the SC. When the SC receives the sendEvent transaction callback, it fires a receiveEvent transaction. 
-              The local markings transcribe the outcome of the smart contract call. When a public external event is triggered, it is updated following the same logic (i.e. checked and validated with the DCR smart contract). %Another option is to compute the termination outcome of the external events in order to preserve privacy. 
-              </p>
-              </Card>
+                  <p>Load a DCR file to be projected. The three input files used for our experiments are accessible in the <a href='https://github.com/tiphainehenry/react-cyto/'>dcrInputs repository</a> of our github.</p>
+                      <form onSubmit={this.onFormSubmit}>
+                        <input  type="file" onChange={this.onChange} />
+                        <button class="btn btn-primary my-2 my-sm-0" type="submit">Upload</button>
+                      </form>                   
+                      <hr/>
 
+                      <ViewGlobal/>
+                      <hr/>
+                      <h5>Step 3</h5>
+                      <p>To execute the process, navigate between the different role projections accessible via the buttons below, or via the header. </p>
+                      <p>
+                        Each graph comprises four types of events. </p>
+                        <ListGroup>
+                              <ul>(1) Send choreography events are marked with (!)</ul>
+                              <ul>(2) Receive choreography events are marked with (?)</ul>
+                              <ul>(3) Internal events comprise the event name only.</ul>
+                              <ul>(4) External events (choreography or internal) are filled in black.</ul>
+                        </ListGroup>               
+                        
+                        <p>
+                        The local projected excluded events are filled in grey, while the local events included and/or executed are filled in white.               
+                        </p>
+                        <p>
+                        The five DCR relations are depicted: include in green, exclude in red, milestone in violet, condition in orange, and response in blue. 
+                        </p>
 
+                        <p>
+                        Concerning the process execution, (i) the local events that do not have any interaction with other private projections 
+                        are executed off-chain, (ii) choreography events and external events are executed in the Ethereum BC through REST API calls.               
+                        Each projection holds a marking with both internal and external event states. These are set to one if the event is activated, and null otherwise. 
+                        </p>              
+                        {this.state.roles.map(item=> 
+                        <Button href={item[0]}>{item[1]}</Button>
+                      )}
 
-            <Card style={{width: '95%', height:'70%','marginTop':'3vh', 'borderColor':'white'}}>
-            <p>Projections:</p>
-             </Card>
-            <CardGroup style={{width: '95%', 'marginLeft':'2.5%','marginTop':'3vh'}}>
-            {this.state.projs.map(item=> <RoleDescription vals={item[0]}/>)}          
-              </CardGroup>
+                      <hr/>
+                </div>
+              </div>
 
-            <hr  style={{
-                width: '95%', 
-                'marginLeft':'2.5%',
-                color: 'LightGrey',
-                backgroundColor: 'LightGrey',
-                height: .2,
-                borderColor : 'LightGrey'
-            }}/>
-
-
+              <footer class="o-footer" id="footer" role="contentinfo">
+                <div class="o-footer-bottom">
+                  <div class="container">
+                    <div class="row mb-0">
+                      <ul class="nav">
+                        <li class="nav-item"><span class="nav-link">© Caise 2020 submissions, T.Henry, A.Brahem, N. Laga, W. Gaaloul - Towards Trusted Declarative BP choreographies</span></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </footer>
             </div>
+
+            
 ;
   }
 }
