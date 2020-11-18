@@ -289,7 +289,7 @@ the on-chain DCR smart contract, and to update the private markings.</p>
                   <div class="container">
                     <div class="row mb-0">
                       <ul class="nav">
-                        <li class="nav-item"><span class="nav-link">© Caise 2020 submissions, T.Henry, A.Brahem, N. Laga, W. Gaaloul - Towards Trusted Declarative BP choreographies</span></li>
+                        <li class="nav-item"><span class="nav-link">© Caise 2020 submissions- Towards Trusted Declarative BP choreographies</span></li>
                       </ul>
                     </div>
                   </div>
