@@ -144,7 +144,6 @@ contract SimpleDCReum {
 function checkCliquedIndex(uint256 activityId, bytes memory ipfsHash) public {
     if (!canExecute(activityId)) {
       status = 0;
-      //revert();
     }
     else {
       // executed activity
@@ -168,14 +167,11 @@ function checkCliquedIndex(uint256 activityId, bytes memory ipfsHash) public {
 
       for(uint id=0; id<excludesTo.length;id++){
         // exclude and include relations pass
-        // note includes happens after the exclude pass    
-        // included = (included & ~excludesTo[activityId]) | includesTo[activityId];
         if((exclude_vect_check[id]!=1) && (include_vect_check[id]==1)){
           included[id]=1;
         }
 
         // response relations pass
-        // pending = (pending | responsesTo[activityId]);
         if (response_vect_check[id] == 1){
           pending[id]=1;
           included[id]=1;
