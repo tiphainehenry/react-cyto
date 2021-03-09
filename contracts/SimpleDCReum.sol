@@ -11,7 +11,6 @@ contract SimpleDCReum {
   uint256 status; 
 
   //activity data:
-  //string[] activityNames;
   bytes[] ipfsActivityHashes;
   uint numActivities;
 
@@ -121,7 +120,6 @@ contract SimpleDCReum {
     uint256[][] memory _milestonesFrom
   ) public {
     // activity data
-    //activityNames = _activityNames;
     numActivities = _includedStates.length;
     ipfsActivityHashes = new bytes[](numActivities);
 
