@@ -1,8 +1,6 @@
 //pragma solidity 0.5.10;
 pragma experimental ABIEncoderV2;
 
-// inspired from https://github.com/DCReum/dcreum.github.io/blob/dev/contracts/workflow.sol
-
 contract SimpleDCReum {
 
   // event declaration
